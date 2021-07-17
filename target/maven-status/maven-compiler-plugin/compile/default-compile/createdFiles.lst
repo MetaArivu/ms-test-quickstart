@@ -1,0 +1,6 @@
+io/fusion/water/order/domainLayer/models/OrderItem.class
+io/fusion/water/order/domainLayer/models/OrderEntity$Builder.class
+io/fusion/water/order/domainLayer/models/PaymentType.class
+io/fusion/water/order/domainLayer/models/OrderEntity.class
+io/fusion/water/order/domainLayer/models/ShippingAddress.class
+io/fusion/water/order/domainLayer/models/Customer.class

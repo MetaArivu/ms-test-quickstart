@@ -1,0 +1,168 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>io.fusion.water.order</groupId>
+  <artifactId>ms-order-service</artifactId>
+  <version>1.0.0</version>
+  <packaging>jar</packaging>
+  <name>msOrderService</name>
+  <description>Order Microservice With Test Case Automation</description>
+  
+	<properties>
+	    <slf4j.version>1.7.30</slf4j.version>
+        <logback.version>1.2.3</logback.version>
+        
+        <java.version>1.8</java.version>
+        
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		
+		<maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>
+		
+		<junit.jupiter.version>5.7.2</junit.jupiter.version>
+		<hamcrest.version>2.2</hamcrest.version>
+        <truth.version>1.0.1</truth.version>
+        <mockito.version>3.11.2</mockito.version>
+        <wiremock.version>2.29.0</wiremock.version>
+        
+         
+	</properties>
+	
+	<dependencies>
+		<!-- ================================================================= -->
+		<!-- Log Framework -->
+		<!-- ================================================================= -->
+	    <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+        
+ 		<!-- ================================================================= -->
+ 		<!-- JUnit 5 Framework -->
+ 		<!-- ================================================================= -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<!-- Version defined in the Properties  -->
+			<version>${junit.jupiter.version}</version>
+			<!-- Junit Dependencies are ONLY Part of test Scope
+				 it wont be there in your build.
+			 -->
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.junit.vintage</groupId>
+		    <artifactId>junit-vintage-engine</artifactId>
+		    <version>${junit.jupiter.version}</version>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+		   <groupId>org.junit.jupiter</groupId>
+		   <artifactId>junit-jupiter-migrationsupport</artifactId>
+		   <version>${junit.jupiter.version}</version>
+		   <scope>test</scope>
+		</dependency>
+	    <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+		<!-- JUnit External Modules -->
+		<dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-core</artifactId>
+            <version>${hamcrest.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.truth</groupId>
+            <artifactId>truth</artifactId>
+            <version>${truth.version}</version>
+            <scope>test</scope>
+        </dependency>
+        
+		<!-- ================================================================= -->       
+        <!-- Mockito Framework -->
+		<!-- ================================================================= -->
+        <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
+		<dependency>
+		    <groupId>org.mockito</groupId>
+		    <artifactId>mockito-core</artifactId>
+		    <version>${mockito.version}</version>
+		    <scope>test</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter -->
+		<dependency>
+		    <groupId>org.mockito</groupId>
+		    <artifactId>mockito-junit-jupiter</artifactId>
+		    <version>${mockito.version}</version>
+		    <scope>test</scope>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.github.tomakehurst/wiremock-jre8 -->
+		<dependency>
+		    <groupId>com.github.tomakehurst</groupId>
+		    <artifactId>wiremock-jre8</artifactId>
+		    <version>${wiremock.version}</version>
+		    <scope>test</scope>
+		</dependency>
+		
+		<!-- ================================================================= -->
+		<!-- Spring Framework -->
+		<!-- ================================================================= -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web-services</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-websocket</artifactId>
+		</dependency>
+		
+	</dependencies>   
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <!--Use this only when using Java 9+
+                    <release>15</release>
+                    -->
+                    <!--
+                    comment this (if you are using Java 9+)
+                    and Uncomment out <release> when using Java +
+                    -->
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <groups>functional</groups>
+                    <excludedGroups>non-functional</excludedGroups>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
