@@ -18,14 +18,38 @@
 		
 		<maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>
 		
+		<!-- Testing Frameworks -->
 		<junit.jupiter.version>5.7.2</junit.jupiter.version>
 		<hamcrest.version>2.2</hamcrest.version>
         <truth.version>1.0.1</truth.version>
         <mockito.version>3.11.2</mockito.version>
         <wiremock.version>2.29.0</wiremock.version>
         
-         
+        <!-- Spring Boot -->
+        <spring.boot.version>2.5.2</spring.boot.version>
+
 	</properties>
+	
+	<repositories>
+		<repository>
+			<id>spring-snapshots</id>
+			<name>Spring Snapshots</name>
+			<url>https://repo.spring.io/snapshot</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/milestone</url>
+
+		</repository>
+		<repository>
+			<id>public</id>
+			<url>http://maven.nuxeo.org/nexus/content/repositories/public/</url>
+		</repository>
+	</repositories>
 	
 	<dependencies>
 		<!-- ================================================================= -->
@@ -117,22 +141,43 @@
 		<!-- ================================================================= -->
 		<!-- Spring Framework -->
 		<!-- ================================================================= -->
+		
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot -->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web-services</artifactId>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot</artifactId>
+		    <version>${spring.boot.version}</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-test</artifactId>
+		    <version>${spring.boot.version}</version>
+		    <scope>test</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web -->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-web</artifactId>
+		    <version>${spring.boot.version}</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web-services -->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-websocket</artifactId>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-web-services</artifactId>
+		    <version>${spring.boot.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-security</artifactId>
+		    <version>${spring.boot.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-websocket -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-websocket</artifactId>
+		    <version>${spring.boot.version}</version>
 		</dependency>
 		
 	</dependencies>   
