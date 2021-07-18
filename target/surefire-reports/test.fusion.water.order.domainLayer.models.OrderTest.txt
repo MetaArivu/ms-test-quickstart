@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: test.fusion.water.order.domainLayer.models.OrderTest
 -------------------------------------------------------------------------------
-Tests run: 29, Failures: 0, Errors: 0, Skipped: 3, Time elapsed: 0.51 s - in test.fusion.water.order.domainLayer.models.OrderTest
+Tests run: 29, Failures: 0, Errors: 0, Skipped: 3, Time elapsed: 1.214 s - in test.fusion.water.order.domainLayer.models.OrderTest
