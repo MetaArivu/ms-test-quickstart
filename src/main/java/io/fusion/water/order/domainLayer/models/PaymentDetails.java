@@ -16,6 +16,8 @@
 
 package io.fusion.water.order.domainLayer.models;
 
+import java.util.Date;
+
 /**
  * Payment Details
  * 
@@ -24,4 +26,51 @@ package io.fusion.water.order.domainLayer.models;
  */
 public class PaymentDetails {
 
+	private String transactionId;
+	private Date transactionDate;
+	
+	private double orderValue;
+	private PaymentType paymentType;
+	
+	/**
+	 * Payment Details
+	 * 
+	 * @param _txId
+	 * @param _txDate
+	 * @param _orderValue
+	 * @param _payType
+	 */
+	public PaymentDetails(String _txId, Date _txDate,
+			double _orderValue, PaymentType _payType) {
+		
+		transactionId		= _txId;
+		transactionDate		= _txDate;
+		orderValue			= _orderValue;
+		paymentType			= _payType;
+
+	}
+	/**
+	 * @return the transactionId
+	 */
+	public String getTransactionId() {
+		return transactionId;
+	}
+	/**
+	 * @return the transactionDate
+	 */
+	public Date getTransactionDate() {
+		return transactionDate;
+	}
+	/**
+	 * @return the orderValue
+	 */
+	public double getOrderValue() {
+		return orderValue;
+	}
+	/**
+	 * @return the paymentType
+	 */
+	public PaymentType getPaymentType() {
+		return paymentType;
+	}
 }

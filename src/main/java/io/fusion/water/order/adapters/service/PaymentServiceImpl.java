@@ -16,10 +16,13 @@
 
 package io.fusion.water.order.adapters.service;
 
+import java.util.Date;
+
 import org.springframework.stereotype.Service;
 
 import io.fusion.water.order.domainLayer.models.PaymentDetails;
 import io.fusion.water.order.domainLayer.models.PaymentStatus;
+import io.fusion.water.order.domainLayer.models.PaymentType;
 import io.fusion.water.order.domainLayer.services.PaymentService;
 
 /**
@@ -31,11 +34,14 @@ import io.fusion.water.order.domainLayer.services.PaymentService;
 @Service
 public class PaymentServiceImpl implements PaymentService {
 
-
 	@Override
 	public PaymentStatus processPayments(PaymentDetails _paymentDetails) {
-		// TODO Auto-generated method stub
-		return null;
+		return new PaymentStatus(
+				_paymentDetails.getTransactionId(), 
+				_paymentDetails.getTransactionDate(), 
+				"Accepted", "Ref-uuid", 
+				new Date(), 
+				PaymentType.CREDIT_CARD);
 	}
 
 }

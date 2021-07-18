@@ -49,7 +49,7 @@ public class PaymentStatus {
 		
 		transactionId		= _txId;
 		transactionDate		= _txDate;
-		paymentStatus	= _payStatus;
+		paymentStatus		= _payStatus;
 		
 		paymentReference	= _payRef;
 		paymentDate			= _payDate;
