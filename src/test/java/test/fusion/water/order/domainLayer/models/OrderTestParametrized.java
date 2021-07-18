@@ -27,6 +27,7 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.condition.EnabledOnOs;
 import org.junit.jupiter.api.condition.OS;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.converter.ConvertWith;
 import org.junit.jupiter.params.provider.Arguments;
@@ -71,7 +72,9 @@ import static java.time.Duration.ofMinutes;
 
 import io.fusion.water.order.domainLayer.models.Customer;
 import io.fusion.water.order.domainLayer.models.OrderEntity;
-import test.fusion.water.order.core.Utils;
+import io.fusion.water.order.utils.Utils;
+import test.fusion.water.order.adapters.extensions.PrintTestDuration;
+import test.fusion.water.order.adapters.extensions.TestTimeExtension;
 import test.fusion.water.order.core.VariableSource;
 
 import static java.lang.invoke.MethodHandles.lookup;
@@ -84,9 +87,11 @@ import org.slf4j.Logger;
  * @author arafkarsh
  *
  */
-@Tag("functional")
+@Tag("Critical")
 @TestMethodOrder(OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+// @PrintTestDuration
+@ExtendWith(TestTimeExtension.class)
 public class OrderTestParametrized {
 	
 	static final Logger log = getLogger(lookup().lookupClass());

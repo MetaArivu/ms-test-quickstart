@@ -18,6 +18,8 @@ package io.fusion.water.order.domainLayer.models;
 
 import java.util.ArrayList;
 
+import io.fusion.water.order.utils.Utils;
+
 /**
  * Order Entity
  * 
@@ -30,6 +32,7 @@ public class OrderEntity {
 	private ArrayList<OrderItem> orderItems;
 	private ShippingAddress shippingAddress;
 	private PaymentType paymentType;
+	private OrderStatus orderStatus;
 	
 	/**
 	 * Create Order
@@ -94,6 +97,26 @@ public class OrderEntity {
 	public ArrayList<OrderItem> getOrderItems() {
 		return orderItems;
 	}
+	
+	/**
+	 * Returns the Total Items in the Order
+	 * @return
+	 */
+	public int getTotalItems() {
+		return orderItems.size();
+	}
+	
+	/**
+	 * Calculate the Total Order Value
+	 * @return
+	 */
+	public double getTotalValue() {
+		double totalValue = 0.00;
+		for(OrderItem item : orderItems) {
+			totalValue += item.getItemValue();
+		}
+		return totalValue;
+	}
 
 	/**
 	 * Returns TRUE if the Shipping Address is available
@@ -130,6 +153,7 @@ public class OrderEntity {
 		 * @return
 		 */
 		public Builder addCustomer(Customer _customer) {
+			order.orderStatus = OrderStatus.INITIATED;
 			order.addCustomer(_customer);
 			return this;
 		}
@@ -141,6 +165,18 @@ public class OrderEntity {
 		 */
 		public Builder addOrderItem(OrderItem _item) {
 			order.addOrderItem(_item);
+			return this;
+		}
+		
+		/**
+		 * Add a List of Order Items
+		 * @param _items
+		 * @return
+		 */
+		public Builder addOrderItems(ArrayList<OrderItem> _items) {
+			if(_items != null && _items.size() > 0) {
+				order.getOrderItems().addAll(_items);
+			}
 			return this;
 		}
 		
@@ -174,15 +210,25 @@ public class OrderEntity {
 	}
 	
 	/**
+	 * For Testing Purpose Only
 	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		OrderEntity o = new OrderEntity.Builder()
-					.addCustomer(null)
-					.addOrderItem(null)
-					.addShippingAddress(null)
-					.addPaymentType(null)
+		OrderEntity oEntity = new OrderEntity.Builder()
+					.addCustomer(new Customer
+        					("UUID", "John", "Doe", "0123456789"))
+					.addOrderItem(new OrderItem
+							("uuid1", "iPhone 12", 799, "USD", 1))
+					.addOrderItem(new OrderItem
+							("uuid2", "iPhone 12 Pro", 999, "USD", 1))
+					.addOrderItem(new OrderItem
+							("uuid3", "Apple Watch Series 6", 450, "USD", 2))
+					.addShippingAddress(new ShippingAddress
+							("321 Cobblestone Ln,", "", "Edison", "NJ", "", "USA", "08820"))
+					.addPaymentType(PaymentType.CREDIT_CARD)
 					.build();
+		
+		System.out.println(Utils.toJson(oEntity));
 	}
 }

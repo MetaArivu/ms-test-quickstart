@@ -143,6 +143,14 @@ public class Customer {
     }
 
     /**
+     * 
+     * @return
+     */
+    public String toJSON() {
+    	StringBuilder sb = new StringBuilder();
+    	return sb.toString();
+    }
+    /**
      * Validate Customer
      */
     public void validate() {

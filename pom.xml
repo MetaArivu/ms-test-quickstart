@@ -6,7 +6,7 @@
   <packaging>jar</packaging>
   <name>msOrderService</name>
   <description>Order Microservice With Test Case Automation</description>
-  
+
 	<properties>
 	    <slf4j.version>1.7.30</slf4j.version>
         <logback.version>1.2.3</logback.version>
@@ -65,6 +65,16 @@
             <artifactId>logback-classic</artifactId>
             <version>${logback.version}</version>
         </dependency>
+        
+        <!-- ================================================================= -->
+		<!-- Utility Libraries -->
+		<!-- ================================================================= -->
+        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+		<dependency>
+		    <groupId>com.google.code.gson</groupId>
+		    <artifactId>gson</artifactId>
+		    <version>2.8.7</version>
+		</dependency>
         
  		<!-- ================================================================= -->
  		<!-- JUnit 5 Framework -->
@@ -142,6 +152,14 @@
 		<!-- Spring Framework -->
 		<!-- ================================================================= -->
 		
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-parent</artifactId>
+		    <version>${spring.boot.version}</version>
+		    <type>pom</type>
+		</dependency>
+		
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot -->
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
@@ -167,12 +185,6 @@
 		    <artifactId>spring-boot-starter-web-services</artifactId>
 		    <version>${spring.boot.version}</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security -->
-		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-security</artifactId>
-		    <version>${spring.boot.version}</version>
-		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-websocket -->
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
@@ -180,7 +192,65 @@
 		    <version>${spring.boot.version}</version>
 		</dependency>
 		
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security -->
+		<!-- 
+		This enables a default Auth Page for the Spring Boot App.
+		Default loginId: user
+		Password: will be printed in the console.
+		-->
+		<!--
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-security</artifactId>
+		    <version>${spring.boot.version}</version>
+		</dependency>
+		-->
+		
+		<!-- ================================================================= -->
+		<!-- Database Framework: MongoDB -->
+		<!-- ================================================================= -->
+		
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-mongodb -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-data-mongodb</artifactId>
+		    <version>${spring.boot.version}</version>
+		</dependency>
+     
+		<dependency>
+            <groupId>com.github.cloudyrock.mongock</groupId>
+            <artifactId>mongock-spring-v5</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.cloudyrock.mongock</groupId>
+            <artifactId>mongodb-springdata-v3-driver</artifactId>
+        </dependency>
+
+
 	</dependencies>   
+	
+	<!-- ================================================================= -->
+	<!-- Dependency Management -->
+	<!-- ================================================================= -->
+	 
+	<dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.github.cloudyrock.mongock</groupId>
+                <artifactId>mongock-bom</artifactId>
+                <version>4.3.8</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+    
+   	<!-- ================================================================= -->
+	<!-- BUILD the Service -->
+	<!-- ================================================================= -->
+	
     <build>
         <plugins>
             <plugin>
@@ -208,6 +278,10 @@
                     <excludedGroups>non-functional</excludedGroups>
                 </configuration>
             </plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
         </plugins>
     </build>
 </project>

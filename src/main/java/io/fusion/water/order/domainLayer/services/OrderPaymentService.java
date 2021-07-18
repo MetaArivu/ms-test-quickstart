@@ -14,34 +14,25 @@
  * limitations under the License.
  */
 
-package test.fusion.water.order.core;
+package io.fusion.water.order.domainLayer.services;
 
-import java.util.stream.Stream;
+import io.fusion.water.order.domainLayer.models.PaymentDetails;
+import io.fusion.water.order.domainLayer.models.PaymentStatus;
 
 /**
+ * Order Payment Service
  * 
  * @author arafkarsh
  *
  */
-public final class Utils {
+public interface OrderPaymentService {
 	
-	
-	public static class Strings {
-
-	    public static boolean isBlank(String input) {
-	        return input == null || input.trim().isEmpty();
-	    }
-	    
-	    public static Stream<String> blankStrings() {
-	        return Stream.of(null, "", "  ");
-	    }
-	}
-	
-	public static class Numbers {
-		
-	    public static boolean isOdd(int number) {
-	        return number % 2 != 0;
-	    }
-	}
+	/**
+	 * Process Payments
+	 * 
+	 * @param _paymentDetails
+	 * @return
+	 */
+	public PaymentStatus processPayments(PaymentDetails _paymentDetails);
 
 }
