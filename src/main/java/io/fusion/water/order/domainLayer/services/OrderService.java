@@ -26,7 +26,7 @@ import io.fusion.water.order.domainLayer.models.PaymentStatus;
  * @author arafkarsh
  *
  */
-public interface OrderBusinessService {
+public interface OrderService {
 
 	/**
 	 * Returns Order By Order ID

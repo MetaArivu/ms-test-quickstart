@@ -1,21 +1,24 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>io.fusion.water.order</groupId>
-  <artifactId>ms-order-service</artifactId>
-  <version>1.0.0</version>
-  <packaging>jar</packaging>
-  <name>msOrderService</name>
-  <description>Order Microservice With Test Case Automation</description>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>io.fusion.water.order</groupId>
+	<artifactId>ms-order-service</artifactId>
+	<version>1.0.0</version>
+	<packaging>jar</packaging>
+	<name>msOrderService</name>
+	<description>Order Microservice With Test Case Automation</description>
 
+	<!-- ================================================================= -->
+	<!-- Properties / Versions -->
+	<!-- ================================================================= -->
 	<properties>
-	    <slf4j.version>1.7.30</slf4j.version>
-        <logback.version>1.2.3</logback.version>
-        
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<slf4j.version>1.7.30</slf4j.version>
+		<logback.version>1.2.3</logback.version>
+		      
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        
-        <java.version>1.8</java.version>
-        
+		      
+		<java.version>1.8</java.version>
+		      
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		
@@ -24,15 +27,18 @@
 		<!-- Testing Frameworks -->
 		<junit.jupiter.version>5.7.2</junit.jupiter.version>
 		<hamcrest.version>2.2</hamcrest.version>
-        <truth.version>1.0.1</truth.version>
-        <mockito.version>3.11.2</mockito.version>
-        <wiremock.version>2.29.0</wiremock.version>
-        
-        <!-- Spring Boot -->
-        <spring.boot.version>2.5.2</spring.boot.version>
-
+		<truth.version>1.0.1</truth.version>
+		<mockito.version>3.11.2</mockito.version>
+		<wiremock.version>2.29.0</wiremock.version>
+		
+		<!-- Spring Boot -->
+		<spring.boot.version>2.5.2</spring.boot.version>
+	
 	</properties>
 	
+	<!-- ================================================================= -->
+	<!-- Repositories -->
+	<!-- ================================================================= -->
 	<repositories>
 		<repository>
 			<id>spring-snapshots</id>
@@ -229,7 +235,6 @@
             <artifactId>mongodb-springdata-v3-driver</artifactId>
         </dependency>
 
-
 	</dependencies>   
 	
 	<!-- ================================================================= -->
@@ -248,8 +253,6 @@
         </dependencies>
     </dependencyManagement>
 
-
-    
    	<!-- ================================================================= -->
 	<!-- BUILD the Service -->
 	<!-- ================================================================= -->
@@ -273,6 +276,17 @@
                 </configuration>
             </plugin>
             <plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${spring.boot.version}</version>
+			</plugin>
+			<!-- 
+				Filter out Test Cases 
+				All test cases with the tag mentioned in excludedGroups
+				will be filtered out.
+				Ex. @Tag("non-functional")
+			-->
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
@@ -281,11 +295,7 @@
                     <excludedGroups>non-functional</excludedGroups>
                 </configuration>
             </plugin>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>${spring.boot.version}</version>
-			</plugin>
+
         </plugins>
     </build>
 </project>

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.fusion.water.order.adapters.webService;
+package io.fusion.water.order.adapters.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,8 +29,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.annotation.RequestScope;
 
 import io.fusion.water.order.domainLayer.models.OrderEntity;
-import io.fusion.water.order.domainLayer.services.OrderBusinessService;
-import io.fusion.water.order.domainLayer.services.OrderWebService;
+import io.fusion.water.order.domainLayer.services.OrderService;
+import io.fusion.water.order.domainLayer.services.OrderController;
 
 /**
  * Order Web Service
@@ -41,10 +41,10 @@ import io.fusion.water.order.domainLayer.services.OrderWebService;
 @RestController
 @RequestMapping(value = "/api/order")
 @RequestScope
-public class OrderWebServiceImpl implements OrderWebService {
+public class OrderControllerImpl implements OrderController {
 
 	@Autowired
-	OrderBusinessService orderBusinessService;
+	OrderService orderBusinessService;
 	
 	/**
 	 * Get Order - Follows REST Guidelines for URI

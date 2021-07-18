@@ -14,19 +14,21 @@
  * limitations under the License.
  */
 
-package io.fusion.water.order.domainLayer.repository;
+package io.fusion.water.order.domainLayer.services;
+
+import org.springframework.http.ResponseEntity;
 
 import io.fusion.water.order.domainLayer.models.OrderEntity;
 import io.fusion.water.order.domainLayer.models.PaymentDetails;
 import io.fusion.water.order.domainLayer.models.PaymentStatus;
 
 /**
- * Order Business Service
+ * Order Web Service (REST)
  * 
  * @author arafkarsh
  *
  */
-public interface OrderRepositoryService {
+public interface OrderController {
 
 	/**
 	 * Returns Order By Order ID
@@ -34,7 +36,7 @@ public interface OrderRepositoryService {
 	 * @param _id
 	 * @return
 	 */
-	public OrderEntity getOrderById(String _id);
+	public ResponseEntity<OrderEntity> getOrderById(String _id);
 	
 	/**
 	 * Save Order
@@ -42,7 +44,7 @@ public interface OrderRepositoryService {
 	 * @param _order
 	 * @return
 	 */
-	public OrderEntity saveOrder(OrderEntity _order);
+	public ResponseEntity<OrderEntity> saveOrder(OrderEntity _order);
 	
 	/**
 	 * Cancel Order
@@ -50,7 +52,7 @@ public interface OrderRepositoryService {
 	 * @param _order
 	 * @return
 	 */
-	public OrderEntity cancelOrder(OrderEntity _order);
+	public ResponseEntity<OrderEntity> cancelOrder(OrderEntity _order);
 	
 	/**
 	 * Cancel Order by Id
@@ -58,14 +60,6 @@ public interface OrderRepositoryService {
 	 * @param _id
 	 * @return
 	 */
-	public OrderEntity cancelOrder(String _id);
-	
-	/**
-	 * Prepare Order for Shipping
-	 * 
-	 * @param _order
-	 * @return
-	 */
-	public OrderEntity prepareOrder(OrderEntity _order);
+	public ResponseEntity<OrderEntity> cancelOrder(String _id);
 
 }

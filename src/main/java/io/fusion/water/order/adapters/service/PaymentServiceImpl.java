@@ -14,10 +14,13 @@
  * limitations under the License.
  */
 
-package io.fusion.water.order.domainLayer.services;
+package io.fusion.water.order.adapters.service;
+
+import org.springframework.stereotype.Service;
 
 import io.fusion.water.order.domainLayer.models.PaymentDetails;
 import io.fusion.water.order.domainLayer.models.PaymentStatus;
+import io.fusion.water.order.domainLayer.services.PaymentService;
 
 /**
  * Order Payment Service
@@ -25,14 +28,14 @@ import io.fusion.water.order.domainLayer.models.PaymentStatus;
  * @author arafkarsh
  *
  */
-public interface OrderPaymentService {
-	
-	/**
-	 * Process Payments
-	 * 
-	 * @param _paymentDetails
-	 * @return
-	 */
-	public PaymentStatus processPayments(PaymentDetails _paymentDetails);
+@Service
+public class PaymentServiceImpl implements PaymentService {
+
+
+	@Override
+	public PaymentStatus processPayments(PaymentDetails _paymentDetails) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

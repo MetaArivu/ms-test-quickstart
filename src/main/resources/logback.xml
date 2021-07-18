@@ -6,8 +6,7 @@
 		</encoder>
 	</appender>
 
-	<appender name="APPLOGFILE"
-		class="ch.qos.logback.core.rolling.RollingFileAppender">
+	<appender name="APPLOGFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>logs/order-ms.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<fileNamePattern>logs/order-ms.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
@@ -27,9 +26,11 @@
 	</root>
 	<logger name="org.springframework.boot.web.embedded.tomcat.TomcatWebServer" level="warn">
 		<appender-ref ref="APPLOGFILE" />
+		<appender-ref ref="STDOUT" />	
 	</logger>
 	<logger name="fusion.order.ms" level="info">
 		<appender-ref ref="APPLOGFILE" />
+		<appender-ref ref="STDOUT" />
 	</logger>
 
 </configuration>

@@ -19,7 +19,7 @@ package io.fusion.water.order.adapters.repository;
 import org.springframework.stereotype.Service;
 
 import io.fusion.water.order.domainLayer.models.OrderEntity;
-import io.fusion.water.order.domainLayer.repository.OrderRepositoryService;
+import io.fusion.water.order.domainLayer.services.OrderRepository;
 
 /**
  * Order Repository Service
@@ -28,7 +28,7 @@ import io.fusion.water.order.domainLayer.repository.OrderRepositoryService;
  *
  */
 @Service
-public class OrderRepositoryImpl implements OrderRepositoryService {
+public class OrderRepositoryImpl implements OrderRepository {
 
 	@Override
 	public OrderEntity getOrderById(String _id) {

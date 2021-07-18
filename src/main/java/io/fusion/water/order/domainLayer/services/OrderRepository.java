@@ -16,19 +16,17 @@
 
 package io.fusion.water.order.domainLayer.services;
 
-import org.springframework.http.ResponseEntity;
-
 import io.fusion.water.order.domainLayer.models.OrderEntity;
 import io.fusion.water.order.domainLayer.models.PaymentDetails;
 import io.fusion.water.order.domainLayer.models.PaymentStatus;
 
 /**
- * Order Web Service (REST)
+ * Order Business Service
  * 
  * @author arafkarsh
  *
  */
-public interface OrderWebService {
+public interface OrderRepository {
 
 	/**
 	 * Returns Order By Order ID
@@ -36,7 +34,7 @@ public interface OrderWebService {
 	 * @param _id
 	 * @return
 	 */
-	public ResponseEntity<OrderEntity> getOrderById(String _id);
+	public OrderEntity getOrderById(String _id);
 	
 	/**
 	 * Save Order
@@ -44,7 +42,7 @@ public interface OrderWebService {
 	 * @param _order
 	 * @return
 	 */
-	public ResponseEntity<OrderEntity> saveOrder(OrderEntity _order);
+	public OrderEntity saveOrder(OrderEntity _order);
 	
 	/**
 	 * Cancel Order
@@ -52,7 +50,7 @@ public interface OrderWebService {
 	 * @param _order
 	 * @return
 	 */
-	public ResponseEntity<OrderEntity> cancelOrder(OrderEntity _order);
+	public OrderEntity cancelOrder(OrderEntity _order);
 	
 	/**
 	 * Cancel Order by Id
@@ -60,6 +58,14 @@ public interface OrderWebService {
 	 * @param _id
 	 * @return
 	 */
-	public ResponseEntity<OrderEntity> cancelOrder(String _id);
+	public OrderEntity cancelOrder(String _id);
+	
+	/**
+	 * Prepare Order for Shipping
+	 * 
+	 * @param _order
+	 * @return
+	 */
+	public OrderEntity prepareOrder(OrderEntity _order);
 
 }

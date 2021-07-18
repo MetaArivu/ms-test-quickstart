@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.fusion.water.order.adapters.domainService;
+package io.fusion.water.order.adapters.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,9 +22,9 @@ import org.springframework.stereotype.Service;
 import io.fusion.water.order.domainLayer.models.OrderEntity;
 import io.fusion.water.order.domainLayer.models.PaymentDetails;
 import io.fusion.water.order.domainLayer.models.PaymentStatus;
-import io.fusion.water.order.domainLayer.repository.OrderRepositoryService;
-import io.fusion.water.order.domainLayer.services.OrderBusinessService;
-import io.fusion.water.order.domainLayer.services.OrderPaymentService;
+import io.fusion.water.order.domainLayer.services.OrderRepository;
+import io.fusion.water.order.domainLayer.services.OrderService;
+import io.fusion.water.order.domainLayer.services.PaymentService;
 
 /**
  * Order Web Service
@@ -33,13 +33,13 @@ import io.fusion.water.order.domainLayer.services.OrderPaymentService;
  *
  */
 @Service
-public class OrderBusinessServiceImpl implements OrderBusinessService {
+public class OrderServiceImpl implements OrderService {
 
 	@Autowired
-	OrderRepositoryService orderRepo;
+	OrderRepository orderRepo;
 	
 	@Autowired
-	OrderPaymentService paymentService;
+	PaymentService paymentService;
 	
 	@Override
 	public OrderEntity getOrderById(String _id) {
