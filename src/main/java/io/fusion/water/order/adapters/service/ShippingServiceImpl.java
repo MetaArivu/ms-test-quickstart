@@ -21,9 +21,12 @@ package io.fusion.water.order.adapters.service;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import io.fusion.water.order.domainLayer.models.DeliveryCity;
 import io.fusion.water.order.domainLayer.models.OrderEntity;
+import io.fusion.water.order.domainLayer.services.DeliveryCityService;
 import io.fusion.water.order.domainLayer.services.ShippingService;
 
 /**
@@ -32,10 +35,33 @@ import io.fusion.water.order.domainLayer.services.ShippingService;
  */
 @Service
 public class ShippingServiceImpl implements ShippingService {
+	
+	@Autowired
+	private DeliveryCityService deliveryCityService;
 
 	@Override
 	public ArrayList<OrderEntity> shipOrder(ArrayList<OrderEntity> _orderList) {
 		return _orderList;
 	}
 
+	/**
+	 * 
+	 */
+	public ArrayList<DeliveryCity> getCities(ArrayList<String> cities, String state, String country) {
+		ArrayList<DeliveryCity> dCities = new ArrayList<DeliveryCity>();
+		if(cities != null && cities.size() > 0) {
+			for(String cityName : cities) {
+				DeliveryCity city = deliveryCityService.getDeliveryCity(cityName, state, country);
+				if(city != null) {
+					dCities.add(city);
+				}
+			}
+		}
+		return dCities;
+	}
+
+	@Override
+	public DeliveryCity getCity(String city, String State, String country) {
+		return deliveryCityService.getDeliveryCity(city, State, country);
+	}
 }
