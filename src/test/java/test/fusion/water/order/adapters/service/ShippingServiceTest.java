@@ -19,19 +19,28 @@ package test.fusion.water.order.adapters.service;
 
 
 
+import org.mockito.ArgumentCaptor;
+import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.atMost;
 import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.AdditionalMatchers.or;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
 import static java.lang.invoke.MethodHandles.lookup;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 
@@ -55,6 +64,7 @@ import io.fusion.water.order.adapters.service.ShippingServiceImpl;
 import io.fusion.water.order.domainLayer.models.DeliveryCity;
 
 import test.fusion.water.order.adapters.extensions.TestTimeExtension;
+import test.fusion.water.order.utils.DeliveryCityAnswer;
 
 /**
  * Shipping Service Test
@@ -103,7 +113,7 @@ public class ShippingServiceTest {
     }
     
 	@Test
-	@DisplayName("Test Delivery City Bengaluru")
+	@DisplayName("1. Mock > Test Delivery City Bengaluru")
 	@Order(1)
 	public void testDeliveryCity() {
 		// Set the Shipping Service with Bengaluru City
@@ -117,7 +127,7 @@ public class ShippingServiceTest {
 	}
 	
 	@Test
-	@DisplayName("Test Delivery Cities Bengaluru, Chennai, Kochi")
+	@DisplayName("2. Mock > Test Delivery Cities Bengaluru, Chennai, Kochi")
 	@Order(2)
 	public void testDeliveryCities() {
 		// Set the Shipping Service with multiple Cities
@@ -139,11 +149,40 @@ public class ShippingServiceTest {
 	}
 	
 	@Test
-	@DisplayName("Test Delivery City Kochi - AnyString()")
+	@DisplayName("3. Mock > InOrder > Test Delivery Cities Bengaluru, Chennai, Kochi")
 	@Order(3)
+	public void testDeliveryCitiesInOrder() {
+		// Set the Shipping Service with multiple Cities
+		InOrder inorder = inOrder(deliveryCityService); 
+		when(deliveryCityService.getDeliveryCity("Bengaluru", "", "India")).thenReturn(bengaluru);
+		when(deliveryCityService.getDeliveryCity("Chennai", "", "India")).thenReturn(chennai);
+		when(deliveryCityService.getDeliveryCity("Kochi", "", "India")).thenReturn(kochi);
+
+		// Change the Order of the Cities and the test will fail
+		ArrayList<String> cities = new ArrayList<String>();
+		cities.add("Bengaluru");
+		cities.add("Chennai");
+		cities.add("Kochi");
+		
+		// Check the Delivery City in Shipping Service
+		// Arguments (numbers) to the Stub (DeliveryCityService) must be same
+		ArrayList<DeliveryCity> cityList = shippingService.getCities(cities, "", "India");
+		
+		// Then Check the City
+		assertEquals(3, cityList.size());
+		inorder.verify(deliveryCityService).getDeliveryCity("Bengaluru", "", "India");
+		inorder.verify(deliveryCityService).getDeliveryCity("Chennai", "", "India");
+		inorder.verify(deliveryCityService).getDeliveryCity("Kochi", "", "India");
+
+	}
+	
+	@Test
+	@DisplayName("4. Mock > Arg Matcher > Test Delivery City Kochi - AnyString()")
+	@Order(4)
 	public void testDeliveryCityAnyString() {
 		// Set the Shipping Service with Kochi City
-		when(deliveryCityService.getDeliveryCity(anyString(), anyString(), anyString())).thenReturn(kochi);
+		when(deliveryCityService.getDeliveryCity(
+				anyString(), anyString(), anyString())).thenReturn(kochi);
 		
 		// Check the Delivery City in Shipping Service
 		DeliveryCity city = shippingService.getCity("Kochi", "", "Japan");
@@ -153,11 +192,12 @@ public class ShippingServiceTest {
 	}
 	
 	@Test
-	@DisplayName("Test Delivery City Kochi - eq('Kochi') ")
-	@Order(4)
+	@DisplayName("5. Mock > Arg Matcher > Test Delivery City Kochi - eq('Kochi') ")
+	@Order(5)
 	public void testDeliveryCityEQString() {
 		// Set the Shipping Service with Kochi City
-		when(deliveryCityService.getDeliveryCity(eq("Kochi"), anyString(), anyString())).thenReturn(kochi);
+		when(deliveryCityService.getDeliveryCity(
+				eq("Kochi"), anyString(), anyString())).thenReturn(kochi);
 		
 		// Check the Delivery City in Shipping Service
 		DeliveryCity city = shippingService.getCity("Kochi", "", "Japan");
@@ -167,17 +207,180 @@ public class ShippingServiceTest {
 	}
 	
 	@Test
-	@DisplayName("Test Delivery City Kochi - OR Condition ")
-	@Order(5)
+	@DisplayName("6. Mock > Arg Matcher > Test Delivery City Kochi - OR Condition ")
+	@Order(6)
 	public void testDeliveryCityOR() {
 		// Set the Shipping Service with Kochi City
-		when(deliveryCityService.getDeliveryCity( or(eq("Kochi"), eq("Cochin")), anyString(), eq("India"))).thenReturn(kochi);
+		when(deliveryCityService.getDeliveryCity( 
+				or(eq("Kochi"), eq("Cochin")), anyString(), eq("India")))
+		.thenReturn(kochi);
 		
 		// Check the Delivery City in Shipping Service
 		DeliveryCity city = shippingService.getCity("Cochin", "", "India");
 		
 		// Then Check the City
 		assertEquals(kochi.getCityName(), city.getCityName());
+	}
+	
+	@Test
+	@DisplayName("7. Mock > Counts > Test Delivery Cities Bengaluru")
+	@Order(7)
+	public void testDeliveryCitiesCount() {
+		// Set the Shipping Service with multiple Cities
+		when(deliveryCityService.getDeliveryCity(anyString(), anyString(), anyString()))
+		.thenReturn(bengaluru);
+
+		// Change the Order of the Cities and the test will fail
+		ArrayList<String> cities = new ArrayList<String>();
+		cities.add("Bengaluru");
+		cities.add("Chennai");
+		cities.add("Kochi");
+		
+		// Check the Delivery City in Shipping Service
+		// Arguments (numbers) to the Stub (DeliveryCityService) must be same
+		ArrayList<DeliveryCity> cityList = shippingService.getCities(cities, "", "India");
+		
+		// Then Check the City
+		assertEquals(3, cityList.size());
+		// Verification will Fail if the number of calls are NOT EQUAL TO 3
+		// In this Example 3 calls where made by the Shipping Service, as an 
+		// Array of 3 cities were passed to Shipping Service
+		verify(deliveryCityService, times(3)).getDeliveryCity(anyString(), anyString(), anyString());
+
+	}
+	
+	@Test
+	@DisplayName("8. Mock > Counts > Test Delivery Cities Bengaluru atLeast(), atMost()")
+	@Order(8)
+	public void testDeliveryCitiesCount2() {
+		// Set the Shipping Service with multiple Cities
+		when(deliveryCityService.getDeliveryCity(anyString(), anyString(), anyString()))
+		.thenReturn(bengaluru);
+
+		// Change the Order of the Cities and the test will fail
+		ArrayList<String> cities = new ArrayList<String>();
+		cities.add("Bengaluru");
+		cities.add("Chennai");
+		cities.add("Kochi");
+		
+		// Check the Delivery City in Shipping Service
+		// Arguments (numbers) to the Stub (DeliveryCityService) must be same
+		ArrayList<DeliveryCity> cityList = shippingService.getCities(cities, "", "India");
+		
+		// Then Check the City
+		assertEquals(3, cityList.size());
+		// Verification will Fail if the number of calls are NOT EQUAL TO 3
+		// In this Example 3 calls where made by the Shipping Service, as an 
+		// Array of 3 cities were passed to Shipping Service
+		verify(deliveryCityService, atLeast(1)).getDeliveryCity(anyString(), anyString(), anyString());
+		verify(deliveryCityService, atMost(3)).getDeliveryCity(anyString(), anyString(), anyString());
+
+	}
+	
+	@Test
+	@DisplayName("9. Mock > Answer > Test Delivery Cities ")
+	@Order(9)
+	public void testDeliveryCitiesCustomAnswer() {
+		// Set the Shipping Service with multiple Cities
+		when(deliveryCityService.getDeliveryCity(anyString(), anyString(), anyString()))
+		.thenAnswer(new DeliveryCityAnswer());
+		
+		// Change the Order of the Cities and the test will fail
+		ArrayList<String> cities = new ArrayList<String>();
+		cities.add("Bengaluru");
+		cities.add("Chennai");
+		cities.add("Kochi");
+		
+		// Check the Delivery City in Shipping Service
+		ArrayList<DeliveryCity> cityList = shippingService.getCities(cities, "", "India");
+
+		assertEquals(3, cityList.size());
+		for(String cityName : cities) {
+			assertTrue(cityList.stream()
+					.anyMatch(city -> cityName.equalsIgnoreCase(city.getCityName()))
+			);
+		}
+	}
+	
+	@Test
+	@DisplayName("10. Mock > Captor > Test Delivery Cities ")
+	@Order(10)
+	public void testDeliveryCitiesCaptor() {
+		ArgumentCaptor<String> city = ArgumentCaptor.forClass(String.class);
+		ArgumentCaptor<String> state = ArgumentCaptor.forClass(String.class);
+		ArgumentCaptor<String> country = ArgumentCaptor.forClass(String.class);
+
+		
+		// Set the Shipping Service with multiple Cities
+		when(deliveryCityService.getDeliveryCity(city.capture(), state.capture(), country.capture()))
+		.thenAnswer(new DeliveryCityAnswer());
+		
+		// Change the Order of the Cities and the test will fail
+		ArrayList<String> cities = new ArrayList<String>();
+		cities.add("Bengaluru");
+		cities.add("Chennai");
+		cities.add("Kochi");
+
+		// Check the Delivery City in Shipping Service
+		ArrayList<DeliveryCity> cityList = shippingService.getCities(cities, "", "India");
+
+		assertEquals(3, cityList.size());
+		for(String cityName : cities) {
+			assertTrue(cityList.stream()
+					.anyMatch(cityObj -> city.getValue().equalsIgnoreCase(cityObj.getCityName()))
+			);
+		}
+	}
+	
+	@Test
+	@DisplayName("11. Mock > Throw Exception > Test Delivery Cities ")
+	@Order(11)
+	public void testDeliveryCitiesThrowException() {
+		// Set the Shipping Service with multiple Cities
+		when(deliveryCityService.getDeliveryCity(anyString(), anyString(), anyString()))
+		.thenThrow(new RuntimeException("Data Not Available"));
+		
+		// Change the Order of the Cities and the test will fail
+		ArrayList<String> cities = new ArrayList<String>();
+		cities.add("Bengaluru");
+		cities.add("Chennai");
+		cities.add("Kochi");
+		boolean failed = false;
+		ArrayList<DeliveryCity> cityList = null;
+		try {
+			// Check the Delivery City in Shipping Service
+			cityList = shippingService.getCities(cities, "", "India");
+		} catch (Exception e) {
+			failed = true;
+			System.out.println("Test 10 > "+e.getMessage());
+			// e.printStackTrace();
+		}
+
+		// Verify
+		assertTrue(failed);
+	}
+	
+
+	
+	// @Test
+	@DisplayName("20. Mock > No Calls > Test Delivery Cities Bengaluru ")
+	@Order(20)
+	public void testDeliveryCitiesNoCalls() {
+		// No Expectations 
+
+		// Change the Order of the Cities and the test will fail
+		ArrayList<String> cities = new ArrayList<String>();
+		cities.add("Bengaluru");
+		cities.add("Chennai");
+		cities.add("Kochi");
+		
+		// Check the Delivery City in Shipping Service
+		try {
+			ArrayList<DeliveryCity> cityList = shippingService.getCities(cities, null, null);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		verifyNoMoreInteractions(deliveryCityService);
 	}
 	
     @AfterEach
