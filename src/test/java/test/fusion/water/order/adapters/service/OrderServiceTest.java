@@ -17,20 +17,40 @@
 package test.fusion.water.order.adapters.service;
 
 
+import static java.lang.invoke.MethodHandles.lookup;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+import static org.slf4j.LoggerFactory.getLogger;
+
+import java.util.Date;
+import java.util.UUID;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.slf4j.Logger;
 
+import io.fusion.water.order.adapters.service.OrderServiceImpl;
 import io.fusion.water.order.domainLayer.models.Customer;
 import io.fusion.water.order.domainLayer.models.OrderEntity;
 import io.fusion.water.order.domainLayer.models.OrderItem;
+import io.fusion.water.order.domainLayer.models.OrderStatus;
+import io.fusion.water.order.domainLayer.models.PaymentDetails;
+import io.fusion.water.order.domainLayer.models.PaymentStatus;
 import io.fusion.water.order.domainLayer.models.PaymentType;
 import io.fusion.water.order.domainLayer.models.ShippingAddress;
 import io.fusion.water.order.domainLayer.services.PaymentService;
+import test.fusion.water.order.adapters.extensions.TestTimeExtension;
 import io.fusion.water.order.domainLayer.services.OrderRepository;
-import io.fusion.water.order.domainLayer.services.OrderService;
 
 /**
  * Order Service Test
@@ -38,8 +58,21 @@ import io.fusion.water.order.domainLayer.services.OrderService;
  * @author arafkarsh
  *
  */
+
+@Tag("Critical")
+@TestMethodOrder(OrderAnnotation.class)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@ExtendWith(TestTimeExtension.class)
 @ExtendWith(MockitoExtension.class)
 public class OrderServiceTest {
+
+	static final Logger log = getLogger(lookup().lookupClass());
+
+	private OrderEntity order;
+	private PaymentStatus paymentAccepted;
+	private PaymentStatus paymentDeclined;
+	
+	private int counter = 1;
 
 	@Mock
 	OrderRepository orderRepo;
@@ -48,8 +81,64 @@ public class OrderServiceTest {
 	PaymentService paymentService;
 	
 	@InjectMocks
-	OrderService orderService;
+	OrderServiceImpl orderService;
 	
+	/**
+	 * if the @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+	 * is available then the method need not be static
+	 */
+    @BeforeAll
+    public void setupAll() {
+        System.out.println("== Order Service Mock Suite Execution Started...");
+    }
+    
+    @BeforeEach
+    public void setup() {
+        System.out.println(counter+". Create Order, PaymentStatus...");
+        order = createOrder();
+        paymentAccepted = createPaymentStatusAccepted(order.getPaymentDetails());
+        paymentDeclined = createPaymentStatusDeclined(order.getPaymentDetails());
+
+    }
+    
+	@Test
+	@DisplayName("Test for Payment Accepted")
+	public void testValidatePaymentAccepted() {
+		// Given Order is Ready
+		when(orderRepo.saveOrder(order))
+			.thenReturn(order);
+		when(paymentService.processPayments(order.getPaymentDetails()))
+			.thenReturn(paymentAccepted);
+		
+		// When Order is Processed for Payment
+		OrderEntity processedOrder = orderService.processOrder(order);
+		
+		// Then Check the Payment Status as Accepted
+		assertEquals(
+				OrderStatus.PAID,
+				processedOrder.getOrderStatus()
+				);
+	}
+	
+	@Test
+	@DisplayName("Test for Payment Declined")
+	public void testValidatePaymentDeclined() {
+		// Given Order is Ready
+		when(orderRepo.saveOrder(order))
+			.thenReturn(order);
+		when(paymentService.processPayments(order.getPaymentDetails()))
+			.thenReturn(paymentDeclined);
+		
+		// When Order is Processed for Payment
+		OrderEntity processedOrder = orderService.processOrder(order);
+		
+		// Then Check the Payment Status as Declined
+		assertEquals(
+				OrderStatus.PAYMENT_DECLINED,
+				processedOrder.getOrderStatus()
+				);
+	}
+ 
 	/**
 	 * Returns OrderEntity
 	 * @return
@@ -71,9 +160,36 @@ public class OrderServiceTest {
 		
 	}
 	
-	@Test
-	public void testValidOrder() {
-		// when
+	/**
+	 * Payment Status - Accepted
+	 * 
+	 * @param _paymentDetails
+	 * @return
+	 */
+	public PaymentStatus createPaymentStatusAccepted(PaymentDetails _paymentDetails) {
+		return new PaymentStatus(
+				_paymentDetails.getTransactionId(), 
+				_paymentDetails.getTransactionDate(), 
+				"Accepted", 
+				UUID.randomUUID().toString(), 
+				new Date(), 
+				PaymentType.CREDIT_CARD);
+	}
+	
+	/**
+	 * Payment Status - Declined
+	 * 
+	 * @param _paymentDetails
+	 * @return
+	 */
+	public PaymentStatus createPaymentStatusDeclined(PaymentDetails _paymentDetails) {
+		return new PaymentStatus(
+				_paymentDetails.getTransactionId(), 
+				_paymentDetails.getTransactionDate(), 
+				"Declined", 
+				UUID.randomUUID().toString(), 
+				new Date(), 
+				PaymentType.CREDIT_CARD);
 	}
 	
 }

@@ -42,7 +42,7 @@ public interface OrderService {
 	 * @param _order
 	 * @return
 	 */
-	public OrderEntity saveOrder(OrderEntity _order);
+	public OrderEntity processOrder(OrderEntity _order);
 	
 	/**
 	 * Cancel Order

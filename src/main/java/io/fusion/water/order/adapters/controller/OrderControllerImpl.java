@@ -71,7 +71,7 @@ public class OrderControllerImpl implements OrderController {
 	public ResponseEntity<OrderEntity> saveOrder(@RequestBody OrderEntity _order) {
 		OrderEntity orderEntity = null;
 		try  {
-			orderEntity = orderBusinessService.saveOrder(_order);
+			orderEntity = orderBusinessService.processOrder(_order);
 		} catch (Exception e) {
 			return new ResponseEntity<OrderEntity>(orderEntity, HttpStatus.BAD_REQUEST);
 		}

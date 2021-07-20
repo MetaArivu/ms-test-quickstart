@@ -17,6 +17,8 @@
 package io.fusion.water.order.domainLayer.models;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.UUID;
 
 import io.fusion.water.order.utils.Utils;
 
@@ -28,11 +30,20 @@ import io.fusion.water.order.utils.Utils;
  */
 public class OrderEntity {
 
+	private String orderId;
+	private Date orderDate;
+	
 	private Customer customer;
+	
 	private ArrayList<OrderItem> orderItems;
+	
 	private ShippingAddress shippingAddress;
+	
 	private PaymentType paymentType;
 	private OrderStatus orderStatus;
+	
+	private PaymentDetails paymentDetails;
+	private PaymentStatus paymentStatus;
 	
 	/**
 	 * Create Order
@@ -153,6 +164,8 @@ public class OrderEntity {
 		 * @return
 		 */
 		public Builder addCustomer(Customer _customer) {
+			order.orderId = UUID.randomUUID().toString();
+			order.orderDate = new Date();
 			order.orderStatus = OrderStatus.INITIATED;
 			order.addCustomer(_customer);
 			return this;
@@ -201,12 +214,126 @@ public class OrderEntity {
 		}
 		
 		/**
+		 * Set Order Status to Waiting for Payment
+		 * @return
+		 */
+		public Builder waitingForPayment() {
+			order.orderStatus = OrderStatus.PAYMENT_EXPECTED;
+			return this;
+		}
+		
+		/**
 		 * Build the Order
 		 * @return
 		 */
 		public OrderEntity build() {
+			order.paymentDetails = new PaymentDetails(
+					order.getOrderId(), 
+					order.getOrderDate(), 
+					order.getTotalValue(), 
+					order.getPaymentType()
+			);
 			return order;
 		}
+	}
+
+	/**
+	 * @return the orderId
+	 */
+	public String getOrderId() {
+		return orderId;
+	}
+
+	/**
+	 * @return the orderDate
+	 */
+	public Date getOrderDate() {
+		return orderDate;
+	}
+	
+	/**
+	 * @return the orderStatus
+	 */
+	public OrderStatus getOrderStatus() {
+		return orderStatus;
+	}
+	
+	/**
+	 * Order Status = PAYMENT EXPECTED
+	 */
+	public void orderWaitingForPayment() {
+		orderStatus = OrderStatus.PAYMENT_EXPECTED;
+	}
+	/**
+	 * Order Status = PREPARING
+	 */
+	public void orderIsGettingPrepared() {
+		orderStatus = OrderStatus.PREPARING;
+	}
+	
+	/**
+	 * Order Status = READY_FOR_SHIPMENT
+	 */
+	public void orderReadyForShipment() {
+		orderStatus = OrderStatus.READY_FOR_SHIPMENT;
+	}
+	
+	/**
+	 * Order Status = IN_TRANSIT
+	 */
+	public void orderInTransit() {
+		orderStatus = OrderStatus.IN_TRANSIT;
+	}
+	
+	/**
+	 * Order Status = DELIVERED
+	 */
+	public void orderDelivered() {
+		orderStatus = OrderStatus.DELIVERED;
+	}
+	
+	/**
+	 * Order Status = RETURNED
+	 */
+	public void orderReturned() {
+		orderStatus = OrderStatus.RETURNED;
+	}
+	
+	/**
+	 * @param paymentStatus the paymentStatus to set
+	 */
+	public void setPaymentStatus(PaymentStatus _paymentStatus) {
+		if(_paymentStatus == null) {
+			orderStatus = OrderStatus.PAYMENT_EXPECTED;
+			return;
+		}
+		paymentStatus = _paymentStatus;
+		if(paymentStatus.getPaymentStatus().equalsIgnoreCase("Accepted")) {
+			orderStatus = OrderStatus.PAID;
+		} else {
+			orderStatus = OrderStatus.PAYMENT_DECLINED;
+		}
+	}
+	
+	/**
+	 * @return the paymentDetails
+	 */
+	public PaymentDetails getPaymentDetails() {
+		return paymentDetails;
+	}
+
+	/**
+	 * @return the paymentStatus
+	 */
+	public PaymentStatus getPaymentStatus() {
+		return paymentStatus;
+	}
+	
+	/**
+	 * Shows Order ID + Order Status
+	 */
+	public String toString() {
+		return orderId +"|" + orderStatus;
 	}
 	
 	/**

@@ -47,8 +47,14 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public OrderEntity saveOrder(OrderEntity _order) {
-		return orderRepo.saveOrder(_order);
+	public OrderEntity processOrder(OrderEntity _order) {
+		OrderEntity order = orderRepo.saveOrder(_order);
+		if(order != null) {
+			PaymentStatus payStatus = paymentService.processPayments(
+										order.getPaymentDetails());
+			order.setPaymentStatus(payStatus);
+		}
+		return order;
 	}
 	
 	@Override
