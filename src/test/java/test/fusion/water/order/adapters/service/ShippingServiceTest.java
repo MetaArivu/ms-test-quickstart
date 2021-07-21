@@ -352,7 +352,7 @@ public class ShippingServiceTest {
 			cityList = shippingService.getCities(cities, "", "India");
 		} catch (Exception e) {
 			failed = true;
-			System.out.println("Test 10 > "+e.getMessage());
+			System.out.println("Test 11 > "+e.getMessage());
 			// e.printStackTrace();
 		}
 
