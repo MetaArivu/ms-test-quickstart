@@ -3,8 +3,7 @@
 #Feature: Order Payments
 
 @tag
-Feature: Order Payments
-	As a Consumer
+Feature: As a Consumer
   I want to make the payent 
   So that I can buy products
 
