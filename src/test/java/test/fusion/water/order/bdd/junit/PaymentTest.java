@@ -41,7 +41,8 @@ import test.fusion.water.order.adapters.extensions.TestTimeExtension;
 @RunWith(Cucumber.class)
 @CucumberOptions(
 		monochrome = true,
-		plugin = {"pretty", "html:target/cucumber-report/cucumber.html",
+		plugin = {"pretty", 
+				"html:target/cucumber-report/cucumber.html",
                 "json:target/cucumber-report/cucumber.json",
                 "junit:target/cucumber-report/cucumber.xml"},
 		features = {"src/test/java/test/fusion/water/order/bdd/specs/"},
