@@ -39,9 +39,11 @@ import test.fusion.water.order.adapters.extensions.TestTimeExtension;
 @TestMethodOrder(OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @RunWith(Cucumber.class)
-// @CucumberOptions(plugin = {"pretty", "html:target/cucumber"})
 @CucumberOptions(
-		plugin = {"pretty"},
+		monochrome = true,
+		plugin = {"pretty", "html:target/cucumber-report/cucumber.html",
+                "json:target/cucumber-report/cucumber.json",
+                "junit:target/cucumber-report/cucumber.xml"},
 		features = {"src/test/java/test/fusion/water/order/bdd/specs/"},
 		glue = {"test.fusion.water.order.bdd.steps"}
 )
