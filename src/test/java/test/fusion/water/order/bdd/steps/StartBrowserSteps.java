@@ -29,7 +29,6 @@ public class StartBrowserSteps implements En {
 	public StartBrowserSteps(BrowserState _browser) {
 		
 		Given("I start a new browser", () -> {
-			WebDriverChrome.initialize();
 			_browser.setWebDriver(WebDriverChrome.getChromeDriver(false, 60));
 		});
 

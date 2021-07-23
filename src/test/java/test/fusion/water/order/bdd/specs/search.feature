@@ -1,6 +1,6 @@
 #Author: araf.karsh@metamagic.in
 #Keywords Summary :
-#Feature: By Product from Amazon
+#Feature: Buy Product from Amazon
 @tag
 Feature: Amazon Search Result
 

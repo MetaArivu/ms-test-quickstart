@@ -19,6 +19,7 @@ package test.fusion.water.order.bdd.junit;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.BeforeClass;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
@@ -27,6 +28,7 @@ import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 
 import test.fusion.water.order.adapters.extensions.TestTimeExtension;
+import test.fusion.water.order.utils.WebDriverChrome;
 
 /**
  * 
@@ -51,5 +53,9 @@ import test.fusion.water.order.adapters.extensions.TestTimeExtension;
 @ExtendWith(TestTimeExtension.class)
 public class PaymentTest {
 
-	
+	@BeforeClass
+	public static void setupAll() {
+		WebDriverChrome.initialize();
+	}
+
 }
