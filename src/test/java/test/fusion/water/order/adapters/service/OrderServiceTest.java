@@ -109,6 +109,8 @@ public class OrderServiceTest {
 			.thenReturn(order);
 		when(paymentService.processPayments(order.getPaymentDetails()))
 			.thenReturn(paymentAccepted);
+		// when(paymentService.processPayments(order.getPaymentDetails()))
+		// .thenAnswer(new PaymentProcessing());
 		
 		// When Order is Processed for Payment
 		OrderEntity processedOrder = orderService.processOrder(order);

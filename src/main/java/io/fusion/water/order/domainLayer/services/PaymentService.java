@@ -28,6 +28,14 @@ import io.fusion.water.order.domainLayer.models.PaymentStatus;
 public interface PaymentService {
 	
 	/**
+	 * Implementation
+	 * 
+	 * 1. Local API
+	 * 2. REST API
+	 * 3. SOAP API
+	 * 
+	 */
+	/**
 	 * Process Payments
 	 * 
 	 * @param _paymentDetails

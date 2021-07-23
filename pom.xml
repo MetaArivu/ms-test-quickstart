@@ -32,7 +32,9 @@
 		<wiremock.version>2.29.0</wiremock.version>
 		<cucumber.version>6.10.4</cucumber.version>		
 		<selenium.version>4.0.0-beta-4</selenium.version>
-
+		<pact.version>4.0.10</pact.version>
+		<assertj.version>3.20.2</assertj.version>
+		
 		<!-- Spring Boot -->
 		<spring.boot.version>2.5.2</spring.boot.version>
 	
@@ -174,8 +176,8 @@
 		<!-- ================================================================= -->       
         <!-- Cucumber Framework -->
 		<!-- ================================================================= -->
-		<!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
 		
+		<!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
 		<dependency>
 		    <groupId>io.cucumber</groupId>
 		    <artifactId>cucumber-java</artifactId>
@@ -250,6 +252,38 @@
 		    <version>4.4.3</version>
 		</dependency>
 		
+		<!-- ================================================================= -->
+		<!-- Pact Framework -->
+		<!-- ================================================================= -->
+		
+		<!-- https://mvnrepository.com/artifact/au.com.dius/pact-jvm-provider -->
+		<dependency>
+		    <groupId>au.com.dius</groupId>
+		    <artifactId>pact-jvm-provider</artifactId>
+            <version>${pact.version}</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/au.com.dius/pact-jvm-consumer -->
+		<dependency>
+		    <groupId>au.com.dius</groupId>
+		    <artifactId>pact-jvm-consumer</artifactId>
+            <version>${pact.version}</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/au.com.dius/pact-jvm-consumer-junit -->
+		<dependency>
+		    <groupId>au.com.dius</groupId>
+		    <artifactId>pact-jvm-consumer-junit</artifactId>
+            <version>${pact.version}</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
+		<dependency>
+		    <groupId>org.assertj</groupId>
+		    <artifactId>assertj-core</artifactId>
+            <version>${assertj.version}</version>
+		    <scope>test</scope>
+		</dependency>
 		
 		<!-- ================================================================= -->
 		<!-- Spring Framework -->
