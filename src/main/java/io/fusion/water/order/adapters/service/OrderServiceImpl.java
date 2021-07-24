@@ -55,7 +55,7 @@ public class OrderServiceImpl implements OrderService {
 			PaymentStatus payStatus = paymentService.processPayments(
 										order.getPaymentDetails());
 			// Update Payment Status
-			// order.setPaymentStatus(payStatus);
+			order.setPaymentStatus(payStatus);
 		}
 		return order;
 	}
