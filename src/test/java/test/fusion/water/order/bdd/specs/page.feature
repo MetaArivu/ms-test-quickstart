@@ -2,7 +2,7 @@
 #Keywords Summary :
 #Feature: Product Search in Amazon
 @tag
-Feature: By Product from Amazon
+Feature: Buy Product from Amazon
 
   Scenario: Open Browser and Load Amazon Page
     Given I start a new browser
