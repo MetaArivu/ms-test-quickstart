@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import io.fusion.water.order.utils.Utils;
 
 /**
@@ -32,6 +34,8 @@ import io.fusion.water.order.utils.Utils;
 public class OrderEntity {
 
 	private String orderId;
+	
+	@JsonSerialize(using = DateJsonSerializer.class)
 	private LocalDate orderDate;
 	
 	private Customer customer;

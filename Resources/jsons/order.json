@@ -1,4 +1,6 @@
 {
+    "orderId": "16cca0d2-b68d-4edd-b1c6-321201d79d08",
+    "orderDate": "2021-07-25",
     "customer": {
         "customerId": "UUID",
         "firstName": "John",
@@ -34,5 +36,17 @@
         "country": "USA",
         "zipCode": "08820"
     },
-    "paymentType": "CREDIT_CARD"
+    "paymentType": "CREDIT_CARD",
+    "orderStatus": "INITIATED",
+    "paymentDetails": {
+        "transactionId": "16cca0d2-b68d-4edd-b1c6-321201d79d08",
+        "transactionDate": "2021-07-25",
+        "orderValue": 2248.0,
+        "paymentType": "CREDIT_CARD"
+    },
+    "paymentStatus": null,
+    "totalValue": 2248.0,
+    "customerAvailable": true,
+    "totalItems": 3,
+    "shippingAddressAvailable": true
 }

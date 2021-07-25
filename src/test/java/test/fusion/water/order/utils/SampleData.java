@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.fusion.water.order.utils;
+package test.fusion.water.order.utils;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -26,13 +26,14 @@ import io.fusion.water.order.domainLayer.models.PaymentDetails;
 import io.fusion.water.order.domainLayer.models.PaymentStatus;
 import io.fusion.water.order.domainLayer.models.PaymentType;
 import io.fusion.water.order.domainLayer.models.ShippingAddress;
+import io.fusion.water.order.utils.Utils;
 
 /**
  * 
  * @author arafkarsh
  *
  */
-public class ModelToJson {
+public class SampleData {
 	
 	/**
 	 * Order Entity Sample Data
@@ -54,7 +55,7 @@ public class ModelToJson {
 					.addPaymentType(PaymentType.CREDIT_CARD)
 					.build();
 		
-		return Utils.toJson(oEntity);
+		return Utils.toJsonString(oEntity);
 	}
 	
 	/**
@@ -70,16 +71,16 @@ public class ModelToJson {
 				PaymentType.CREDIT_CARD
 				);
 		
-		return Utils.toJson(p);
+		return Utils.toJsonString(p);
 	}
 	
 	/**
 	 * 
 	 * @return
 	 */
-	public static PaymentDetails PaymentDetailsToObject() {
+	public static PaymentDetails getPaymentDetails() {
 		return new PaymentDetails(
-				"fb908151-d249-4d30-a6a1-4705729394f4", 
+				UUID.randomUUID().toString(), 
 				LocalDate.now(), 
 				230, 
 				PaymentType.CREDIT_CARD
@@ -100,21 +101,40 @@ public class ModelToJson {
 				LocalDate.now(), 
 				PaymentType.CREDIT_CARD);
 		
-		return Utils.toJson(ps);
+		return Utils.toJsonString(ps);
 	}
 	
 	/**
+	 * Get Payment Status Accepted
 	 * 
 	 * @param _txId
 	 * @param _txDate
 	 * @return
 	 */
-	public static PaymentStatus PaymentStatusToObject(
+	public static PaymentStatus getPaymentStatusAccepted(
 			String _txId, LocalDate _txDate) {
 		return new PaymentStatus(
 				_txId, 
 				_txDate, 
 				"Accepted", 
+				UUID.randomUUID().toString(), 
+				LocalDate.now(), 
+				PaymentType.CREDIT_CARD);
+	}
+	
+	/**
+	 * Get Payment Status Declined
+	 * 
+	 * @param _txId
+	 * @param _txDate
+	 * @return
+	 */
+	public static PaymentStatus getPaymentStatusDeclined(
+			String _txId, LocalDate _txDate) {
+		return new PaymentStatus(
+				_txId, 
+				_txDate, 
+				"Declined", 
 				UUID.randomUUID().toString(), 
 				LocalDate.now(), 
 				PaymentType.CREDIT_CARD);

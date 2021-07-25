@@ -38,6 +38,7 @@ public class PaymentGateWay {
 	 */
 	public PaymentGateWay(String host, int port) {
 		gwURL = "http://" + host + ":" + port;
+		System.out.println("SERVER  |> "+gwURL+payments+"/");
 	}
 	
 	/**
@@ -46,7 +47,9 @@ public class PaymentGateWay {
 	 * @return
 	 */
 	public PaymentStatus processPayments(PaymentDetails _paymentDetails) {
-		System.out.println("REST Call> "+gwURL+payments+"/ >> "+Utils.toJson(_paymentDetails));
-        return gw.postForObject(gwURL + "/payments", _paymentDetails, PaymentStatus.class);
+		System.out.println("REQUEST |> "+Utils.toJsonString(_paymentDetails));
+		PaymentStatus ps = gw.postForObject(gwURL + "/payments", _paymentDetails, PaymentStatus.class);
+		System.out.println("RESPONSE|> "+Utils.toJsonString(ps));
+		return ps;
 	}
 }

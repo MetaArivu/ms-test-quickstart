@@ -16,6 +16,7 @@
 package test.fusion.water.order.wiremock2.tests;
 
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.AfterAll;
@@ -38,12 +39,11 @@ import io.fusion.water.order.adapters.external.PaymentGateWay;
 import io.fusion.water.order.adapters.service.PaymentServiceImpl;
 import io.fusion.water.order.domainLayer.models.PaymentDetails;
 import io.fusion.water.order.domainLayer.models.PaymentStatus;
-import io.fusion.water.order.utils.ModelToJson;
 import io.fusion.water.order.utils.Utils;
 import test.fusion.water.order.junit5.extensions.TestTimeExtension;
+import test.fusion.water.order.utils.SampleData;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
-
 
 /**
  * Wire Mock with JUnit 5
@@ -51,7 +51,6 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
  * @author arafkarsh
  *
  */
-
 @Tag("WireMock")
 @Tag("Critical")
 @TestMethodOrder(OrderAnnotation.class)
@@ -68,13 +67,10 @@ public class PaymentGateWayMockTest {
 	@Value("${remote.port}")
 	private int port	= 8080;
 	
-	// for Junit 4 use 
-	// @Rule private WireMockRule wireMockRule = new WireMockRule();
-	// @Rule private WireMockRule wireMockRule = new WireMockRule(
-	//								options().port(8888).httpsPort(8889)
-	
 	// Actual Payment Service
 	PaymentServiceImpl paymentService;
+	
+	private static int counter=1;
 	
 	/**
 	 * if the @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -82,29 +78,98 @@ public class PaymentGateWayMockTest {
 	 */
     @BeforeAll
     public void setupAll() {
-        System.out.println("== Payment Service WireMock Suite Execution Started...");
+        System.out.println("== Payment Service WireMock HTTP Tests Started...");
     }
     
     @BeforeEach
     public void setup() {
-
+    	// Setup WireMock Server (Defaults to Port 8080)
     	wireMockServer = new WireMockServer();
-        //  configureFor(host, port);
         wireMockServer.start();        
-        System.out.println("A. WireMock Server Started.. on "+wireMockServer.baseUrl());
+        System.out.println(counter+"] WireMock Server Started.. on "+wireMockServer.baseUrl());
 
+        // Initialize Payment Service with Payment Gateway
         PaymentGateWay gw = new PaymentGateWay(host, port);
         paymentService = new PaymentServiceImpl(gw);
 
     }
-
+	
 	@Test
+	@DisplayName("1. Payment Service HTTP : Accepted")
+	@Order(1)
+	public void paymentServiceTest1() {
+
+		PaymentDetails pd = SampleData.getPaymentDetails();
+	    PaymentStatus ps = SampleData.getPaymentStatusAccepted(
+	    		pd.getTransactionId(), pd.getTransactionDate());
+		
+	    // Given
+	    stubFor(post("/payments")
+		    .withRequestBody(equalToJson(Utils.toJsonString(pd)))
+		    .willReturn(okJson(Utils.toJsonString(ps))));
+
+	    // When
+	    PaymentStatus payStatus = paymentService.processPayments(pd);
+
+	    // Then
+	    assertNotNull(payStatus);
+	    assertEquals("Accepted", payStatus.getPaymentStatus());
+
+	    // Verify
+	    verify(postRequestedFor(urlPathEqualTo("/payments"))
+		        .withRequestBody(equalToJson(Utils.toJsonString(pd))));
+
+	}
+	
+	@Test
+	@DisplayName("2. Payment Service HTTP : Declined")
+	@Order(2)
+	public void paymentServiceTest2() {
+
+		PaymentDetails pd = SampleData.getPaymentDetails();
+	    PaymentStatus ps = SampleData.getPaymentStatusDeclined(
+	    		pd.getTransactionId(), pd.getTransactionDate());
+		
+	    // Given
+	    stubFor(post("/payments")
+		    .withRequestBody(equalToJson(Utils.toJsonString(pd)))
+		    .willReturn(okJson(Utils.toJsonString(ps))));
+
+	    // When
+	    PaymentStatus payStatus = paymentService.processPayments(pd);
+
+	    // Then
+	    assertNotNull(payStatus);
+	    assertEquals("Declined", payStatus.getPaymentStatus());
+
+	    // Verify
+	    verify(postRequestedFor(urlPathEqualTo("/payments"))
+		        .withRequestBody(equalToJson(Utils.toJsonString(pd))));
+	}
+	
+    @AfterEach
+    void tearDown() {
+        wireMockServer.stop();
+        counter++;
+    }
+    
+	/**
+	 * if the @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+	 * is available then the method need not be static
+	 */
+    @AfterAll
+    public void tearDownAll() {
+        System.out.println("== Payment Service WireMock HTTP Tests Completed...");
+    }
+	
+	/**
+	// @Test
 	@DisplayName("1. Payment Service HTTP Test 1")
 	@Order(1)
-	public void paymentServiceTest() {
+	public void paymentServiceTes10t() {
 
-		PaymentDetails pd = ModelToJson.PaymentDetailsToObject();
-	    PaymentStatus ps = ModelToJson.PaymentStatusToObject(
+		PaymentDetails pd = SampleData.getPaymentDetails();
+	    PaymentStatus ps = SampleData.getPaymentStatusAccepted(
 	    		pd.getTransactionId(), pd.getTransactionDate());
 		
 	    stubFor(post("/payments")
@@ -125,9 +190,8 @@ public class PaymentGateWayMockTest {
 		    		+ "}")));
 
 	    PaymentStatus payStatus = paymentService.processPayments(pd);
-
 	    assertNotNull(payStatus);
-
+	    
 	    verify(postRequestedFor(urlPathEqualTo("/payments"))
 		        .withRequestBody(equalToJson("{\n"
 			    		+ "    \"transactionId\": \"fb908151-d249-4d30-a6a1-4705729394f4\",\n"
@@ -136,11 +200,11 @@ public class PaymentGateWayMockTest {
 			    		+ "    \"paymentType\": \"CREDIT_CARD\"\n"
 			    		+ "}")));
 	}
-	
+	*/
 	//  @Test
-	@DisplayName("2. Payment Service HTTP Test 2")
+	@DisplayName("3. Payment Service HTTP Test 2")
 	@Order(3)
-	public void paymentServiceTest2() {
+	public void paymentServiceTest10() {
 	    stubFor(post("/my/resource")
 	        .withHeader("Content-Type", containing("xml"))
 	        .willReturn(ok()
@@ -154,7 +218,7 @@ public class PaymentGateWayMockTest {
 	}
 	
 	// @Test
-	@DisplayName("3. Payment Service HTTP Test 3")
+	@DisplayName("4. Payment Service HTTP Test 3")
 	@Order(4)
 	public void exactUrlOnly() {
 	    stubFor(get(urlEqualTo("/some/thing"))
@@ -168,17 +232,4 @@ public class PaymentGateWayMockTest {
 
 	}
 	
-    @AfterEach
-    void tearDown() {
-        wireMockServer.stop();
-    }
-    
-	/**
-	 * if the @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-	 * is available then the method need not be static
-	 */
-    @AfterAll
-    public void tearDownAll() {
-        System.out.println("== Payment Service WireMock Suite Execution Completed...");
-    }
 }

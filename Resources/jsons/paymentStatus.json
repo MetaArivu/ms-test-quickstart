@@ -1,8 +1,8 @@
 {
     "transactionId": "fb908151-d249-4d30-a6a1-4705729394f4",
-    "transactionDate": "Jul 25, 2021 4:14:59 PM",
+    "transactionDate": "2021-07-25",
     "paymentStatus": "Accepted",
-    "paymentReference": "b58dbe48-6d6a-4c37-b054-aaa0fd970bdd",
-    "paymentDate": "Jul 25, 2021 4:14:59 PM",
+    "paymentReference": "1c37f8d3-f8c1-40bc-a492-fc23c630677f",
+    "paymentDate": "2021-07-25",
     "paymentType": "CREDIT_CARD"
 }
