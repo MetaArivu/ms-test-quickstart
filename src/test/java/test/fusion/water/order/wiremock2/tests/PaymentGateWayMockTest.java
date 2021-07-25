@@ -69,25 +69,20 @@ public class PaymentGateWayMockTest {
 	
 	// Actual Payment Service
 	PaymentServiceImpl paymentService;
-	
 	private static int counter=1;
 	
-	/**
-	 * if the @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-	 * is available then the method need not be static
-	 */
     @BeforeAll
     public void setupAll() {
         System.out.println("== Payment Service WireMock HTTP Tests Started...");
+    	// Setup WireMock Server (Defaults to Port 8080)
+    	wireMockServer = new WireMockServer();
+        wireMockServer.start();        
+        System.out.println(counter+"] WireMock Server Started.. on "
+        					+wireMockServer.baseUrl());
     }
     
     @BeforeEach
     public void setup() {
-    	// Setup WireMock Server (Defaults to Port 8080)
-    	wireMockServer = new WireMockServer();
-        wireMockServer.start();        
-        System.out.println(counter+"] WireMock Server Started.. on "+wireMockServer.baseUrl());
-
         // Initialize Payment Service with Payment Gateway
         PaymentGateWay gw = new PaymentGateWay(host, port);
         paymentService = new PaymentServiceImpl(gw);
@@ -149,16 +144,12 @@ public class PaymentGateWayMockTest {
 	
     @AfterEach
     void tearDown() {
-        wireMockServer.stop();
         counter++;
     }
-    
-	/**
-	 * if the @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-	 * is available then the method need not be static
-	 */
+
     @AfterAll
     public void tearDownAll() {
+        wireMockServer.stop();
         System.out.println("== Payment Service WireMock HTTP Tests Completed...");
     }
 	
