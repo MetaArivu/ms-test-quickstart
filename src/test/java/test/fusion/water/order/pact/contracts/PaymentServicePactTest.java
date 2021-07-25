@@ -15,12 +15,26 @@
  */
 package test.fusion.water.order.pact.contracts;
 
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+import test.fusion.water.order.junit5.extensions.TestTimeExtension;
+
 /**
  * Payment Service Pact Test
  * 
  * @author arafkarsh
  *
  */
+
+@Tag("Pact")
+@Tag("Critical")
+@TestMethodOrder(OrderAnnotation.class)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@ExtendWith(TestTimeExtension.class)
 public class PaymentServicePactTest {
 
 }
