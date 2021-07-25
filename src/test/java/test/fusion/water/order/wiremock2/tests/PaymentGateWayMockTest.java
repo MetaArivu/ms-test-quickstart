@@ -16,6 +16,8 @@
 package test.fusion.water.order.wiremock2.tests;
 
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -34,6 +36,10 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 
 import io.fusion.water.order.adapters.external.PaymentGateWay;
 import io.fusion.water.order.adapters.service.PaymentServiceImpl;
+import io.fusion.water.order.domainLayer.models.PaymentDetails;
+import io.fusion.water.order.domainLayer.models.PaymentStatus;
+import io.fusion.water.order.utils.ModelToJson;
+import io.fusion.water.order.utils.Utils;
 import test.fusion.water.order.junit5.extensions.TestTimeExtension;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
@@ -60,7 +66,7 @@ public class PaymentGateWayMockTest {
 	private String host	= "localhost";
 	
 	@Value("${remote.port}")
-	private int port	= 9090;
+	private int port	= 8080;
 	
 	// for Junit 4 use 
 	// @Rule private WireMockRule wireMockRule = new WireMockRule();
@@ -81,44 +87,59 @@ public class PaymentGateWayMockTest {
     
     @BeforeEach
     public void setup() {
-        System.out.println("Remote Host:Port > "+host+":"+port);
 
     	wireMockServer = new WireMockServer();
-        configureFor(host, port);
-        wireMockServer.start();
-        
-        System.out.println("Setting up the Payment Gateway Service: "+host+":"+port);
+        //  configureFor(host, port);
+        wireMockServer.start();        
+        System.out.println("A. WireMock Server Started.. on "+wireMockServer.baseUrl());
+
         PaymentGateWay gw = new PaymentGateWay(host, port);
         paymentService = new PaymentServiceImpl(gw);
 
     }
-    
-    @Test
-    public void defaultTest() {
-    	
-    }
 
-	// @Test
+	@Test
 	@DisplayName("1. Payment Service HTTP Test 1")
 	@Order(1)
 	public void paymentServiceTest() {
-	    stubFor(post("/payments")
-	        .withHeader("Content-Type", containing("xml"))
-	        .willReturn(ok()
-	            .withHeader("Content-Type", "text/xml")
-	            .withBody("<response>SUCCESS</response>")));
 
-	    // Result result = myHttpServiceCallingObject.doSomething();
-	    // assertTrue(result.wasSuccessful());
+		PaymentDetails pd = ModelToJson.PaymentDetailsToObject();
+	    PaymentStatus ps = ModelToJson.PaymentStatusToObject(
+	    		pd.getTransactionId(), pd.getTransactionDate());
+		
+	    stubFor(post("/payments")
+		    .withRequestBody(equalToJson(
+		    		"{\n"
+		    		+ "    \"transactionId\": \"fb908151-d249-4d30-a6a1-4705729394f4\",\n"
+		    		+ "    \"transactionDate\": \"2021-07-25\",\n"
+		    		+ "    \"orderValue\": 230.0,\n"
+		    		+ "    \"paymentType\": \"CREDIT_CARD\"\n"
+		    		+ "}"))
+		    .willReturn(okJson("{\n"
+		    		+ "    \"transactionId\": \"fb908151-d249-4d30-a6a1-4705729394f4\",\n"
+		    		+ "    \"transactionDate\": \"2021-07-25\",\n"
+		    		+ "    \"paymentStatus\": \"Accepted\",\n"
+		    		+ "    \"paymentReference\": \"b58dbe48-6d6a-4c37-b054-aaa0fd970bdd\",\n"
+		    		+ "    \"paymentDate\": \"2021-07-25\",\n"
+		    		+ "    \"paymentType\": \"CREDIT_CARD\"\n"
+		    		+ "}")));
+
+	    PaymentStatus payStatus = paymentService.processPayments(pd);
+
+	    assertNotNull(payStatus);
 
 	    verify(postRequestedFor(urlPathEqualTo("/payments"))
-	        .withRequestBody(matching(".*message-1234.*"))
-	        .withHeader("Content-Type", equalTo("text/xml")));
+		        .withRequestBody(equalToJson("{\n"
+			    		+ "    \"transactionId\": \"fb908151-d249-4d30-a6a1-4705729394f4\",\n"
+			    		+ "    \"transactionDate\": \"2021-07-25\",\n"
+			    		+ "    \"orderValue\": 230.0,\n"
+			    		+ "    \"paymentType\": \"CREDIT_CARD\"\n"
+			    		+ "}")));
 	}
 	
 	//  @Test
 	@DisplayName("2. Payment Service HTTP Test 2")
-	@Order(2)
+	@Order(3)
 	public void paymentServiceTest2() {
 	    stubFor(post("/my/resource")
 	        .withHeader("Content-Type", containing("xml"))
@@ -126,8 +147,6 @@ public class PaymentGateWayMockTest {
 	            .withHeader("Content-Type", "text/xml")
 	            .withBody("<response>SUCCESS</response>")));
 
-	    // Result result = myHttpServiceCallingObject.doSomething();
-	    // assertTrue(result.wasSuccessful());
 
 	    verify(postRequestedFor(urlPathEqualTo("/my/resource"))
 	        .withRequestBody(matching(".*message-1234.*"))
@@ -136,7 +155,7 @@ public class PaymentGateWayMockTest {
 	
 	// @Test
 	@DisplayName("3. Payment Service HTTP Test 3")
-	@Order(3)
+	@Order(4)
 	public void exactUrlOnly() {
 	    stubFor(get(urlEqualTo("/some/thing"))
 	            .willReturn(aResponse()
@@ -144,7 +163,7 @@ public class PaymentGateWayMockTest {
 	                .withBody("Hello world!")));
 	    
 	    verify(postRequestedFor(urlPathEqualTo("/some/thing"))
-		        .withRequestBody(matching(".*message-1234.*"))
+		        .withRequestBody(matching("Hello world!"))
 		        .withHeader("Content-Type", equalTo("text/plain")));
 
 	}

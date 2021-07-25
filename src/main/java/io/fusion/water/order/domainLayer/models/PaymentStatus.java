@@ -16,7 +16,10 @@
 
 package io.fusion.water.order.domainLayer.models;
 
+import java.time.LocalDate;
 import java.util.Date;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 /**
  * Payment Status
@@ -27,13 +30,19 @@ import java.util.Date;
 public class PaymentStatus {
 	
 	private String transactionId;
-	private Date transactionDate;
+	
+	@JsonSerialize(using = DateJsonSerializer.class)
+	private LocalDate transactionDate;
 	
 	private String paymentStatus;
 	private String paymentReference;
-	private Date paymentDate;
+	
+	@JsonSerialize(using = DateJsonSerializer.class)
+	private LocalDate paymentDate;
 	private PaymentType paymentType;
 	
+	public PaymentStatus() {
+	}
 	/**
 	 * Payment Status
 	 * 
@@ -44,8 +53,8 @@ public class PaymentStatus {
 	 * @param _payDate
 	 * @param _payType
 	 */
-	public PaymentStatus(String _txId, Date _txDate, String _payStatus,
-			String _payRef, Date _payDate, PaymentType _payType) {
+	public PaymentStatus(String _txId, LocalDate _txDate, String _payStatus,
+			String _payRef, LocalDate _payDate, PaymentType _payType) {
 		
 		transactionId		= _txId;
 		transactionDate		= _txDate;
@@ -65,7 +74,7 @@ public class PaymentStatus {
 	/**
 	 * @return the transactionDate
 	 */
-	public Date getTransactionDate() {
+	public LocalDate getTransactionDate() {
 		return transactionDate;
 	}
 	/**
@@ -83,7 +92,7 @@ public class PaymentStatus {
 	/**
 	 * @return the paymentDate
 	 */
-	public Date getPaymentDate() {
+	public LocalDate getPaymentDate() {
 		return paymentDate;
 	}
 	/**

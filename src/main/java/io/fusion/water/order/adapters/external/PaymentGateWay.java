@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import io.fusion.water.order.domainLayer.models.PaymentDetails;
 import io.fusion.water.order.domainLayer.models.PaymentStatus;
+import io.fusion.water.order.utils.Utils;
 
 /***
  * 
@@ -30,6 +31,7 @@ public class PaymentGateWay {
 
 	private String gwURL;
 	private PaymentGateWayRestTemplate gw = new PaymentGateWayRestTemplate();
+	private String payments = "/payments";
 	
 	/**
 	 * Set the Payment GateWay
@@ -44,6 +46,7 @@ public class PaymentGateWay {
 	 * @return
 	 */
 	public PaymentStatus processPayments(PaymentDetails _paymentDetails) {
+		System.out.println("REST Call> "+gwURL+payments+"/ >> "+Utils.toJson(_paymentDetails));
         return gw.postForObject(gwURL + "/payments", _paymentDetails, PaymentStatus.class);
 	}
 }

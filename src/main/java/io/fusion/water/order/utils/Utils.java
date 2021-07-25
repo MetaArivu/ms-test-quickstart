@@ -18,6 +18,8 @@ package io.fusion.water.order.utils;
 
 import java.util.stream.Stream;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 /**
@@ -38,6 +40,23 @@ public final class Utils {
 			return "";
 		}
 		return new Gson().toJson(_object);
+	}
+	
+	/***
+	 * 
+	 * @param _object
+	 * @return
+	 */
+	public static String toJsonString(Object _object) {
+		if(_object == null) {
+			return "";
+		}
+		try {
+			return new ObjectMapper().writeValueAsString(_object);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return "";
 	}
 	
 	/**

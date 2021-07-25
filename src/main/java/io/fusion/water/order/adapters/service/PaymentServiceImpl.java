@@ -16,6 +16,7 @@
 
 package io.fusion.water.order.adapters.service;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +58,7 @@ public class PaymentServiceImpl implements PaymentService {
 				_paymentDetails.getTransactionId(), 
 				_paymentDetails.getTransactionDate(), 
 				"Accepted", "Ref-uuid", 
-				new Date(), 
+				LocalDate.now(), 
 				PaymentType.CREDIT_CARD);
 	}
 	

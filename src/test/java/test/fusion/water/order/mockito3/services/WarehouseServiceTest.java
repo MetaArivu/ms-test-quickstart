@@ -23,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 import static org.slf4j.LoggerFactory.getLogger;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -132,7 +133,7 @@ public class WarehouseServiceTest {
         		order.getPaymentDetails().getTransactionDate(), 
 				"Accepted", 
 				UUID.randomUUID().toString(), 
-				new Date(), 
+				LocalDate.now(), 
 				PaymentType.CREDIT_CARD);
 
     	// Setup the Order Repo and Payment Service with Mocks
@@ -241,7 +242,7 @@ public class WarehouseServiceTest {
 	        		order.getPaymentDetails().getTransactionDate(), 
 					"Accepted", 
 					UUID.randomUUID().toString(), 
-					new Date(), 
+					LocalDate.now(), 
 					PaymentType.CREDIT_CARD);
 	    	order.setPaymentStatus(paymentAccepted);
 	    	orderReadyList.add(order);

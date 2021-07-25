@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.slf4j.LoggerFactory.getLogger;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.UUID;
 
@@ -174,7 +175,7 @@ public class OrderServiceTest {
 				_paymentDetails.getTransactionDate(), 
 				"Accepted", 
 				UUID.randomUUID().toString(), 
-				new Date(), 
+				LocalDate.now(), 
 				PaymentType.CREDIT_CARD);
 	}
 	
@@ -190,7 +191,7 @@ public class OrderServiceTest {
 				_paymentDetails.getTransactionDate(), 
 				"Declined", 
 				UUID.randomUUID().toString(), 
-				new Date(), 
+				LocalDate.now(), 
 				PaymentType.CREDIT_CARD);
 	}
 	

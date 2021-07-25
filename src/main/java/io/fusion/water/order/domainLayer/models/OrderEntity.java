@@ -16,6 +16,7 @@
 
 package io.fusion.water.order.domainLayer.models;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
@@ -31,7 +32,7 @@ import io.fusion.water.order.utils.Utils;
 public class OrderEntity {
 
 	private String orderId;
-	private Date orderDate;
+	private LocalDate orderDate;
 	
 	private Customer customer;
 	
@@ -165,7 +166,7 @@ public class OrderEntity {
 		 */
 		public Builder addCustomer(Customer _customer) {
 			order.orderId = UUID.randomUUID().toString();
-			order.orderDate = new Date();
+			order.orderDate = LocalDate.now();
 			order.orderStatus = OrderStatus.INITIATED;
 			order.addCustomer(_customer);
 			return this;
@@ -247,7 +248,7 @@ public class OrderEntity {
 	/**
 	 * @return the orderDate
 	 */
-	public Date getOrderDate() {
+	public LocalDate getOrderDate() {
 		return orderDate;
 	}
 	
@@ -336,26 +337,4 @@ public class OrderEntity {
 		return orderId +"|" + orderStatus;
 	}
 	
-	/**
-	 * For Testing Purpose Only
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		OrderEntity oEntity = new OrderEntity.Builder()
-					.addCustomer(new Customer
-        					("UUID", "John", "Doe", "0123456789"))
-					.addOrderItem(new OrderItem
-							("uuid1", "iPhone 12", 799, "USD", 1))
-					.addOrderItem(new OrderItem
-							("uuid2", "iPhone 12 Pro", 999, "USD", 1))
-					.addOrderItem(new OrderItem
-							("uuid3", "Apple Watch Series 6", 450, "USD", 2))
-					.addShippingAddress(new ShippingAddress
-							("321 Cobblestone Ln,", "", "Edison", "NJ", "", "USA", "08820"))
-					.addPaymentType(PaymentType.CREDIT_CARD)
-					.build();
-		
-		System.out.println(Utils.toJson(oEntity));
-	}
 }
