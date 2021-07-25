@@ -13,61 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package io.fusion.water.order.adapters.external;
 
-package io.fusion.water.order.adapters.service;
-
-import java.util.Date;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import io.fusion.water.order.adapters.external.PaymentGateWay;
 import io.fusion.water.order.domainLayer.models.PaymentDetails;
 import io.fusion.water.order.domainLayer.models.PaymentStatus;
-import io.fusion.water.order.domainLayer.models.PaymentType;
-import io.fusion.water.order.domainLayer.services.PaymentService;
 
-/**
- * Order Payment Service
+/***
  * 
  * @author arafkarsh
  *
  */
 @Service
-public class PaymentServiceImpl implements PaymentService {
+public class PaymentGateWay {
 
-	@Autowired
-	PaymentGateWay paymentGateWay;
+	private String gwURL;
+	private PaymentGateWayRestTemplate gw = new PaymentGateWayRestTemplate();
 	
 	/**
-	 * 
-	 * @param _gw
+	 * Set the Payment GateWay
 	 */
-	public PaymentServiceImpl(PaymentGateWay _gw) {
-		paymentGateWay = _gw;
+	public PaymentGateWay(String host, int port) {
+		gwURL = "http://" + host + ":" + port;
 	}
 	
 	/**
-	 * Default 
-	 * @param _paymentDetails
-	 * @return
-	 */
-	public PaymentStatus processPaymentsDefault(PaymentDetails _paymentDetails) {
-		return new PaymentStatus(
-				_paymentDetails.getTransactionId(), 
-				_paymentDetails.getTransactionDate(), 
-				"Accepted", "Ref-uuid", 
-				new Date(), 
-				PaymentType.CREDIT_CARD);
-	}
-	
-	/**
-	 * 
+	 * Process Payments
 	 * @param _paymentDetails
 	 * @return
 	 */
 	public PaymentStatus processPayments(PaymentDetails _paymentDetails) {
-		return paymentGateWay.processPayments(_paymentDetails);
+        return gw.postForObject(gwURL + "/payments", _paymentDetails, PaymentStatus.class);
 	}
-
 }

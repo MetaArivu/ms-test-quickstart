@@ -1,4 +1,4 @@
-package test.fusion.water.order.selenium4;
+package test.fusion.water.order.selenium4.driver;
 
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.PageLoadStrategy;

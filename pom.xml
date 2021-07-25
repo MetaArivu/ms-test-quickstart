@@ -11,17 +11,24 @@
 	<!-- Properties / Versions -->
 	<!-- ================================================================= -->
 	<properties>
+		<!-- Utilities -->
 		<slf4j.version>1.7.30</slf4j.version>
 		<logback.version>1.2.3</logback.version>
-		      
+		<google.gson.version>2.8.7</google.gson.version>
+		<google.guava.version>30.1.1-jre</google.guava.version>
+		<apache.commons.version>3.10</apache.commons.version>
+		<fasterxml.version>2.13.0-rc1</fasterxml.version>		
+		
+		<!-- Encoding -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		      
+		
+		<!-- Java Version -->
 		<java.version>1.8</java.version>
 		      
+		<!-- Maven -->
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
-		
 		<maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>
 		
 		<!-- Testing Frameworks -->
@@ -29,15 +36,14 @@
 		<hamcrest.version>2.2</hamcrest.version>
 		<truth.version>1.0.1</truth.version>
 		<mockito.version>3.11.2</mockito.version>
-		<wiremock.version>2.29.0</wiremock.version>
+		<wiremock.version>2.29.1</wiremock.version>
 		<cucumber.version>6.10.4</cucumber.version>		
 		<selenium.version>4.0.0-beta-4</selenium.version>
 		<pact.version>4.0.10</pact.version>
 		<assertj.version>3.20.2</assertj.version>
 		
 		<!-- Spring Boot -->
-		<spring.boot.version>2.5.2</spring.boot.version>
-	
+		<spring.boot.version>2.5.3</spring.boot.version>
 	</properties>
 	
 	<!-- ================================================================= -->
@@ -86,21 +92,30 @@
 		<dependency>
 		    <groupId>com.google.code.gson</groupId>
 		    <artifactId>gson</artifactId>
-		    <version>2.8.7</version>
-		</dependency>
-        <!-- Used for StringUtils helper -->
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>3.10</version>
+		    <version>${google.gson.version}</version>
 		</dependency>
 		
 		<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
 		<dependency>
 		    <groupId>com.google.guava</groupId>
 		    <artifactId>guava</artifactId>
-		    <version>30.1.1-jre</version>
+		    <version>${google.guava.version}</version>
 		</dependency>
+		
+        <!-- Used for StringUtils helper -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${apache.commons.version}</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>${fasterxml.version}</version>
+		</dependency>
+		
  		<!-- ================================================================= -->
  		<!-- JUnit 5 Framework -->
  		<!-- ================================================================= -->
@@ -164,6 +179,10 @@
 		    <version>${mockito.version}</version>
 		    <scope>test</scope>
 		</dependency>
+
+		<!-- ================================================================= -->       
+        <!-- WireMock Framework -->
+		<!-- ================================================================= -->
 		
 		<!-- https://mvnrepository.com/artifact/com.github.tomakehurst/wiremock-jre8 -->
 		<dependency>
@@ -256,10 +275,30 @@
 		<!-- Pact Framework -->
 		<!-- ================================================================= -->
 		
-		<!-- https://mvnrepository.com/artifact/au.com.dius/pact-jvm-provider -->
+		<dependency>
+		    <groupId>au.com.dius</groupId>
+		    <artifactId>pact-jvm-provider-junit5</artifactId>
+		    <version>${pact.version}</version>
+		    <scope>test</scope>
+		</dependency>
+		
+		<dependency>
+		    <groupId>au.com.dius</groupId>
+		    <artifactId>pact-jvm-consumer-junit5</artifactId>
+		    <version>${pact.version}</version>
+		</dependency>
+		
+			<!-- https://mvnrepository.com/artifact/au.com.dius/pact-jvm-provider -->
 		<dependency>
 		    <groupId>au.com.dius</groupId>
 		    <artifactId>pact-jvm-provider</artifactId>
+            <version>${pact.version}</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/au.com.dius/pact-jvm-consumer-junit -->
+		<dependency>
+		    <groupId>au.com.dius</groupId>
+		    <artifactId>pact-jvm-consumer-junit</artifactId>
             <version>${pact.version}</version>
 		</dependency>
 		
@@ -270,12 +309,7 @@
             <version>${pact.version}</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/au.com.dius/pact-jvm-consumer-junit -->
-		<dependency>
-		    <groupId>au.com.dius</groupId>
-		    <artifactId>pact-jvm-consumer-junit</artifactId>
-            <version>${pact.version}</version>
-		</dependency>
+
 		
 		<!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
 		<dependency>
@@ -328,6 +362,14 @@
 		    <artifactId>spring-boot-starter-websocket</artifactId>
 		    <version>${spring.boot.version}</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-webflux -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-webflux</artifactId>
+		  	<version>${spring.boot.version}</version>
+		</dependency>
+
 		
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security -->
 		<!-- 
@@ -418,12 +460,11 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
-                <!-- 
+
                 <configuration>
-                    <groups>BDD</groups>
+                    <groups>WireMock</groups>
                     <excludedGroups></excludedGroups>
                 </configuration>
-                -->
             </plugin>
 
         </plugins>

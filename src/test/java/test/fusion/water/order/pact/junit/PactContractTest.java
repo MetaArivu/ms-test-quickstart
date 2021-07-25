@@ -13,48 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package test.fusion.water.order.cucumber6.junit;
+package test.fusion.water.order.pact.junit;
 
 import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.BeforeClass;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 
-import io.cucumber.junit.Cucumber;
-import io.cucumber.junit.CucumberOptions;
+import au.com.dius.pact.consumer.junit5.PactConsumerTestExt;
+
 import test.fusion.water.order.junit5.extensions.TestTimeExtension;
-import test.fusion.water.order.selenium4.driver.WebDriverChrome;
 
 /**
  * 
  * @author arafkarsh
  *
  */
-
 @Tag("Critical")
 @Tag("BDD")
 @TestMethodOrder(OrderAnnotation.class)
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@RunWith(Cucumber.class)
-@CucumberOptions(
-		monochrome = true,
-		plugin = {"pretty", 
-				"html:target/cucumber-report/cucumber.html",
-                "json:target/cucumber-report/cucumber.json",
-                "junit:target/cucumber-report/cucumber.xml"},
-		features = {"src/test/java/test/fusion/water/order/cucumber6/specs/"},
-		glue = {"test.fusion.water.order.cucumber6.steps"}
-)
+@ExtendWith(PactConsumerTestExt.class)
 @ExtendWith(TestTimeExtension.class)
-public class PaymentTest {
-
-	@BeforeClass
-	public static void setupAll() {
-		WebDriverChrome.initialize();
-	}
+public class PactContractTest {
 
 }
