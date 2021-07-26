@@ -21,6 +21,8 @@ import java.util.Date;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import io.fusion.water.order.utils.Utils;
+
 /**
  * Payment Details
  * 
@@ -78,5 +80,9 @@ public class PaymentDetails {
 	 */
 	public PaymentType getPaymentType() {
 		return paymentType;
+	}
+	
+	public String toString() {
+		return Utils.toJsonString(this);
 	}
 }

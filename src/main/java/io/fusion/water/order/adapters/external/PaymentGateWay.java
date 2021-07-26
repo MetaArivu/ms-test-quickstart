@@ -15,6 +15,15 @@
  */
 package io.fusion.water.order.adapters.external;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 
 import io.fusion.water.order.domainLayer.models.PaymentDetails;
@@ -29,16 +38,39 @@ import io.fusion.water.order.utils.Utils;
 @Service
 public class PaymentGateWay {
 
-	private String gwURL;
-	private PaymentGateWayRestTemplate gw = new PaymentGateWayRestTemplate();
+	@Value("${remote.host}")
+	private String host;
+	@Value("${remote.port}")
+	private int port;
+	
 	private String payments = "/payments";
+
+	private String gwBaseURL;
+	private String paymentURL;
+	private boolean urlsSet = false;
+	
+	@Autowired
+	private PaymentGateWayRestTemplate gw = new PaymentGateWayRestTemplate();
 	
 	/**
 	 * Set the Payment GateWay
 	 */
-	public PaymentGateWay(String host, int port) {
-		gwURL = "http://" + host + ":" + port;
-		System.out.println("SERVER  |> "+gwURL+payments+"/");
+	public PaymentGateWay(String _host, int _port) {
+		host = _host;
+		port = _port;
+		setURLs();
+	}
+	
+	/**
+	 * Set the Base URLs
+	 */
+	private void setURLs() {
+		if(!urlsSet) {
+			gwBaseURL = "http://" + host + ":" + port;
+			paymentURL = gwBaseURL+payments;
+			urlsSet = true;
+			System.out.println("SERVER  |> "+paymentURL+"/");
+		}
 	}
 	
 	/**
@@ -47,9 +79,27 @@ public class PaymentGateWay {
 	 * @return
 	 */
 	public PaymentStatus processPayments(PaymentDetails _paymentDetails) {
+		setURLs();
 		System.out.println("REQUEST |> "+Utils.toJsonString(_paymentDetails));
-		PaymentStatus ps = gw.postForObject(gwURL + "/payments", _paymentDetails, PaymentStatus.class);
+	    // Set Headers
+		HttpHeaders headers = new HttpHeaders();
+	    headers.setContentType(MediaType.APPLICATION_JSON);
+	    headers.add("sessionId", UUID.randomUUID().toString());
+	    List<String> cookies = new ArrayList<>();
+	    cookies.add("token="+UUID.randomUUID().toString());
+	    cookies.add("domain=arafkarsh.com");
+	    headers.put(HttpHeaders.COOKIE, cookies);
+	    
+		HttpEntity<PaymentDetails> request = new HttpEntity<PaymentDetails>
+											(_paymentDetails, headers);
+		System.out.println("REQUEST |> "+Utils.toJsonString(request));
+
+		// Call Remote Service > POST
+		PaymentStatus ps = gw.postForObject(paymentURL, request, 
+											PaymentStatus.class);
+
 		System.out.println("RESPONSE|> "+Utils.toJsonString(ps));
+		
 		return ps;
 	}
 }

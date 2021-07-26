@@ -1,0 +1,14 @@
+{
+    "headers": {
+        "Content-Type": ["application/json"],
+        "sessionId": ["2bd4628c-ef17-4bfa-8960-01e2a077b26e"],
+        "Cookie": ["token=289d44f6-fa5a-45f0-a3f3-c32e28341cb8", 
+            "domain=arafkarsh.com"]
+    },
+    "body": {
+        "transactionId": "7898cdcc-9047-4dd5-9a3c-00623719e37e",
+        "transactionDate": "2021-07-25",
+        "orderValue": 230.0,
+        "paymentType": "CREDIT_CARD"
+    }
+}

@@ -112,7 +112,8 @@ public class PaymentGateWayMockTest {
 
 	    // Verify
 	    verify(postRequestedFor(urlPathEqualTo("/payments"))
-		        .withRequestBody(equalToJson(Utils.toJsonString(pd))));
+		        .withRequestBody(equalToJson(Utils.toJsonString(pd)))
+		        .withHeader("Content-Type", equalTo("application/json")));
 
 	}
 	
@@ -139,7 +140,8 @@ public class PaymentGateWayMockTest {
 
 	    // Verify
 	    verify(postRequestedFor(urlPathEqualTo("/payments"))
-		        .withRequestBody(equalToJson(Utils.toJsonString(pd))));
+		        .withRequestBody(equalToJson(Utils.toJsonString(pd)))
+		        .withHeader("Content-Type", equalTo("application/json")));
 	}
 	
     @AfterEach

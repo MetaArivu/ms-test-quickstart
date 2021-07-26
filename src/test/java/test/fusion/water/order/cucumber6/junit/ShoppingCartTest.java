@@ -50,7 +50,7 @@ import test.fusion.water.order.selenium4.driver.WebDriverChrome;
 		glue = {"test.fusion.water.order.cucumber6.steps"}
 )
 @ExtendWith(TestTimeExtension.class)
-public class PaymentTest {
+public class ShoppingCartTest {
 
 	@BeforeClass
 	public static void setupAll() {
