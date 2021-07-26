@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package test.fusion.water.order.cucumber6.steps;
+package test.fusion.water.order.cucumber6.steps.payment;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;

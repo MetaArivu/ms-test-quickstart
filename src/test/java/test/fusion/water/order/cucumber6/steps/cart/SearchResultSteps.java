@@ -1,4 +1,4 @@
-package test.fusion.water.order.cucumber6.steps;
+package test.fusion.water.order.cucumber6.steps.cart;
 
 
 import io.cucumber.java8.En;

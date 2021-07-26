@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package test.fusion.water.order.cucumber6.junit;
+package test.fusion.water.order.cucumber6.tests;
 
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.TestInstance;
@@ -26,6 +26,9 @@ import org.junit.runner.RunWith;
 
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
+import test.fusion.water.order.junit5.annotations.tests.Critical;
+import test.fusion.water.order.junit5.annotations.tools.Cucumber6;
+import test.fusion.water.order.junit5.annotations.tools.Selenium4;
 import test.fusion.water.order.junit5.extensions.TestTimeExtension;
 import test.fusion.water.order.selenium4.driver.WebDriverChrome;
 
@@ -35,8 +38,9 @@ import test.fusion.water.order.selenium4.driver.WebDriverChrome;
  *
  */
 
-@Tag("Critical")
-@Tag("BDD")
+@Cucumber6()
+@Selenium4()
+@Critical()
 @TestMethodOrder(OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @RunWith(Cucumber.class)
@@ -46,8 +50,8 @@ import test.fusion.water.order.selenium4.driver.WebDriverChrome;
 				"html:target/cucumber-report/cucumber.html",
                 "json:target/cucumber-report/cucumber.json",
                 "junit:target/cucumber-report/cucumber.xml"},
-		features = {"src/test/java/test/fusion/water/order/cucumber6/specs/"},
-		glue = {"test.fusion.water.order.cucumber6.steps"}
+		features = {"src/test/java/test/fusion/water/order/cucumber6/specs/cart/"},
+		glue = {"test.fusion.water.order.cucumber6.steps.cart"}
 )
 @ExtendWith(TestTimeExtension.class)
 public class ShoppingCartTest {
