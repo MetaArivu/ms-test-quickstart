@@ -20,6 +20,11 @@ import org.junit.Test;
 
 import com.github.tomakehurst.wiremock.junit.WireMockClassRule;
 
+import test.fusion.water.order.junit5.annotations.tests.Critical;
+import test.fusion.water.order.junit5.annotations.tests.Functional;
+import test.fusion.water.order.junit5.annotations.tools.Mockito3;
+import test.fusion.water.order.junit5.annotations.tools.WireMock2;
+
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 
 
@@ -30,7 +35,9 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
  *
  */
 
-
+@WireMock2()
+@Critical()
+@Functional()
 public class HttpMockClassRuleTest {
 
 	@ClassRule

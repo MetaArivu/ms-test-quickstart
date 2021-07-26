@@ -9,6 +9,10 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import test.fusion.water.order.junit5.annotations.tests.Critical;
+import test.fusion.water.order.junit5.annotations.tests.Functional;
+import test.fusion.water.order.junit5.annotations.tools.Selenium4;
+import test.fusion.water.order.junit5.annotations.tools.WireMock2;
 import test.fusion.water.order.selenium4.driver.WebDriverChrome;
 
 /**
@@ -24,6 +28,9 @@ import test.fusion.water.order.selenium4.driver.WebDriverChrome;
  * @author arafkarsh
  *
  */
+@Selenium4()
+@Critical()
+@Functional()
 public class WebBrowserTesting {
 
 	public static void main(String[] args) throws InterruptedException {

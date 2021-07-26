@@ -40,6 +40,9 @@ import io.fusion.water.order.adapters.service.PaymentServiceImpl;
 import io.fusion.water.order.domainLayer.models.PaymentDetails;
 import io.fusion.water.order.domainLayer.models.PaymentStatus;
 import io.fusion.water.order.utils.Utils;
+import test.fusion.water.order.junit5.annotations.tests.Critical;
+import test.fusion.water.order.junit5.annotations.tests.Functional;
+import test.fusion.water.order.junit5.annotations.tools.WireMock2;
 import test.fusion.water.order.junit5.extensions.TestTimeExtension;
 import test.fusion.water.order.utils.SampleData;
 
@@ -51,8 +54,9 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
  * @author arafkarsh
  *
  */
-@Tag("WireMock")
-@Tag("Critical")
+@WireMock2()
+@Critical()
+@Functional()
 @TestMethodOrder(OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ExtendWith(TestTimeExtension.class)
