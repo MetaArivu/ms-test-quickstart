@@ -45,6 +45,8 @@ import org.junit.jupiter.api.Assumptions;
 
 import io.fusion.water.order.domainLayer.models.Customer;
 import io.fusion.water.order.domainLayer.models.OrderEntity;
+import test.fusion.water.order.junit5.annotations.tests.Functional;
+import test.fusion.water.order.junit5.annotations.tools.Junit5;
 
 /**
  * Order Test Suite
@@ -52,6 +54,8 @@ import io.fusion.water.order.domainLayer.models.OrderEntity;
  * @author arafkarsh
  *
  */
+@Junit5()
+@Functional()
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class OrderNestedTests {
 
@@ -72,146 +76,18 @@ public class OrderNestedTests {
         order = new OrderEntity();
     }
     
-    @Nested
-    class genericTests {
-	    @Test
-	    @DisplayName("Should Create Customer in order")
-	    public void shouldCreateCustomer() {
-	    	Customer c = new Customer("UUID", "John", "Doe", "0123456789");
-	    	order = new OrderEntity.Builder().addCustomer(c).build();
-	    	assertTrue(order.isCustomerAvailable());
-	    }
-	    
-	    @Test
-	    @DisplayName("Should Not Create Customer When First Name is Null")
-	    public void shouldThrowRuntimeExceptionWhenFirstNameIsNull() {
-	        Assertions.assertThrows(RuntimeException.class, () -> {
-	        	order = new OrderEntity.Builder()
-	        			.addCustomer(new Customer("UUID", null, "Doe", "0123456789"))
-	        			.build();
-	        });
-	    }
-	    
-	    @Test
-	    @DisplayName("Should Not Create Customer When Last Name is Null")
-	    public void shouldThrowRuntimeExceptionWhenLastNameIsNull() {
-	        Assertions.assertThrows(RuntimeException.class, () -> {
-	        	order = new OrderEntity.Builder()
-	        			.addCustomer(new Customer("UUID", "John", null, "0123456789"))
-	        			.build();
-	        });
-	    }
-
-	    @Test
-	    @DisplayName("Should Not Create Contact When Phone Number is Null")
-	    public void shouldThrowRuntimeExceptionWhenPhoneNumberIsNull() {
-	        Assertions.assertThrows(RuntimeException.class, () -> {
-	        	order = new OrderEntity.Builder()
-	        			.addCustomer(new Customer("UUID", "John", "Doe", null))
-	        			.build();        
-	        });
-	    }
-	    
-	    @Test
-	    @DisplayName("Should Create Customer if run on Linux OS")
-	    @EnabledOnOs(value = OS.LINUX, disabledReason = "Should Run only on Linux")
-	    public void shouldCreateOrderOnLinux() {
-	    	order = new OrderEntity.Builder()
-	    			.addCustomer(new Customer("UUID", "John", "Doe", "0123456789"))
-	    			.build();
-	    	assertTrue(order.isCustomerAvailable());
-	    }
-	    
-	    /**
-	     * Set the Property in Run Configuration Properties
-	     * -ea -DENV=DEV (in VM Arguments)
-	     */
-	    @Test
-	    @DisplayName("Test Order Creation on Developer Machine")
-	    public void shouldTestOrderCreationOnDEV() {
-	        Assumptions.assumeTrue("DEV".equals(System.getProperty("ENV")));
-	    	order = new OrderEntity.Builder()
-	    			.addCustomer(new Customer("UUID", "John", "Doe", "0123456789"))
-	    			.build(); 
-	    	assertTrue(order.isCustomerAvailable());
-	    }
-    }
-    
-    @Nested
-    class RepeatedTests {
-	    @DisplayName("Repeat Contact Creation Test 3 Times")
-	    @RepeatedTest(value = 3,
-	            name = "Repeating Order Creation Test {currentRepetition} of {totalRepetitions}")
-	    public void shouldTestOrderCreationRepeatedly() {
-	    	order = new OrderEntity.Builder()
-	    			.addCustomer(
-	    					new Customer
-	    					("UUID", "John", "Doe", "0123456789"))
-	    			.build(); 
-	    	assertTrue(order.isCustomerAvailable());
-	    }
-    }
-    
-    @Nested
-    class ParametrizedTests {
-	    @DisplayName("Phone Number should match the required Format")
-	    @ParameterizedTest
-	    @ValueSource(strings = {"0123456777", "0123456888", "0123456999"})
-	    public void shouldTestPhoneNumberFormatUsingValueSource(String phoneNumber) {
-	    	order = new OrderEntity.Builder()
-	    			.addCustomer(
-	    					new Customer
-	    					("UUID", "John", "Doe", phoneNumber))
-	    			.build(); 
-	    	assertTrue(order.isCustomerAvailable());
-	    	assertEquals(1, order.getCustomer().getPhoneList().size());
-	    }
-	    
-	    @DisplayName("CSV Source Case - Phone Number should match the required Format")
-	    @ParameterizedTest
-	    @CsvSource({"0123456777", "0123456888", "0123456999"})
-	    public void shouldTestPhoneNumberFormatUsingCSVSource(String phoneNumber) {
-	    	order = new OrderEntity.Builder()
-	    			.addCustomer(
-	    					new Customer
-	    					("UUID", "John", "Doe", phoneNumber))
-	    			.build(); 
-	    	assertTrue(order.isCustomerAvailable());
-	    	assertEquals(1, order.getCustomer().getPhoneList().size());
-	    }
-	    
-	    @DisplayName("CSV File Source Case - Phone Number should match the required Format")
-	    @ParameterizedTest
-	    @CsvFileSource(resources = "/phoneList.csv")
-	    public void shouldTestPhoneNumberFormatUsingCSVFileSource(String phoneNumber) {
-	    	order = new OrderEntity.Builder()
-	    			.addCustomer(
-	    					new Customer
-	    					("UUID", "John", "Doe", phoneNumber))
-	    			.build(); 
-	    	assertTrue(order.isCustomerAvailable());
-	    	assertEquals(1, order.getCustomer().getPhoneList().size());
-	    }
-	    
-    }
-    
-    @DisplayName("Method Source Case - Phone Number should match the required Format")
-    @ParameterizedTest
-    @MethodSource("phoneNumberList")
-    public void shouldTestPhoneNumberFormatUsingMethodSource(String phoneNumber) {
+    @DisplayName("Repeat Contact Creation Test 3 Times")
+    @RepeatedTest(value = 3,
+            name = "Repeating Order Creation Test {currentRepetition} of {totalRepetitions}")
+    public void shouldTestOrderCreationRepeatedly() {
     	order = new OrderEntity.Builder()
     			.addCustomer(
     					new Customer
-    					("UUID", "John", "Doe", phoneNumber))
+    					("UUID", "John", "Doe", "0123456789"))
     			.build(); 
     	assertTrue(order.isCustomerAvailable());
-    	assertEquals(1, order.getCustomer().getPhoneList().size());
     }
 
-    private static List<String> phoneNumberList() {
-        return Arrays.asList("0123456789", "0123456798", "0123456897");
-    }
-    
     @AfterEach
     public void tearDown() {
         System.out.println("Should Execute After Each Test");

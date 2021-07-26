@@ -14,25 +14,31 @@
  * limitations under the License.
  */
 
-package test.fusion.water.order.junit5.annotations;
+package test.fusion.water.order.junit5.annotations.tests;
 
-import java.lang.annotation.ElementType;
+import org.junit.jupiter.params.provider.ArgumentsProvider;
+import org.junit.jupiter.params.provider.ArgumentsSource;
+import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import org.junit.jupiter.api.Tag;
+import java.lang.annotation.*;
 
 /**
  * 
  * @author arafkarsh
  *
  */
-@Target({ ElementType.TYPE, ElementType.METHOD })
+@Documented
+@Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@Tag("non-functional")
-@Tag("performance")
-@Tag("stress")
-public @interface PerformanceStress {
+@ArgumentsSource(ArgumentsProvider.class)
+public @interface VariableSource {
 
+    /**
+     * Represents the name of the static variable to 
+     * load the test arguments from.
+     *
+     * @return Static variable name.
+     */
+    String value();
 }
-

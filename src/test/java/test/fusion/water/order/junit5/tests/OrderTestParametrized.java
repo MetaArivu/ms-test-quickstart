@@ -53,7 +53,9 @@ import org.junit.jupiter.api.Order;
 import io.fusion.water.order.domainLayer.models.Customer;
 import io.fusion.water.order.domainLayer.models.OrderEntity;
 import io.fusion.water.order.utils.Utils;
-import test.fusion.water.order.junit5.annotations.VariableSource;
+import test.fusion.water.order.junit5.annotations.tests.Functional;
+import test.fusion.water.order.junit5.annotations.tests.VariableSource;
+import test.fusion.water.order.junit5.annotations.tools.Junit5;
 import test.fusion.water.order.junit5.extensions.TestTimeExtension;
 
 import static java.lang.invoke.MethodHandles.lookup;
@@ -66,7 +68,8 @@ import org.slf4j.Logger;
  * @author arafkarsh
  *
  */
-@Tag("Critical")
+@Junit5()
+@Functional()
 @TestMethodOrder(OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 // @PrintTestDuration
@@ -98,7 +101,6 @@ public class OrderTestParametrized {
     @ParameterizedTest
     @ValueSource(strings = {"0123456777", "0123456888", "0123456999"})
     @Order(1)
-    @Tag("functional")
     public void shouldTestPhoneNumberFormatUsingValueSource(String phoneNumber) {
     	order = new OrderEntity.Builder()
     			.addCustomer(
@@ -113,7 +115,6 @@ public class OrderTestParametrized {
     @ParameterizedTest
     @ValueSource(ints = {1, 3, 5, -3, 15, Integer.MAX_VALUE}) // six numbers
     @Order(2)
-    @Tag("non-functional")
     public void isOddShouldReturnTrueForOddNumbers(int number) {
         assertTrue(Utils.Numbers.isOdd(number));
     }
@@ -122,7 +123,6 @@ public class OrderTestParametrized {
     @ParameterizedTest
     @NullSource
     @Order(3)
-    @Tag("non-functional")
     public void isBlankShouldReturnTrueForNullInputs(String input) {
         assertTrue(Utils.Strings.isBlank(input));
     }
@@ -131,7 +131,6 @@ public class OrderTestParametrized {
     @ParameterizedTest
     @EmptySource
     @Order(4)
-    @Tag("non-functional")
     public void isBlankShouldReturnTrueForEmptyStrings(String input) {
         assertTrue(Utils.Strings.isBlank(input));
     }
@@ -140,7 +139,6 @@ public class OrderTestParametrized {
     @ParameterizedTest
     @NullAndEmptySource
     @Order(5)
-    @Tag("non-functional")
     public void isBlankShouldReturnTrueForNullAndEmptyStrings(String input) {
         assertTrue(Utils.Strings.isBlank(input));
     }
@@ -150,7 +148,6 @@ public class OrderTestParametrized {
     @NullAndEmptySource
     @ValueSource(strings = {"  ", "\t", "\n"})
     @Order(6)
-    @Tag("non-functional")
     public void isBlank_ShouldReturnTrueForAllTypesOfBlankStrings(String input) {
         assertTrue(Utils.Strings.isBlank(input));
     }
@@ -159,8 +156,7 @@ public class OrderTestParametrized {
     @ParameterizedTest
     @EnumSource(Month.class) 
     @Order(7)
-    @Tag("non-functional")
-    void getValueForAMonthIsAlwaysBetweenOneAndTwelve(Month month) {
+    public void getValueForAMonthIsAlwaysBetweenOneAndTwelve(Month month) {
         int monthNumber = month.getValue();
         assertTrue(monthNumber > 0 && monthNumber < 13);
     }
@@ -170,7 +166,6 @@ public class OrderTestParametrized {
     @EnumSource(value = Month.class, names = 
 				{"APRIL", "JUNE", "SEPTEMBER", "NOVEMBER"})
     @Order(8)
-    @Tag("non-functional")
     public void someMonths_Are30DaysLong(Month month) {
         final boolean isALeapYear = false;
         assertEquals(30, month.length(isALeapYear));
@@ -180,7 +175,6 @@ public class OrderTestParametrized {
     @ParameterizedTest
     @CsvSource({"0123456777", "0123456888", "0123456999"})
     @Order(9)
-    @Tag("functional")
     public void shouldTestPhoneNumberFormatUsingCSVSource(String phoneNumber) {
     	order = new OrderEntity.Builder()
     			.addCustomer(
@@ -195,7 +189,6 @@ public class OrderTestParametrized {
     @ParameterizedTest
     @CsvFileSource(resources = "/phoneList.csv")
     @Order(10)
-    @Tag("functional")
     public void shouldTestPhoneNumberFormatUsingCSVFileSource(String phoneNumber) {
     	order = new OrderEntity.Builder()
     			.addCustomer(
@@ -210,7 +203,6 @@ public class OrderTestParametrized {
     @ParameterizedTest
     @MethodSource("phoneNumberList")
     @Order(11)
-    @Tag("functional")
     public void shouldTestPhoneNumberFormatUsingMethodSource(String phoneNumber) {
     	order = new OrderEntity.Builder()
     			.addCustomer(
@@ -229,8 +221,7 @@ public class OrderTestParametrized {
     @ParameterizedTest
     @ArgumentsSource(CustomerArgumentProvider.class)
     @Order(12)
-    @Tag("non-functional")
-    void testWithArgumentsSource(
+    public void testWithArgumentsSource(
     		String uuid, String fn, String ln, String phone) {
         log.debug(">>> Parameterized test with (String) {} and (int) {} ", 
         		uuid, fn, ln, phone);
@@ -253,7 +244,6 @@ public class OrderTestParametrized {
 	// @ParameterizedTest
 	@VariableSource("arguments")
     @Order(13)
-    @Tag("non-functional")
 	public void isBlankShouldReturnTrueForNullOrBlankStringsVariableSource(
 	  String input, boolean expected) {
 	    assertEquals(expected, Utils.Strings.isBlank(input));

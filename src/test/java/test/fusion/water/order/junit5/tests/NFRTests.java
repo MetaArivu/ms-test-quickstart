@@ -28,12 +28,20 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.slf4j.Logger;
+
+import test.fusion.water.order.junit5.annotations.tests.NonFunctional;
+import test.fusion.water.order.junit5.annotations.tests.PerformanceLoad;
+import test.fusion.water.order.junit5.annotations.tests.PerformanceStress;
+import test.fusion.water.order.junit5.annotations.tests.Security;
+import test.fusion.water.order.junit5.annotations.tests.Usability;
+import test.fusion.water.order.junit5.annotations.tools.Junit5;
 /**
  * 
  * @author arafkarsh
  *
  */
-@Tag("non-functional")
+@Junit5()
+@NonFunctional()
 @TestMethodOrder(OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class NFRTests {
@@ -41,8 +49,7 @@ public class NFRTests {
 	static final Logger log = getLogger(lookup().lookupClass());
 
     @Test
-    @Tag("performance")
-    @Tag("load")
+    @PerformanceLoad()
     @DisplayName("1. NFR Test (Performance/Load)")
     @Order(1)
     void testOne() {
@@ -50,8 +57,7 @@ public class NFRTests {
     }
 
     @Test
-    @Tag("performance")
-    @Tag("stress")
+    @PerformanceStress()
     @DisplayName("2. NFR Test (Performance/Stress)")
     @Order(2)
     void testTwo() {
@@ -59,7 +65,7 @@ public class NFRTests {
     }
 
     @Test
-    @Tag("security")
+    @Security
     @DisplayName("3. NFR Test (Security)")
     @Order(3)
     void testThree() {
@@ -67,7 +73,7 @@ public class NFRTests {
     }
 
     @Test
-    @Tag("usability")
+    @Usability()
     @DisplayName("4. NFR Test (Usability)")
     @Order(4)
     void testFour() {

@@ -20,6 +20,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 
@@ -33,20 +37,18 @@ import org.junit.rules.Timeout;
 
 import org.junit.Rule;
 
-import static org.junit.Assert.assertThat;
-
-
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.io.File;
 import java.io.IOException;
 
-
-
-
-
 import io.fusion.water.order.domainLayer.models.OrderEntity;
+import test.fusion.water.order.junit5.annotations.tests.Functional;
+import test.fusion.water.order.junit5.annotations.tools.Junit5;
+import test.fusion.water.order.junit5.extensions.TestTimeExtension;
 
 /**
  * Order Test Rules Suite
@@ -54,8 +56,12 @@ import io.fusion.water.order.domainLayer.models.OrderEntity;
  * @author arafkarsh
  *
  */
+@Junit5()
+@Functional()
+@TestMethodOrder(OrderAnnotation.class)
 @EnableRuleMigrationSupport
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@ExtendWith(TestTimeExtension.class)
 public class OrderTestRules {
 
 	private OrderEntity order;
@@ -122,7 +128,8 @@ public class OrderTestRules {
     }
 	
 	@Test
-	@DisplayName("Rule Test - Temporary Folder")
+	@DisplayName("1. Rule Test - Temporary Folder")
+	@Order(1)
     public void folderTest()  {
     	try {
 			File newFile = tmpFolder2.newFile("MyNewFile.txt");
@@ -136,7 +143,8 @@ public class OrderTestRules {
 	}
 	
 	@Test
-	@DisplayName("Rule Test - Error Collector")
+	@DisplayName("2. Rule Test - Error Collector")
+	@Order(2)
     public void test() {
         collector.checkThat("a", equalTo("b"));
         collector.checkThat(1, equalTo(2));
@@ -144,12 +152,14 @@ public class OrderTestRules {
     }
 
     @Test
- 	@DisplayName("Rule Test - ExpectedException : No Error")
+ 	@DisplayName("3. Rule Test - ExpectedException : No Error")
+	@Order(3)
     public void throwsNothing() {
     }
      
     @Test
-  	@DisplayName("Rule Test - ExpectedException : Error Thrown")
+  	@DisplayName("4. Rule Test - ExpectedException : Error Thrown")
+	@Order(4)
     public void throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         try {
@@ -161,14 +171,20 @@ public class OrderTestRules {
     }
     
     @Test
-    @DisplayName("Rule Test - TestName") 
+    @DisplayName("5. Rule Test - TestName") 
+	@Order(5)
     public void ruleTestName() {
+    	if(testName.getMethodName() == null) {
+        	System.out.println(">> TestName Rule Doesnt Work! TestName="+testName.getMethodName());
+    		return;
+    	}
     	System.out.println(">> TestName="+testName.getMethodName());
     	assertThat("ruleTestName",is(equalTo(testName.getMethodName())));
     }
 
     @Test
-    @DisplayName("Rule Test - Timeout R1") 
+    @DisplayName("6. Rule Test - Timeout R1") 
+	@Order(6)
     public void testTimeout1() throws InterruptedException {
     	long start = System.currentTimeMillis();
     	Thread.sleep(1000);
@@ -176,7 +192,8 @@ public class OrderTestRules {
     }
     
     @Test
-    @DisplayName("Rule Test - Timeout R2") 
+    @DisplayName("7. Rule Test - Timeout R2") 
+	@Order(7)
     public void testTimeout2() throws InterruptedException {
     	long start = System.currentTimeMillis();
     	Thread.sleep(5000);

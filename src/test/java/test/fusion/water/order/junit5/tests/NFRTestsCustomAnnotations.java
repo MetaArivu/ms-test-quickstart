@@ -29,16 +29,19 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.slf4j.Logger;
 
-import test.fusion.water.order.junit5.annotations.PerformanceLoad;
-import test.fusion.water.order.junit5.annotations.PerformanceStress;
-import test.fusion.water.order.junit5.annotations.Security;
-import test.fusion.water.order.junit5.annotations.Usability;
+import test.fusion.water.order.junit5.annotations.tests.NonFunctional;
+import test.fusion.water.order.junit5.annotations.tests.PerformanceLoad;
+import test.fusion.water.order.junit5.annotations.tests.PerformanceStress;
+import test.fusion.water.order.junit5.annotations.tests.Security;
+import test.fusion.water.order.junit5.annotations.tests.Usability;
+import test.fusion.water.order.junit5.annotations.tools.Junit5;
 /**
  * 
  * @author arafkarsh
  *
  */
-@Tag("non-functional")
+@Junit5()
+@NonFunctional()
 @TestMethodOrder(OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class NFRTestsCustomAnnotations {

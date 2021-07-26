@@ -20,7 +20,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
 import org.junit.jupiter.params.support.AnnotationConsumer;
 
-import test.fusion.water.order.junit5.annotations.VariableSource;
+import test.fusion.water.order.junit5.annotations.tests.VariableSource;
 
 import java.lang.reflect.Field;
 import java.util.stream.Stream;

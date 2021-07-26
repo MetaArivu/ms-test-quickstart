@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package test.fusion.water.order.junit5.annotations;
+package test.fusion.water.order.junit5.annotations.tests;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -29,8 +29,9 @@ import org.junit.jupiter.api.Tag;
  */
 @Target({ ElementType.TYPE, ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
-@Tag("functional")
-public @interface Functional {
+@Tag("non-functional")
+@Tag("security")
+public @interface Security {
 
 }
 

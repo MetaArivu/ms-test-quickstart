@@ -21,6 +21,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
+import test.fusion.water.order.junit5.annotations.tests.NonFunctional;
+import test.fusion.water.order.junit5.annotations.tools.Junit5;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -34,13 +36,11 @@ import org.junit.jupiter.api.AfterEach;
  * @author arafkarsh
  *
  */
+@Junit5()
+@NonFunctional()
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ConceptExamples {
 
-	
-	// @Rule
-	// public TemporaryFolder tmpFolder = new TemporaryFolder();
-	
 	/**
 	 * if the @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 	 * is available then the method need not be static
