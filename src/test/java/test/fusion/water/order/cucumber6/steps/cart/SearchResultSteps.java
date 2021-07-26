@@ -50,12 +50,15 @@ public class SearchResultSteps implements En {
 		    		+productDetails.getText());
 		    
 		    // 4. Add Product to Cart
+		    // Disable this as Add to Cart Icon is Not Available
+		    /**
 		    WebElement addToCart = _browser.getWebDriver().findElement(
 		    		By.xpath("//*[@id=\"add-to-cart-button\"]"));
 		    System.out.println("Page:2] Add2Cart> "+productDetails.getText());
 		    addToCart.click();
+		    */
 		    System.out.println("Done....... !!!");
-		    Thread.sleep(30000);
+		    Thread.sleep(10000);
 		    _browser.getWebDriver().quit();
 		});
 	}
