@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package test.fusion.water.order.mockito3.services;
+package test.fusion.water.order.mockito3.tests;
 
 import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
@@ -59,6 +59,9 @@ import org.slf4j.Logger;
 import io.fusion.water.order.adapters.service.DeliveryCityServiceImpl;
 import io.fusion.water.order.adapters.service.ShippingServiceImpl;
 import io.fusion.water.order.domainLayer.models.DeliveryCity;
+import test.fusion.water.order.junit5.annotations.tests.Critical;
+import test.fusion.water.order.junit5.annotations.tests.Functional;
+import test.fusion.water.order.junit5.annotations.tools.Mockito3;
 import test.fusion.water.order.junit5.extensions.TestTimeExtension;
 import test.fusion.water.order.mockito3.utils.DeliveryCityAnswer;
 
@@ -69,7 +72,9 @@ import test.fusion.water.order.mockito3.utils.DeliveryCityAnswer;
  *
  */
 
-@Tag("Critical")
+@Mockito3()
+@Critical()
+@Functional()
 @TestMethodOrder(OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ExtendWith(TestTimeExtension.class)

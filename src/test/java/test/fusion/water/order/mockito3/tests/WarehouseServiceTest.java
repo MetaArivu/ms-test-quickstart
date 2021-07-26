@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package test.fusion.water.order.mockito3.services;
+package test.fusion.water.order.mockito3.tests;
 
 
 import static java.lang.invoke.MethodHandles.lookup;
@@ -62,6 +62,9 @@ import io.fusion.water.order.domainLayer.models.PaymentType;
 import io.fusion.water.order.domainLayer.models.ShippingAddress;
 import io.fusion.water.order.domainLayer.services.PaymentService;
 import io.fusion.water.order.domainLayer.services.ShippingService;
+import test.fusion.water.order.junit5.annotations.tests.Critical;
+import test.fusion.water.order.junit5.annotations.tests.Functional;
+import test.fusion.water.order.junit5.annotations.tools.Mockito3;
 import test.fusion.water.order.junit5.extensions.TestTimeExtension;
 import io.fusion.water.order.domainLayer.services.OrderRepository;
 import io.fusion.water.order.domainLayer.services.OrderService;
@@ -74,7 +77,9 @@ import io.fusion.water.order.domainLayer.services.PackingService;
  *
  */
 
-@Tag("Critical")
+@Mockito3()
+@Critical()
+@Functional()
 @TestMethodOrder(OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ExtendWith(TestTimeExtension.class)
