@@ -22,8 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.slf4j.LoggerFactory.getLogger;
 
-import java.time.LocalDate;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -173,7 +172,7 @@ public class OrderItemGroupTest {
 				_paymentDetails.getTransactionDate(), 
 				"Accepted", 
 				UUID.randomUUID().toString(), 
-				LocalDate.now(), 
+				LocalDateTime.now(), 
 				PaymentType.CREDIT_CARD);
 	}
 	
@@ -189,7 +188,7 @@ public class OrderItemGroupTest {
 				_paymentDetails.getTransactionDate(), 
 				"Declined", 
 				UUID.randomUUID().toString(), 
-				LocalDate.now(), 
+				LocalDateTime.now(), 
 				PaymentType.CREDIT_CARD);
 	}
 	

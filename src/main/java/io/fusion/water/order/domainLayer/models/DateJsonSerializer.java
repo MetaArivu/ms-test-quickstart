@@ -6,7 +6,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
-public class DateJsonSerializer<LocalDate> extends StdSerializer<LocalDate>{
+public class DateJsonSerializer<LocalDateTime> extends StdSerializer<LocalDateTime>{
 
 	public DateJsonSerializer() {
 		this(null, false);
@@ -21,7 +21,7 @@ public class DateJsonSerializer<LocalDate> extends StdSerializer<LocalDate>{
 	private static final long serialVersionUID = -7035242849275956037L;
 
 	@Override
-	public void serialize(LocalDate value, 
+	public void serialize(LocalDateTime value, 
 			JsonGenerator gen, 
 			SerializerProvider provider) throws IOException {
 		gen.writeString(value.toString());		

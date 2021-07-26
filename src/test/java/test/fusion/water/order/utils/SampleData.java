@@ -15,8 +15,7 @@
  */
 package test.fusion.water.order.utils;
 
-import java.time.LocalDate;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import io.fusion.water.order.domainLayer.models.Customer;
@@ -66,7 +65,7 @@ public class SampleData {
 	public static String PaymentDetailsToJson() {
 		PaymentDetails p = new PaymentDetails(
 				"fb908151-d249-4d30-a6a1-4705729394f4", 
-				LocalDate.now(), 
+				LocalDateTime.now(), 
 				230, 
 				PaymentType.CREDIT_CARD
 				);
@@ -81,7 +80,7 @@ public class SampleData {
 	public static PaymentDetails getPaymentDetails() {
 		return new PaymentDetails(
 				UUID.randomUUID().toString(), 
-				LocalDate.now(), 
+				LocalDateTime.now(), 
 				230, 
 				PaymentType.CREDIT_CARD
 				);
@@ -95,10 +94,10 @@ public class SampleData {
 	public static String PaymentStatusToJson() {
 		PaymentStatus ps = new PaymentStatus(
 				"fb908151-d249-4d30-a6a1-4705729394f4", 
-				LocalDate.now(), 
+				LocalDateTime.now(), 
 				"Accepted", 
 				UUID.randomUUID().toString(), 
-				LocalDate.now(), 
+				LocalDateTime.now(), 
 				PaymentType.CREDIT_CARD);
 		
 		return Utils.toJsonString(ps);
@@ -112,13 +111,13 @@ public class SampleData {
 	 * @return
 	 */
 	public static PaymentStatus getPaymentStatusAccepted(
-			String _txId, LocalDate _txDate) {
+			String _txId, LocalDateTime _txDate) {
 		return new PaymentStatus(
 				_txId, 
 				_txDate, 
 				"Accepted", 
 				UUID.randomUUID().toString(), 
-				LocalDate.now(), 
+				LocalDateTime.now(), 
 				PaymentType.CREDIT_CARD);
 	}
 	
@@ -130,13 +129,13 @@ public class SampleData {
 	 * @return
 	 */
 	public static PaymentStatus getPaymentStatusDeclined(
-			String _txId, LocalDate _txDate) {
+			String _txId, LocalDateTime _txDate) {
 		return new PaymentStatus(
 				_txId, 
 				_txDate, 
 				"Declined", 
 				UUID.randomUUID().toString(), 
-				LocalDate.now(), 
+				LocalDateTime.now(), 
 				PaymentType.CREDIT_CARD);
 	}
 	

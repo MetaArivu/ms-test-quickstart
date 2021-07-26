@@ -28,14 +28,14 @@ import io.fusion.water.order.domainLayer.models.DeliveryCity;
  * @author arafkarsh
  *
  */
-public class PaymentProcessingMock<T> implements Answer<Object> {
+public class PaymentProcessingAnswer<T> implements Answer<Object> {
 	
 	private HashMap<String, DeliveryCity> cities;
 
 	/**
 	 * Custom Delivery City Answers
 	 */
-	public PaymentProcessingMock() {
+	public PaymentProcessingAnswer() {
 		cities = new HashMap<String, DeliveryCity>();
 		loadData();
 	}

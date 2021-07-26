@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package test.fusion.water.order.pact.junit;
+package test.fusion.water.order.pact4.junit;
 
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.TestMethodOrder;

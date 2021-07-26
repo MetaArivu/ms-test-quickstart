@@ -17,6 +17,7 @@
 package io.fusion.water.order.domainLayer.models;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
@@ -36,7 +37,7 @@ public class OrderEntity {
 	private String orderId;
 	
 	@JsonSerialize(using = DateJsonSerializer.class)
-	private LocalDate orderDate;
+	private LocalDateTime orderDate;
 	
 	private Customer customer;
 	
@@ -170,7 +171,7 @@ public class OrderEntity {
 		 */
 		public Builder addCustomer(Customer _customer) {
 			order.orderId = UUID.randomUUID().toString();
-			order.orderDate = LocalDate.now();
+			order.orderDate = LocalDateTime.now();
 			order.orderStatus = OrderStatus.INITIATED;
 			order.addCustomer(_customer);
 			return this;
@@ -252,7 +253,7 @@ public class OrderEntity {
 	/**
 	 * @return the orderDate
 	 */
-	public LocalDate getOrderDate() {
+	public LocalDateTime getOrderDate() {
 		return orderDate;
 	}
 	
