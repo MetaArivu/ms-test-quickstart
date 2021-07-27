@@ -6,11 +6,11 @@ All the tests will be fully automated as part of your CI/CD pipeline.
 ## Testing Categories for Microservices
 
 - Unit Testing (JUnit)
-- Component Testing (Cucumber)
-- Contract Testing (Mockito)
-- Integration Testing (PACT, WireMock)
+- Component Testing (Cucumber + JUnit)
+- Behavior &  Contract Testing (Mockito + JUnit)
+- Integration & Contract Testing (PACT & WireMock + JUnit)
+- UI Testing - User Flow (Selenium with Cucumber + JUnit)
 
-- UI Testing - User Flow (Selenium with Cucumber and JUnit)
 
 ## Dependencies
 
