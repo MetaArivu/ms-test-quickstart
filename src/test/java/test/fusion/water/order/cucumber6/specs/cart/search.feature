@@ -1,6 +1,6 @@
 #Author: araf.karsh@metamagic.in
 #Keywords Summary :
-#Feature: Buy Product from Amazon
+#Feature: Amazon Search Result
 @tag
 Feature: Amazon Search Result
 
@@ -14,4 +14,4 @@ Feature: Amazon Search Result
     Examples: 
       | keyword     | title                                |
       | iPhone 12   | Apple iPhone 12 (128GB)              |
-      | iPhone 12   | Google Pixel 5 5G 128GB - Just Black |
+      | iPhone 12   | Google Pixel 5 5G 128GB - Just Black |         

@@ -16,7 +16,6 @@
 
 package test.fusion.water.order.cucumber6.tests;
 
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.BeforeClass;
@@ -28,9 +27,7 @@ import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 import test.fusion.water.order.junit5.annotations.tests.Critical;
 import test.fusion.water.order.junit5.annotations.tools.Cucumber6;
-import test.fusion.water.order.junit5.annotations.tools.Selenium4;
 import test.fusion.water.order.junit5.extensions.TestTimeExtension;
-import test.fusion.water.order.selenium4.driver.WebDriverChrome;
 
 /**
  * 
@@ -58,5 +55,4 @@ public class PaymentTest {
 	@BeforeClass
 	public static void setupAll() {
 	}
-
 }

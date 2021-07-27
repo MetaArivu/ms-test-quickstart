@@ -16,7 +16,6 @@
 
 package test.fusion.water.order.cucumber6.tests;
 
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.BeforeClass;
