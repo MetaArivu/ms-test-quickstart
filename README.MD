@@ -1,5 +1,7 @@
 # Order Microservice
 
+![Microservice Testing Strategies](https://raw.githubusercontent.com/MetaArivu/ms-order-service/master/diagrams/Microservices-Testing-Strategies-1.jpg)
+
 The following Test Categories helps you to automate the testing for Microservices based development resulting in ZERO End-2-End Testing.
 All the tests will be fully automated as part of your CI/CD pipeline.
 
@@ -11,12 +13,15 @@ All the tests will be fully automated as part of your CI/CD pipeline.
 - Integration & Contract Testing (PACT & WireMock + JUnit)
 - UI Testing - User Flow (Selenium with Cucumber + JUnit)
 
+![Microservices Testing Categories](https://raw.githubusercontent.com/MetaArivu/ms-order-service/master/diagrams/Microservices-Testing-Strategies-2.jpg)
 
 ## Dependencies
 
 Spring Boot 2 (2.5.3)
 
 ## Testing Frameworks
+
+![Microservices Testing Frameworks](https://raw.githubusercontent.com/MetaArivu/ms-order-service/master/diagrams/Microservices-Testing-Tools.jpg)
 
 - JUnit 5 (5.7.2)
 - Hamcrest 2 (2.2)
