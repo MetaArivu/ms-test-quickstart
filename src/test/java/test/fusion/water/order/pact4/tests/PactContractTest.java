@@ -15,13 +15,27 @@
  */
 package test.fusion.water.order.pact4.tests;
 
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import au.com.dius.pact.consumer.junit5.PactConsumerTestExt;
+import au.com.dius.pact.consumer.junit5.PactTestFor;
+import au.com.dius.pact.consumer.MockServer;
+import au.com.dius.pact.consumer.dsl.PactDslJsonBody;
+import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
+import au.com.dius.pact.consumer.junit5.PactConsumerTestExt;
+import au.com.dius.pact.consumer.junit5.PactTestFor;
+import au.com.dius.pact.core.model.RequestResponsePact;
+import au.com.dius.pact.core.model.annotations.Pact;
 
+import io.fusion.water.order.domainLayer.services.PaymentService;
+
+import test.fusion.water.order.junit5.annotations.tests.Critical;
+import test.fusion.water.order.junit5.annotations.tests.Functional;
+import test.fusion.water.order.junit5.annotations.tools.Pact4;
 import test.fusion.water.order.junit5.extensions.TestTimeExtension;
 
 /**
@@ -29,11 +43,21 @@ import test.fusion.water.order.junit5.extensions.TestTimeExtension;
  * @author arafkarsh
  *
  */
-@Tag("Critical")
-@Tag("BDD")
+//Following Annotations Tags the Tests --------------------------------
+@Pact4()
+@Critical()
+@Functional()
+//Tagging done ---------------------------------------------------------
 @TestMethodOrder(OrderAnnotation.class)
-@ExtendWith(PactConsumerTestExt.class)
 @ExtendWith(TestTimeExtension.class)
+@ExtendWith(PactConsumerTestExt.class)
+@PactTestFor(providerName = "PaymentService")
+@SpringBootTest(classes={io.fusion.water.order.OrderApplication.class})
 public class PactContractTest {
+	
+	@Autowired
+	PaymentService paymentService;
+	
+	
 
 }

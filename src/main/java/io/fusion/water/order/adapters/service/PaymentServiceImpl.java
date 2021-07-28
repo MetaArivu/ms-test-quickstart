@@ -59,6 +59,24 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 	
 	/**
+	 * Returns the Echo from the Remote Server
+	 * @return
+	 */
+	public String remoteEcho(String _word) {
+		// return "Hello "+_word;
+		return paymentGateWay.remoteEcho(_word);
+	}
+	
+	/**
+	 * 
+	 * @param _paymentDetails
+	 * @return
+	 */
+	public PaymentStatus processPayments(PaymentDetails _paymentDetails) {
+		return paymentGateWay.processPayments(_paymentDetails);
+	}
+	
+	/**
 	 * Default 
 	 * @param _paymentDetails
 	 * @return
@@ -70,15 +88,6 @@ public class PaymentServiceImpl implements PaymentService {
 				"Accepted", "Ref-uuid", 
 				LocalDateTime.now(), 
 				PaymentType.CREDIT_CARD);
-	}
-	
-	/**
-	 * 
-	 * @param _paymentDetails
-	 * @return
-	 */
-	public PaymentStatus processPayments(PaymentDetails _paymentDetails) {
-		return paymentGateWay.processPayments(_paymentDetails);
 	}
 
 }

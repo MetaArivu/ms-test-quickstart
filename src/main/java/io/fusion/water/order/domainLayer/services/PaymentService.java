@@ -45,10 +45,17 @@ public interface PaymentService {
 	
 	
 	/**
-	 * Returns the word with a greeting
+	 * Returns the word with a greeting from Local 
 	 * 
 	 * @return
 	 */
 	public String echo(String _word);
+	
+	/**
+	 * Returns the Echo from Remote Server
+	 * @param _word
+	 * @return
+	 */
+	public String remoteEcho(String _word);
 
 }

@@ -38,15 +38,19 @@ import io.fusion.water.order.utils.Utils;
 @Service
 public class PaymentGateWay {
 
+	
 	@Value("${remote.host}")
 	private String host = "localhost";
 	@Value("${remote.port}")
 	private int port = 8080;
 	
-	private String payments = "/payments";
+	private String payments 	= "/payments";
+	private String remoteEcho 	= "/remoteEcho";
 
 	private String gwBaseURL;
 	private String paymentURL;
+	private String echoURL;
+
 	private boolean urlsSet = false;
 	
 	@Autowired
@@ -74,10 +78,45 @@ public class PaymentGateWay {
 	private void setURLs() {
 		if(!urlsSet) {
 			gwBaseURL = "http://" + host + ":" + port;
-			paymentURL = gwBaseURL+payments;
+			paymentURL = gwBaseURL + payments;
+			echoURL = gwBaseURL + remoteEcho;
 			urlsSet = true;
-			System.out.println("SERVER  |> "+paymentURL+"/");
+			System.out.println("PaymentGateway Service Initialize...............");
+			System.out.println("REMOTE  |> "+paymentURL+"/");
+			System.out.println("REMOTE  |> "+echoURL+"/");
 		}
+	}
+
+	/**
+	 * Do a Remote Echo - For Testing Purpose ONLY
+	 * 
+	 * @param _word
+	 * @return
+	 */
+	public String remoteEcho(String _word) {
+		setURLs();
+		System.out.println("REQUEST |> "+Utils.toJsonString(_word));
+	    // Set Headers
+		HttpHeaders headers = new HttpHeaders();
+	    headers.setContentType(MediaType.APPLICATION_JSON);
+	    headers.add("sessionId", UUID.randomUUID().toString());
+	    headers.add("app", "bigBasket");
+
+	    List<String> cookies = new ArrayList<>();
+	    cookies.add("token="+UUID.randomUUID().toString());
+	    cookies.add("domain=arafkarsh.com");
+	    headers.put(HttpHeaders.COOKIE, cookies);
+	    
+		HttpEntity<String> request = new HttpEntity<String>
+											(_word, headers);
+		System.out.println("REQUEST |> "+Utils.toJsonString(request));
+
+		// Call Remote Service > POST
+		String response = gw.postForObject(echoURL, request, String.class);
+
+		System.out.println("RESPONSE|> "+Utils.toJsonString(response));
+		
+		return response;
 	}
 	
 	/**
@@ -92,6 +131,8 @@ public class PaymentGateWay {
 		HttpHeaders headers = new HttpHeaders();
 	    headers.setContentType(MediaType.APPLICATION_JSON);
 	    headers.add("sessionId", UUID.randomUUID().toString());
+	    headers.add("app", "bigBasket");
+
 	    List<String> cookies = new ArrayList<>();
 	    cookies.add("token="+UUID.randomUUID().toString());
 	    cookies.add("domain=arafkarsh.com");

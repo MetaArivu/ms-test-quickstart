@@ -35,7 +35,7 @@ import io.fusion.water.order.utils.Utils;
 public class SampleData {
 	
 	/**
-	 * Order Entity Sample Data
+	 * Order Entity SampleData Data
 	 * 
 	 * @param args
 	 */
@@ -58,7 +58,7 @@ public class SampleData {
 	}
 	
 	/**
-	 * Payment Details Sample Data
+	 * Payment Details SampleData Data
 	 * 
 	 * @return
 	 */
@@ -87,7 +87,7 @@ public class SampleData {
 	}
 	
 	/**
-	 * Payment Status Sample Data
+	 * Payment Status SampleData Data
 	 * 
 	 * @return
 	 */
