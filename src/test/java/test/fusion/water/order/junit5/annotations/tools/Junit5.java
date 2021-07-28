@@ -32,6 +32,7 @@ import org.junit.jupiter.api.Tag;
 @Tag("Junit5")
 @Tag("Junit")
 @Tag("Unit")
+@Tag("All")
 public @interface Junit5 {
 
 }

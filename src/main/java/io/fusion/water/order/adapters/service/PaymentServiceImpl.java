@@ -39,12 +39,23 @@ public class PaymentServiceImpl implements PaymentService {
 	@Autowired
 	PaymentGateWay paymentGateWay;
 	
+	public PaymentServiceImpl() {
+	}
+	
 	/**
 	 * 
 	 * @param _gw
 	 */
 	public PaymentServiceImpl(PaymentGateWay _gw) {
 		paymentGateWay = _gw;
+	}
+	
+	/**
+	 * Echo Returns the word with a Greeting
+	 * @return
+	 */
+	public String echo(String _word) {
+		return "Hello "+_word;
 	}
 	
 	/**

@@ -33,6 +33,7 @@ import org.junit.jupiter.api.Tag;
 @Tag("Mockito")
 @Tag("Contracts")
 @Tag("BDD")
+@Tag("All")
 public @interface Mockito3 {
 
 }

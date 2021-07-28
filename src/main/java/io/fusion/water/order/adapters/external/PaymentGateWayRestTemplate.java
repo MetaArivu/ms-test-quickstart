@@ -19,6 +19,7 @@ import static java.util.Arrays.asList;
 
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,6 +32,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
  * @author arafkarsh
  *
  */
+@Service
 public class PaymentGateWayRestTemplate  extends RestTemplate {
 	
     public PaymentGateWayRestTemplate() {

@@ -29,12 +29,12 @@ import org.junit.jupiter.api.Tag;
  */
 @Target({ ElementType.TYPE, ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
-@Tag("Cucumber6")
-@Tag("Cucumber")
-@Tag("BDD")
-@Tag("Component")
+@Tag("SpringBoot")
+@Tag("Junit5")
+@Tag("Junit")
+@Tag("Unit")
 @Tag("All")
-public @interface Cucumber6 {
+public @interface SpringTest2 {
 
 }
 

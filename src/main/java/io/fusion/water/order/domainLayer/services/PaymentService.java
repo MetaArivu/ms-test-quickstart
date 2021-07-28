@@ -42,5 +42,13 @@ public interface PaymentService {
 	 * @return
 	 */
 	public PaymentStatus processPayments(PaymentDetails _paymentDetails);
+	
+	
+	/**
+	 * Returns the word with a greeting
+	 * 
+	 * @return
+	 */
+	public String echo(String _word);
 
 }

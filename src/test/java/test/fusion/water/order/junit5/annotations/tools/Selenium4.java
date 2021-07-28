@@ -33,6 +33,7 @@ import org.junit.jupiter.api.Tag;
 @Tag("Selenium")
 @Tag("BDD")
 @Tag("Component")
+@Tag("All")
 public @interface Selenium4 {
 
 }

@@ -21,6 +21,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
+import io.fusion.water.order.domainLayer.models.OrderEntity;
 import test.fusion.water.order.junit5.annotations.tests.NonFunctional;
 import test.fusion.water.order.junit5.annotations.tools.Junit5;
 
@@ -47,7 +48,12 @@ public class ConceptExamples {
 	 */
     @BeforeAll
     public void setupAll() {
-        System.out.println("== Concepts Examples Suite Execution Started...");
+        System.out.println("@BeforeAll Concepts Examples Suite Execution Started...");
+    }
+    
+    @BeforeEach
+    public void setup() {
+        System.out.println("@BeforeEach.... ");
     }
     
     /**
@@ -69,6 +75,10 @@ public class ConceptExamples {
         System.out.println("T2 : 11 / 0 = "+result);
     }
     
+    @AfterEach
+    public void tearDown() {
+        System.out.println("@AferEach.... Should Execute After Each Test");
+    }
 
 	/**
 	 * if the @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -76,6 +86,6 @@ public class ConceptExamples {
 	 */
     @AfterAll
     public void tearDownAll() {
-        System.out.println("== Concept Examples Suite Execution Completed...");
+        System.out.println("@AfterAll.... Concept Examples Suite Execution Completed...");
     }
 }

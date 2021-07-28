@@ -39,9 +39,9 @@ import io.fusion.water.order.utils.Utils;
 public class PaymentGateWay {
 
 	@Value("${remote.host}")
-	private String host;
+	private String host = "localhost";
 	@Value("${remote.port}")
-	private int port;
+	private int port = 8080;
 	
 	private String payments = "/payments";
 
@@ -51,6 +51,13 @@ public class PaymentGateWay {
 	
 	@Autowired
 	private PaymentGateWayRestTemplate gw = new PaymentGateWayRestTemplate();
+	
+	/**
+	 * 
+	 */
+	public PaymentGateWay() {
+		setURLs();
+	}
 	
 	/**
 	 * Set the Payment GateWay

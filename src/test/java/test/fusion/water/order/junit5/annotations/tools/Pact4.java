@@ -32,6 +32,7 @@ import org.junit.jupiter.api.Tag;
 @Tag("Pact4")
 @Tag("Pact")
 @Tag("Contracts")
+@Tag("All")
 public @interface Pact4 {
 
 }
