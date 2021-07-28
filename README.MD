@@ -17,12 +17,14 @@ All the tests will be fully automated as part of your CI/CD pipeline.
 
 ## Dependencies
 
-Spring Boot 2 (2.5.3)
+- Spring Boot 2 (2.5.3)
+- Maven SureFire Plugin 2 (2.22.1)
 
 ## Testing Frameworks
 
 ![Microservices Testing Frameworks](https://raw.githubusercontent.com/MetaArivu/ms-order-service/master/diagrams/Microservices-Testing-Tools.jpg)
 
+- SpringBootTest 2 (2.5.3)
 - JUnit 5 (5.7.2)
 - Hamcrest 2 (2.2)
 - Mockito 3 (3.11.2)
