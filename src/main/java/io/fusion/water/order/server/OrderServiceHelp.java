@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.fusion.water.order.utils;
+package io.fusion.water.order.server;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,19 +23,22 @@ import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 
 // Logging System
-import org.slf4j.LoggerFactory;
-import ch.qos.logback.classic.Logger;
+import org.slf4j.Logger;
+import static org.slf4j.LoggerFactory.getLogger;
+import static java.lang.invoke.MethodHandles.lookup;
 
 /**
  * 
  * @author arafkarsh
- *
+ * @version 1.0
+ * 
  */
 @Component
 public class OrderServiceHelp {
 	
-	private static final Logger log = (Logger) LoggerFactory.getLogger(OrderServiceHelp.class);
-
+	// Set Logger -> Lookup will automatically determine the class name.
+	private static final Logger log = getLogger(lookup().lookupClass());
+	
 	private static int counter;
 	
 	

@@ -32,7 +32,7 @@ import io.fusion.water.order.domainLayer.models.EchoData;
 import io.fusion.water.order.domainLayer.models.EchoResponseData;
 import io.fusion.water.order.domainLayer.models.PaymentDetails;
 import io.fusion.water.order.domainLayer.models.PaymentStatus;
-import io.fusion.water.order.utils.ServiceConfiguration;
+import io.fusion.water.order.server.ServiceConfiguration;
 import io.fusion.water.order.utils.Utils;
 
 /***

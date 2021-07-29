@@ -13,32 +13,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.fusion.water.order.utils;
+package io.fusion.water.order.server;
  
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
 
-//Logging
-import org.slf4j.LoggerFactory;
-import ch.qos.logback.classic.Logger;
+
+//Logging System
+import org.slf4j.Logger;
+import static org.slf4j.LoggerFactory.getLogger;
+import static java.lang.invoke.MethodHandles.lookup;
+import io.fusion.water.order.utils.CPU;
 
 /**
  * 
  * @author arafkarsh
- *
+ * @version 1.0
  */
 @Configuration
 public class AppEventListener {
 
-	private static final Logger log = (Logger) LoggerFactory.getLogger(AppEventListener.class);
+	// Set Logger -> Lookup will automatically determine the class name.
+	private static final Logger log = getLogger(lookup().lookupClass());
+	
+	@Autowired
+	private ServiceConfiguration  serviceConfig;
 	
 	/**
 	 * 
 	 */
 	@EventListener(ApplicationReadyEvent.class)
 	public void doSomethingAfterStartup() {
-		log.info("Application is getting ready......");
+		log.info("Application is getting ready...... ");
 	    log.info(CPU.printCpuStats());
 		showLogo();
 	}
@@ -47,7 +55,9 @@ public class AppEventListener {
 	 * Shows AOS Logo and Deployed App Details
 	 */
 	public void showLogo() {
-		log.info("Application is ready! ....... ..." 
+		String version = (serviceConfig != null) 
+				? serviceConfig.getServerVersion() : "v0.0.0";
+		log.info("Application is ready! ....... ..."+version 
 				+ OrderServiceHelp.LOGO
 				);
 	}

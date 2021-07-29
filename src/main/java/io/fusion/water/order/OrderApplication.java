@@ -17,15 +17,12 @@ package io.fusion.water.order;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Date;
 
 import javax.annotation.PostConstruct;
-// import java.util.logging.Logger;
 import javax.servlet.MultipartConfigElement;
 
 import org.springframework.boot.ApplicationArguments;
 
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -44,9 +41,10 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-//Logging System
-import org.slf4j.LoggerFactory;
-import ch.qos.logback.classic.Logger;
+// Logging System
+import org.slf4j.Logger;
+import static org.slf4j.LoggerFactory.getLogger;
+import static java.lang.invoke.MethodHandles.lookup;
 
 /**
  * Order Service - Spring Boot Application
@@ -61,15 +59,16 @@ import ch.qos.logback.classic.Logger;
 @SpringBootApplication(scanBasePackages = { "io.fusion.water.order" })
 public class OrderApplication {
 
-	private static final Logger log = (Logger) LoggerFactory.getLogger(OrderApplication.class);
-
+	// Set Logger -> Lookup will automatically determine the class name.
+	private static final Logger log = getLogger(lookup().lookupClass());
+	
 	private final String title = "<h1>Welcome to Order Service<h1/>"
 								+"<h3>Copyright (c) MetaArivu Pvt Ltd, 2021</h3>";
 	
 	private static ConfigurableApplicationContext context;
 	
 	/**
-	 * Start the Application
+	 * Start the Order Service
 	 * 
 	 * @param args
 	 */

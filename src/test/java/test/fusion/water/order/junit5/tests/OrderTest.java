@@ -88,7 +88,8 @@ import org.slf4j.Logger;
 @ExtendWith(TestTimeExtension.class)
 public class OrderTest {
 	
-	static final Logger log = getLogger(lookup().lookupClass());
+	// Set Logger -> Lookup will automatically determine the class name.
+	private static final Logger log = getLogger(lookup().lookupClass());
 
 	private OrderEntity order;
 	private int counter = 1;

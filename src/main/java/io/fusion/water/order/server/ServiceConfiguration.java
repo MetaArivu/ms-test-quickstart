@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.fusion.water.order.utils;
+package io.fusion.water.order.server;
 
 import java.util.HashMap;
 
@@ -46,6 +46,12 @@ public class ServiceConfiguration {
 	private String remoteHost;
 	@Value("${remote.port:9091}")
 	private int remotePort;
+	
+	@Value("${server.restart:false}")
+	private boolean serverRestart;
+	
+	// @Value("${logging.level:INFO}")
+	private String loggingLevel;
 	
 	@Value("${spring.codec.max-in-memory-size:3MB}")
 	private String springCodecMaxMemory;
@@ -121,5 +127,26 @@ public class ServiceConfiguration {
 	 */
 	public String getServerVersion() {
 		return serverVersion;
+	}
+
+	/**
+	 * @return the serverRestart
+	 */
+	public boolean isServerRestart() {
+		return serverRestart;
+	}
+
+	/**
+	 * @return the loggingLevel
+	 */
+	public String getLoggingLevel() {
+		return loggingLevel;
+	}
+
+	/**
+	 * @return the properties
+	 */
+	HashMap<String, String> getProperties() {
+		return properties;
 	}
 }

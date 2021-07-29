@@ -28,7 +28,7 @@ import io.fusion.water.order.domainLayer.models.PaymentDetails;
 import io.fusion.water.order.domainLayer.models.PaymentStatus;
 import io.fusion.water.order.domainLayer.models.PaymentType;
 import io.fusion.water.order.domainLayer.services.PaymentService;
-import io.fusion.water.order.utils.ServiceConfiguration;
+import io.fusion.water.order.server.ServiceConfiguration;
 
 /**
  * Order Payment Service
