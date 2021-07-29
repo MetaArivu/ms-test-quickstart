@@ -24,6 +24,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -96,35 +97,23 @@ public class PactContractTest {
     public void setup() {
         System.out.println("@BeforeEach: Payment Service is autowired using SpringBoot!");
     }
-
-    @Pact(consumer = "OrderService")
-    public RequestResponsePact localEcho(PactDslWithProvider builder) {
-		return builder
-			.given("local echo")
-				.uponReceiving("word")
-				.path("/localEcho")
-				.method("POST")
-				.body(Utils.toJsonString("World"))
-			.willRespondWith()
-				.status(200)
-				.body(Utils.toJsonString("Hello World"))
-			.toPact();
-    }
     
     @Pact(consumer = "OrderService")
-    public RequestResponsePact remoteEchoGet(PactDslWithProvider builder) {
-		String param = new String("Jane");
+    public RequestResponsePact remoteEcho(PactDslWithProvider builder) {
+		System.out.println("creating Pact for /remoteEchoGet/");
+		
+    	String param = new String("Jane");
 		EchoResponseData expectedResult = new EchoResponseData("Jane");
 		
 		RequestResponsePact rrp = builder
-			.given("remote echo")
-				.uponReceiving("Echo Data")
-				.path("/remoteEcho/"+param)
-				.method("GET")
+			.given("Given the word service returns a greeting.", "word", param)
+			.uponReceiving("word Jane, service returns a greeting.")
+				.path("/remoteEcho/Jane")
 			.willRespondWith()
 				.status(200)
 				.body(Utils.toJsonString(expectedResult))
 			.toPact();
+
 		System.out.println("PACT="+rrp);
 		for(RequestResponseInteraction rri : rrp.getInteractions()) {
 			System.out.println(rri);
@@ -133,6 +122,7 @@ public class PactContractTest {
     }
     
     @Pact(consumer = "OrderService")
+    @Disabled
     public RequestResponsePact remoteEchoPost(PactDslWithProvider builder) {
 		EchoData param = new EchoData("Jane");
 		EchoResponseData expectedResult = new EchoResponseData("Jane");
@@ -158,27 +148,14 @@ public class PactContractTest {
 		return rrp;
     }
 	
-	// @Test
-	@DisplayName("1. Payment Service > Local Echo")
+	@Test
+	@DisplayName("1. Pact > Payment Service > Remote Echo > GET")
 	@Order(1)
-	public void localEcho() {
-		String param = "World";
-		String expectedResult = "Hello "+param;
-		String result = paymentService.echo("World");
-		System.out.println("@Test: Spring Boot test ["+expectedResult+"]");
-		System.out.println("@Test: Spring Boot test ["+result+"]");
-        assertThat(expectedResult, org.hamcrest.CoreMatchers.equalTo(result));
-	}
-	
-	// @Test
-	@DisplayName("2. Pact > Payment Service > Remote Echo > GET")
-	@Order(2)
 	@PactTestFor(pactMethod = "remoteEcho", port="8080")
 	public void remoteEchoGet(MockServer mockServer) throws IOException {
 		System.out.println("MockServer|"+mockServer.getUrl());
 		String param = new String("Jane");
 		EchoResponseData expectedResult =  SampleData.getEchoResponseData("Jane");
-		System.out.println("Pass 1");
 		EchoResponseData result = null;
 		try {
 			result = paymentService.remoteEcho(param);
@@ -186,17 +163,14 @@ public class PactContractTest {
 			System.out.println("ERROR: "+e.getMessage());
 			// e.printStackTrace();
 		}
-		System.out.println("Pass 2");
 		assertNotNull(result);
         assertThat(expectedResult.getWordData(), 
-        		org.hamcrest.CoreMatchers.equalTo(result.getWordData()));
-        
-		System.out.println("Pass 3");
+        		org.hamcrest.CoreMatchers.equalTo(result.getWordData()));        
 	}
 	
 	// @Test
-	@DisplayName("3. Pact > Payment Service > Remote Echo > POST")
-	@Order(3)
+	@DisplayName("2. Pact > Payment Service > Remote Echo > POST")
+	@Order(2)
 	@PactTestFor(pactMethod = "remoteEcho", port="8080")
 	public void remoteEchoPost(MockServer mockServer) throws IOException {
 		System.out.println("MockServer|"+mockServer.getUrl());
@@ -219,7 +193,7 @@ public class PactContractTest {
   }
 	
     @AfterEach
-    void tearDown() {
+    public void tearDown() {
     }
 
     @AfterAll
