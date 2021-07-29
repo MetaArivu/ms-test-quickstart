@@ -502,7 +502,7 @@
 					SpringBoot (Runs SpringBoot Test Cases)
 				-->	
                 <configuration>
-                    <groups>WireMock, Pact</groups>
+                    <groups>Pact</groups>
                     <excludedGroups></excludedGroups>
                     <!-- to be used with Pact and JUnit 5 -->
                     <useSystemClassLoader>false</useSystemClassLoader>
