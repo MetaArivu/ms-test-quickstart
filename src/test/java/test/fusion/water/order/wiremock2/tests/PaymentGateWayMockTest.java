@@ -70,10 +70,7 @@ public class PaymentGateWayMockTest {
 	// WireMock Server for Junit 5 
 	private WireMockServer wireMockServer;
 	
-	@Value("${remote.host}")
 	private String host	= "localhost";
-	
-	@Value("${remote.port}")
 	private int port	= 8080;
 	
 	// Actual Payment Service
@@ -121,10 +118,7 @@ public class PaymentGateWayMockTest {
 	    verify(postRequestedFor(urlPathEqualTo("/remoteEcho"))
 		        .withRequestBody(equalToJson(Utils.toJsonString(param)))
 		        .withHeader("Content-Type", 
-		        WireMock.equalTo("application/json")));
-		        
-	
-		
+		        WireMock.equalTo("application/json")));	
 	}
 	
 	@Test
@@ -183,7 +177,7 @@ public class PaymentGateWayMockTest {
 	}
 	
     @AfterEach
-    void tearDown() {
+    public void tearDown() {
         counter++;
     }
 
@@ -192,75 +186,4 @@ public class PaymentGateWayMockTest {
         wireMockServer.stop();
         System.out.println("== Payment Service WireMock HTTP Tests Completed...");
     }
-	
-	/**
-	// @Test
-	@DisplayName("1. Payment Service HTTP Test 1")
-	@Order(1)
-	public void paymentServiceTes10t() {
-
-		PaymentDetails pd = SampleData.getPaymentDetails();
-	    PaymentStatus ps = SampleData.getPaymentStatusAccepted(
-	    		pd.getTransactionId(), pd.getTransactionDate());
-		
-	    stubFor(post("/payments")
-		    .withRequestBody(equalToJson(
-		    		"{\n"
-		    		+ "    \"transactionId\": \"fb908151-d249-4d30-a6a1-4705729394f4\",\n"
-		    		+ "    \"transactionDate\": \"2021-07-25\",\n"
-		    		+ "    \"orderValue\": 230.0,\n"
-		    		+ "    \"paymentType\": \"CREDIT_CARD\"\n"
-		    		+ "}"))
-		    .willReturn(okJson("{\n"
-		    		+ "    \"transactionId\": \"fb908151-d249-4d30-a6a1-4705729394f4\",\n"
-		    		+ "    \"transactionDate\": \"2021-07-25\",\n"
-		    		+ "    \"paymentStatus\": \"Accepted\",\n"
-		    		+ "    \"paymentReference\": \"b58dbe48-6d6a-4c37-b054-aaa0fd970bdd\",\n"
-		    		+ "    \"paymentDate\": \"2021-07-25\",\n"
-		    		+ "    \"paymentType\": \"CREDIT_CARD\"\n"
-		    		+ "}")));
-
-	    PaymentStatus payStatus = paymentService.processPayments(pd);
-	    assertNotNull(payStatus);
-	    
-	    verify(postRequestedFor(urlPathEqualTo("/payments"))
-		        .withRequestBody(equalToJson("{\n"
-			    		+ "    \"transactionId\": \"fb908151-d249-4d30-a6a1-4705729394f4\",\n"
-			    		+ "    \"transactionDate\": \"2021-07-25\",\n"
-			    		+ "    \"orderValue\": 230.0,\n"
-			    		+ "    \"paymentType\": \"CREDIT_CARD\"\n"
-			    		+ "}")));
-	}
-	*/
-	//  @Test
-	@DisplayName("3. Payment Service HTTP Test 2")
-	@Order(3)
-	public void paymentServiceTest10() {
-	    stubFor(post("/my/resource")
-	        .withHeader("Content-Type", containing("xml"))
-	        .willReturn(ok()
-	            .withHeader("Content-Type", "text/xml")
-	            .withBody("<response>SUCCESS</response>")));
-
-
-	    verify(postRequestedFor(urlPathEqualTo("/my/resource"))
-	        .withRequestBody(matching(".*message-1234.*"))
-	        .withHeader("Content-Type", equalTo("text/xml")));
-	}
-	
-	// @Test
-	@DisplayName("4. Payment Service HTTP Test 3")
-	@Order(4)
-	public void exactUrlOnly() {
-	    stubFor(get(urlEqualTo("/some/thing"))
-	            .willReturn(aResponse()
-	                .withHeader("Content-Type", "text/plain")
-	                .withBody("Hello world!")));
-	    
-	    verify(postRequestedFor(urlPathEqualTo("/some/thing"))
-		        .withRequestBody(matching("Hello world!"))
-		        .withHeader("Content-Type", equalTo("text/plain")));
-
-	}
-	
 }

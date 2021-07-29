@@ -37,9 +37,9 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
  *
  */
 @Service
-public class PaymentGateWayRestTemplate  extends RestTemplate {
+public class RestClientService  extends RestTemplate {
 	
-    public PaymentGateWayRestTemplate() {
+    public RestClientService() {
     	// Set Object Mapper For Serialization
     	setMessageConverters(getDataConverters());
         // Set Factory to RestTemplate

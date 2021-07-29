@@ -213,7 +213,7 @@ public class PaymentGatewaySpringBootTest {
 	}
 	
     @AfterEach
-    void tearDown() {
+    public void tearDown() {
         counter++;
     }
 
@@ -222,7 +222,4 @@ public class PaymentGatewaySpringBootTest {
         wireMockServer.stop();
         System.out.println("== Payment Service SpringBoot/WireMock HTTP Tests Completed...");
     }
-	
-
-
 }

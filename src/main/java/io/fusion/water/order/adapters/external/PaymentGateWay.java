@@ -63,7 +63,7 @@ public class PaymentGateWay {
 	private boolean urlsSet = false;
 	
 	@Autowired
-	private PaymentGateWayRestTemplate gw = new PaymentGateWayRestTemplate();
+	private RestClientService restClient = new RestClientService();
 	
 	/**
 	 * Only for Testing outside SpringBoot Context
@@ -128,7 +128,7 @@ public class PaymentGateWay {
 		System.out.println("REQUEST |> "+Utils.toJsonString(request));
 		
 		// Call Remote Service > POST
-		EchoResponseData erd = gw.postForObject(echoURL, request, 
+		EchoResponseData erd = restClient.postForObject(echoURL, request, 
 										EchoResponseData.class);
 		
 		System.out.println("RESPONSE|> "+Utils.toJsonString(erd));
@@ -146,7 +146,7 @@ public class PaymentGateWay {
 		setURLs();
 		System.out.println("REQUEST |> "+Utils.toJsonString(_word));
 		
-		EchoResponseData erd = gw.getForObject(
+		EchoResponseData erd = restClient.getForObject(
 					echoURL +"/"+ _word,  EchoResponseData.class);
 
 		System.out.println("RESPONSE|> "+Utils.toJsonString(erd));
@@ -179,7 +179,7 @@ public class PaymentGateWay {
 		System.out.println("REQUEST |> "+Utils.toJsonString(request));
 
 		// Call Remote Service > POST
-		PaymentStatus ps = gw.postForObject(paymentURL, request, 
+		PaymentStatus ps = restClient.postForObject(paymentURL, request, 
 											PaymentStatus.class);
 
 		System.out.println("RESPONSE|> "+Utils.toJsonString(ps));
