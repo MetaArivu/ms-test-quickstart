@@ -51,10 +51,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import io.fusion.water.order.domainLayer.models.EchoData;
 import io.fusion.water.order.domainLayer.models.EchoResponseData;
+import io.fusion.water.order.domainLayer.models.PaymentDetails;
+import io.fusion.water.order.domainLayer.models.PaymentStatus;
 import io.fusion.water.order.domainLayer.services.PaymentService;
 import io.fusion.water.order.utils.Utils;
 import test.fusion.water.order.junit5.annotations.tests.Critical;
@@ -123,23 +126,25 @@ public class PactContractTest {
     
     @Pact(consumer = "OrderService")
     @Disabled
-    public RequestResponsePact remoteEchoPost(PactDslWithProvider builder) {
-		EchoData param = new EchoData("Jane");
-		EchoResponseData expectedResult = new EchoResponseData("Jane");
+    public RequestResponsePact processPayments(PactDslWithProvider builder) {
+		PaymentDetails pd = SampleData.getPaymentDetails();
+	    PaymentStatus ps = SampleData.getPaymentStatusAccepted(
+	    		pd.getTransactionId(), pd.getTransactionDate());
 		HashMap<String, String> headers = new HashMap<String,String>();
 		headers.put("sessionId", "");
 		headers.put("app", "bigBasket");
+		headers.put("Content-Type", "application/json");
 		
 		RequestResponsePact rrp = builder
-			.given("remote echo")
-				.uponReceiving("Echo Data")
-				.path("/remoteEcho")
+			.given("Payment Process")
+				.uponReceiving("Payment Details")
+				.path("/payments")
 				.method("POST")
-				//.headers(headers)
-				.body(Utils.toJsonString(param))
+				.headers(headers)
+				.body(Utils.toJsonString(pd))
 			.willRespondWith()
 				.status(200)
-				.body(Utils.toJsonString(expectedResult))
+				.body(Utils.toJsonString(ps))
 			.toPact();
 		System.out.println("PACT="+rrp);
 		for(RequestResponseInteraction rri : rrp.getInteractions()) {
@@ -153,9 +158,9 @@ public class PactContractTest {
 	@Order(1)
 	@PactTestFor(pactMethod = "remoteEcho", port="8080")
 	public void remoteEchoGet(MockServer mockServer) throws IOException {
-		System.out.println("MockServer|"+mockServer.getUrl());
+		System.out.println("PACT    |> MockServer|"+mockServer.getUrl());
 		String param = new String("Jane");
-		EchoResponseData expectedResult =  SampleData.getEchoResponseData("Jane");
+		EchoResponseData expectedResult =  new EchoResponseData("Jane");
 		EchoResponseData result = null;
 		try {
 			result = paymentService.remoteEcho(param);
@@ -168,27 +173,24 @@ public class PactContractTest {
         		org.hamcrest.CoreMatchers.equalTo(result.getWordData()));        
 	}
 	
-	// @Test
+	//  @Test
 	@DisplayName("2. Pact > Payment Service > Remote Echo > POST")
 	@Order(2)
-	@PactTestFor(pactMethod = "remoteEcho", port="8080")
-	public void remoteEchoPost(MockServer mockServer) throws IOException {
-		System.out.println("MockServer|"+mockServer.getUrl());
-		EchoData param = new EchoData("Jane");
-		EchoResponseData expectedResult =  SampleData.getEchoResponseData("Jane");
-		System.out.println("Pass 1");
-		EchoResponseData result = null;
+	@PactTestFor(pactMethod = "processPayments", port="8080")
+	public void processPaymentsPost(MockServer mockServer) throws IOException {
+		System.out.println("PACT    |> MockServer|"+mockServer.getUrl());
+		PaymentDetails pd = SampleData.getPaymentDetails();
+	    PaymentStatus ps = SampleData.getPaymentStatusAccepted(
+	    		pd.getTransactionId(), pd.getTransactionDate());
 		try {
-			result = paymentService.remoteEcho(param);
+			ps = paymentService.processPayments(pd);
 		} catch(Exception e) {
 			System.out.println("ERROR: "+e.getMessage());
-			// e.printStackTrace();
+			e.printStackTrace();
 		}
 		System.out.println("Pass 2");
-		assertNotNull(result);
-        assertThat(expectedResult.getWordData(), 
-        		org.hamcrest.CoreMatchers.equalTo(result.getWordData()));
-        
+	    assertNotNull(ps);
+	    assertEquals("Accepted", ps.getPaymentStatus());       
 		System.out.println("Pass 3");
   }
 	

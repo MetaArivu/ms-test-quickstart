@@ -506,6 +506,9 @@
                     <excludedGroups></excludedGroups>
                     <!-- to be used with Pact and JUnit 5 -->
                     <useSystemClassLoader>false</useSystemClassLoader>
+					<systemPropertyVariables>
+						<pact.rootDir>pacts</pact.rootDir>
+					</systemPropertyVariables>
                 </configuration>
 								
             </plugin>

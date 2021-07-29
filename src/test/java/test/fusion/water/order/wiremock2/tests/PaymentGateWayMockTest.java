@@ -52,7 +52,7 @@ import test.fusion.water.order.utils.SampleData;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 
 /**
- * Wire Mock with JUnit 5
+ * WireMock with JUnit 5
  * 
  * @author arafkarsh
  *

@@ -168,14 +168,18 @@ public class PaymentGateWay {
 	    headers.setContentType(MediaType.APPLICATION_JSON);
 	    headers.add("sessionId", UUID.randomUUID().toString());
 	    headers.add("app", "bigBasket");
-
+	    /**
 	    List<String> cookies = new ArrayList<>();
 	    cookies.add("token="+UUID.randomUUID().toString());
 	    cookies.add("domain=arafkarsh.com");
 	    headers.put(HttpHeaders.COOKIE, cookies);
-	    
+
+	   	HttpEntity<PaymentDetails> request = new HttpEntity<PaymentDetails>
+											(_paymentDetails, null);
+	    */
 		HttpEntity<PaymentDetails> request = new HttpEntity<PaymentDetails>
-											(_paymentDetails, headers);
+												(_paymentDetails, headers);
+	
 		System.out.println("REQUEST |> "+Utils.toJsonString(request));
 
 		// Call Remote Service > POST
