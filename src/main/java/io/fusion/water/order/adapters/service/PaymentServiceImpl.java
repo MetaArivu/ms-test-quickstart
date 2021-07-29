@@ -73,6 +73,13 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 	
 	/**
+	 * Returns the Echo from the Remote Server
+	 */
+	public EchoResponseData remoteEcho(String _word) {
+		return paymentGateWay.remoteEcho(_word);
+	}
+	
+	/**
 	 * 
 	 * @param _paymentDetails
 	 * @return

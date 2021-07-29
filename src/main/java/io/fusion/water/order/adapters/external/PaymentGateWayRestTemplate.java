@@ -50,7 +50,7 @@ public class PaymentGateWayRestTemplate  extends RestTemplate {
      * Return Object Mapper
      * @return
      */
-    private ObjectMapper getObjectMapper() {
+    public ObjectMapper getObjectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true);
@@ -61,7 +61,7 @@ public class PaymentGateWayRestTemplate  extends RestTemplate {
      * Return HttpComponentsClientHttpRequestFactory
      * @return
      */
-    private HttpComponentsClientHttpRequestFactory getHttpFactory() {
+    public HttpComponentsClientHttpRequestFactory getHttpFactory() {
         HttpComponentsClientHttpRequestFactory factory 
     		= new HttpComponentsClientHttpRequestFactory();
 

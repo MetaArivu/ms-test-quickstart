@@ -336,8 +336,6 @@
             <version>${pact.version}</version>
 		</dependency>
 		
-
-		
 		<!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
 		<dependency>
 		    <groupId>org.assertj</groupId>
@@ -504,7 +502,7 @@
 					SpringBoot (Runs SpringBoot Test Cases)
 				-->	
                 <configuration>
-                    <groups>WireMock </groups>
+                    <groups>WireMock</groups>
                     <excludedGroups></excludedGroups>
                     <!-- to be used with Pact and JUnit 5 -->
                     <useSystemClassLoader>false</useSystemClassLoader>

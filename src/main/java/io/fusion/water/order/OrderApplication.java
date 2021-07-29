@@ -89,7 +89,7 @@ public class OrderApplication {
 		try {
 			context = SpringApplication.run(OrderApplication.class, args);
 			log.info("Booting Order Service ..... ...Startup completed!");
-			System.out.println("Booting Order Service ..... ...Startup completed!");
+			System.out.println(LocalDateTime.now()+"|Booting Order Service ..... ...Startup completed!");
 
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -15,6 +15,8 @@
  */
 package io.fusion.water.order.adapters.external;
 
+import static java.util.Arrays.asList;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +29,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import io.fusion.water.order.domainLayer.models.EchoData;
 import io.fusion.water.order.domainLayer.models.EchoResponseData;
@@ -55,6 +59,9 @@ public class PaymentGateWay {
 	private String echoURL;
 
 	private boolean urlsSet = false;
+	
+	@Autowired
+	private RestTemplate restTemplate;
 	
 	@Autowired
 	private PaymentGateWayRestTemplate gw = new PaymentGateWayRestTemplate();
@@ -117,21 +124,44 @@ public class PaymentGateWay {
 	    cookies.add("domain=arafkarsh.com");
 	    headers.put(HttpHeaders.COOKIE, cookies);
 	    
-		HttpEntity<EchoData> request = new HttpEntity<EchoData>
-											(_word, headers);
-		
+		HttpEntity<EchoData> request = new HttpEntity<EchoData>(_word, headers);
+
 		System.out.println("REQUEST |> "+Utils.toJsonString(request));
 		
 		// Call Remote Service > POST
 		EchoResponseData erd = gw.postForObject(echoURL, request, 
 										EchoResponseData.class);
+		
 		System.out.println("RESPONSE|> "+Utils.toJsonString(erd));
 		
 		return erd;
 	}
 	
 	/**
+	 * Do a Remote Echo - For Testing Purpose ONLY
+	 * 
+	 * @param _word
+	 * @return
+	 */
+	public EchoResponseData remoteEcho(String _word) {
+		setURLs();
+		System.out.println("REQUEST |> "+Utils.toJsonString(_word));
+		EchoResponseData erd = gw.getForObject(
+					echoURL +"/"+ _word,  EchoResponseData.class);
+		/**
+		EchoResponseData erd = restTemplate.exchange(
+				echoURL +"/"+ _word,  
+				HttpMethod.GET, _word,
+				EchoResponseData.class);
+		*/
+		System.out.println("RESPONSE|> "+Utils.toJsonString(erd));
+		return erd;
+	}
+
+	
+	/**
 	 * Process Payments
+	 * 
 	 * @param _paymentDetails
 	 * @return
 	 */

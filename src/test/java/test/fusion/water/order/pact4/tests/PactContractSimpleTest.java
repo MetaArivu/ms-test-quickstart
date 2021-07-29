@@ -78,7 +78,7 @@ import test.fusion.water.order.utils.SampleData;
 @ExtendWith(PactConsumerTestExt.class)
 @PactTestFor(providerName = "PaymentService")
 @SpringBootTest(classes={io.fusion.water.order.OrderApplication.class})
-public class PactContractTest {
+public class PactContractSimpleTest {
 	
 	@Autowired
 	PaymentService paymentService;
@@ -98,86 +98,43 @@ public class PactContractTest {
     }
 
     @Pact(consumer = "OrderService")
-    public RequestResponsePact localEcho(PactDslWithProvider builder) {
-		return builder
-			.given("local echo")
-				.uponReceiving("word")
-				.path("/localEcho")
-				.method("POST")
-				.body(Utils.toJsonString("World"))
-			.willRespondWith()
-				.status(200)
-				.body(Utils.toJsonString("Hello World"))
-			.toPact();
-    }
-    
-    @Pact(consumer = "OrderService")
-    public RequestResponsePact remoteEchoGet(PactDslWithProvider builder) {
-		String param = new String("Jane");
+    public RequestResponsePact remoteEcho(PactDslWithProvider builder) {
+		System.out.println("creating Pact for /remoteEchoGet/");
+		
+    	String param = new String("Jane");
 		EchoResponseData expectedResult = new EchoResponseData("Jane");
 		
+		System.out.println("Pass 1");
+
 		RequestResponsePact rrp = builder
-			.given("remote echo")
-				.uponReceiving("Echo Data")
-				.path("/remoteEcho/"+param)
-				.method("GET")
+			.given("Given the word service returns a greeting.", "word", param)
+			.uponReceiving("word Jane, service returns a greeting.")
+				.path("/remoteEcho/Jane")
 			.willRespondWith()
 				.status(200)
 				.body(Utils.toJsonString(expectedResult))
 			.toPact();
-		System.out.println("PACT="+rrp);
-		for(RequestResponseInteraction rri : rrp.getInteractions()) {
-			System.out.println(rri);
-		}
-		return rrp;
-    }
-    
-    @Pact(consumer = "OrderService")
-    public RequestResponsePact remoteEchoPost(PactDslWithProvider builder) {
-		EchoData param = new EchoData("Jane");
-		EchoResponseData expectedResult = new EchoResponseData("Jane");
-		HashMap<String, String> headers = new HashMap<String,String>();
-		headers.put("sessionId", "");
-		headers.put("app", "bigBasket");
 		
-		RequestResponsePact rrp = builder
-			.given("remote echo")
-				.uponReceiving("Echo Data")
-				.path("/remoteEcho")
-				.method("POST")
-				//.headers(headers)
-				.body(Utils.toJsonString(param))
-			.willRespondWith()
-				.status(200)
-				.body(Utils.toJsonString(expectedResult))
-			.toPact();
+		System.out.println("Pass 2");
+
 		System.out.println("PACT="+rrp);
 		for(RequestResponseInteraction rri : rrp.getInteractions()) {
 			System.out.println(rri);
 		}
+		
+		System.out.println("Pass 3");
+
 		return rrp;
     }
-	
-	// @Test
-	@DisplayName("1. Payment Service > Local Echo")
-	@Order(1)
-	public void localEcho() {
-		String param = "World";
-		String expectedResult = "Hello "+param;
-		String result = paymentService.echo("World");
-		System.out.println("@Test: Spring Boot test ["+expectedResult+"]");
-		System.out.println("@Test: Spring Boot test ["+result+"]");
-        assertThat(expectedResult, org.hamcrest.CoreMatchers.equalTo(result));
-	}
-	
-	// @Test
+
+	@Test
 	@DisplayName("2. Pact > Payment Service > Remote Echo > GET")
 	@Order(2)
 	@PactTestFor(pactMethod = "remoteEcho", port="8080")
 	public void remoteEchoGet(MockServer mockServer) throws IOException {
 		System.out.println("MockServer|"+mockServer.getUrl());
 		String param = new String("Jane");
-		EchoResponseData expectedResult =  SampleData.getEchoResponseData("Jane");
+		EchoResponseData expectedResult = new EchoResponseData("Jane");
 		System.out.println("Pass 1");
 		EchoResponseData result = null;
 		try {
@@ -193,30 +150,6 @@ public class PactContractTest {
         
 		System.out.println("Pass 3");
 	}
-	
-	// @Test
-	@DisplayName("3. Pact > Payment Service > Remote Echo > POST")
-	@Order(3)
-	@PactTestFor(pactMethod = "remoteEcho", port="8080")
-	public void remoteEchoPost(MockServer mockServer) throws IOException {
-		System.out.println("MockServer|"+mockServer.getUrl());
-		EchoData param = new EchoData("Jane");
-		EchoResponseData expectedResult =  SampleData.getEchoResponseData("Jane");
-		System.out.println("Pass 1");
-		EchoResponseData result = null;
-		try {
-			result = paymentService.remoteEcho(param);
-		} catch(Exception e) {
-			System.out.println("ERROR: "+e.getMessage());
-			// e.printStackTrace();
-		}
-		System.out.println("Pass 2");
-		assertNotNull(result);
-        assertThat(expectedResult.getWordData(), 
-        		org.hamcrest.CoreMatchers.equalTo(result.getWordData()));
-        
-		System.out.println("Pass 3");
-  }
 	
     @AfterEach
     void tearDown() {
@@ -225,7 +158,6 @@ public class PactContractTest {
     @AfterAll
     public void tearDownAll() {
         System.out.println("== Payment Service SpringBoot/Pact HTTP Tests Completed...");
-    }
-    
+    } 
 
 }

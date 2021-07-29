@@ -59,5 +59,12 @@ public interface PaymentService {
 	 * @return
 	 */
 	public EchoResponseData remoteEcho(EchoData _word);
+	
+	/**
+	 * Returns the Echo from Remote Server
+	 * @param _word
+	 * @return
+	 */
+	public EchoResponseData remoteEcho(String _word);
 
 }
