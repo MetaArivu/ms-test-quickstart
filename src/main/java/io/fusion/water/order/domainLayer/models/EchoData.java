@@ -49,7 +49,7 @@ public class EchoData {
 	/**
 	 * @return the word
 	 */
-	String getWord() {
+	public String getWord() {
 		return word;
 	}
 

@@ -128,7 +128,7 @@ public class OrderApplication {
 	 */
 	@GetMapping("/")
 	public String home() {
-		System.out.println(LocalDateTime.now()+"|Request to Home Page... ");
+		System.out.println(LocalDateTime.now()+"|Request to Home Page of Order Service... ");
 		return this.title;
 	}
 

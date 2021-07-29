@@ -28,8 +28,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
  */
 public class EchoResponseData {
 	
-
-
 	private String wordData;
 	
 	@JsonSerialize(using = DateJsonSerializer.class)
@@ -42,6 +40,10 @@ public class EchoResponseData {
 	public EchoResponseData() {
 	}
 	
+	/**
+	 * Set Echo Word
+	 * @param wordData
+	 */
 	public EchoResponseData(String wordData) {
 		this(wordData, LocalDateTime.now(), LocalDateTime.now().getDayOfYear());
 	}
@@ -87,14 +89,14 @@ public class EchoResponseData {
 	/**
 	 * @return the dayOftheYear
 	 */
-	int getDayOftheYear() {
+	public int getDayOftheYear() {
 		return dayOftheYear;
 	}
 
 	/**
 	 * @return the greetings
 	 */
-	String getGreetings() {
+	public String getGreetings() {
 		return greetings;
 	}
 }

@@ -20,6 +20,7 @@ import java.util.HashMap;
 
 import javax.annotation.PostConstruct;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 // Logging System
@@ -41,6 +42,8 @@ public class OrderServiceHelp {
 	
 	private static int counter;
 	
+	@Autowired
+	private ServiceConfiguration serviceConfig;
 	
 	public static final String NL = System.getProperty("line.separator");
 	
@@ -53,9 +56,9 @@ public class OrderServiceHelp {
 	public static final String VERSION = "1.0.0";
 	
 	public static final String LOGO = "" +NL
-		+"	  ============================================" + NL
-		+"    :: Order Service ::      (v"+VERSION+")" + NL
-		+"	  ============================================" + NL;
+		+"============================================" + NL
+		+":: Order Service ::      (v"+VERSION+")" + NL
+		+"============================================" + NL;
 
 
 	public OrderServiceHelp() {
@@ -70,16 +73,18 @@ public class OrderServiceHelp {
 		return counter;
 	}
 	
+	/**
+	 * Not used.
+	 */
 	@PostConstruct
-	public void printDeployedAppProperties() {
-		
+	public void printProperties() {
 		ArrayList<String> topics = new ArrayList<String>();
 		for(String s: topics) {
-			log.info(">>> List    = "+s);
+			log.info("|List    = "+s);
 		}
 		HashMap<String, String> map = new HashMap<String, String>();
 		for(String k : map.keySet()) {
-			log.info(">>> Map Key = "+k+" | Value = "+map.get(k));
+			log.info("|Map Key = "+k+" | Value = "+map.get(k));
 		}
  	}
 }

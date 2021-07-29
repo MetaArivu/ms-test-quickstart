@@ -20,6 +20,7 @@ import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 
 /**
  * Service Configuration
@@ -27,11 +28,14 @@ import org.springframework.context.annotation.PropertySource;
  * @author arafkarsh
  *
  */
+@Component
 @Configuration
-@PropertySource(name = "serviceConfig", value = "classpath:application.properties")
+@PropertySource(
+		name = "serviceConfig", 
+		value = "classpath:application.properties")
 public class ServiceConfiguration {
 	
-	@Value("${server.version:1.0.0}")
+	@Value("${server.version:0.5.0}")
 	private String serverVersion;
 	
 	@Value("${server.port:9080}")
@@ -48,7 +52,7 @@ public class ServiceConfiguration {
 	private int remotePort;
 	
 	@Value("${server.restart:false}")
-	private boolean serverRestart;
+	private boolean serverRestart=true;
 	
 	// @Value("${logging.level:INFO}")
 	private String loggingLevel;

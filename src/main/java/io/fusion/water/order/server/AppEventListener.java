@@ -24,6 +24,9 @@ import org.springframework.context.event.EventListener;
 //Logging System
 import org.slf4j.Logger;
 import static org.slf4j.LoggerFactory.getLogger;
+
+import java.time.LocalDateTime;
+
 import static java.lang.invoke.MethodHandles.lookup;
 import io.fusion.water.order.utils.CPU;
 
@@ -46,19 +49,23 @@ public class AppEventListener {
 	 */
 	@EventListener(ApplicationReadyEvent.class)
 	public void doSomethingAfterStartup() {
-		log.info("Application is getting ready...... ");
+		log.info("Order Service is getting ready...... ");
 	    log.info(CPU.printCpuStats());
+	    System.out.println(LocalDateTime.now()+"|Order Service is getting ready...... ");
+	    System.out.println(LocalDateTime.now()+"|"+CPU.printCpuStats());
 		showLogo();
 	}
 	
 	/**
-	 * Shows AOS Logo and Deployed App Details
+	 * Shows the Service Logo and Version Details. 
 	 */
 	public void showLogo() {
 		String version = (serviceConfig != null) 
 				? serviceConfig.getServerVersion() : "v0.0.0";
-		log.info("Application is ready! ....... ..."+version 
+		log.info("Order Service is ready! ....... ..."+version 
 				+ OrderServiceHelp.LOGO
 				);
+		System.out.println(LocalDateTime.now()+"|Order Service is ready! ....... ..."+version 
+				+ OrderServiceHelp.LOGO);
 	}
 }

@@ -15,6 +15,7 @@
  */
 package io.fusion.water.order.adapters.external;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -62,7 +63,6 @@ public class PaymentGateWay {
 	 * Only for Testing outside SpringBoot Context
 	 */
 	public PaymentGateWay() {
-		setURLs();
 	}
 	
 	/**
@@ -70,6 +70,7 @@ public class PaymentGateWay {
 	 * Set the Payment GateWay
 	 */
 	public PaymentGateWay(String _host, int _port) {
+		System.out.println(LocalDateTime.now()+"|PaymentGW Constructor(host,port) ...");
 		serviceConfig = new ServiceConfiguration(_host, _port);
 		setURLs();
 	}
