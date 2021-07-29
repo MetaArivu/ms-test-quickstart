@@ -15,9 +15,13 @@
  */
 package io.fusion.water.order.adapters.external;
 
-import static java.util.Arrays.asList;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -37,13 +41,21 @@ public class PaymentGateWayRestTemplate  extends RestTemplate {
 	
     public PaymentGateWayRestTemplate() {
     	// Set Object Mapper For Serialization
-        setMessageConverters(
-        		asList(
-        			new MappingJackson2HttpMessageConverter(
-        					getObjectMapper())));
-
+    	setMessageConverters(getDataConverters());
         // Set Factory to RestTemplate
         super.setRequestFactory(getHttpFactory());
+    }
+    
+    /**
+     * Returns 
+     * @return
+     */
+    public List<HttpMessageConverter<?>> getDataConverters() {
+		List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
+		MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+		converter.setSupportedMediaTypes(Collections.singletonList(MediaType.ALL));
+		messageConverters.add(converter);
+		return messageConverters;
     }
     
     /**

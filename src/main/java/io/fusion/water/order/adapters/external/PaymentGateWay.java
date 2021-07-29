@@ -19,6 +19,7 @@ import static java.util.Arrays.asList;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,6 +30,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -59,9 +61,6 @@ public class PaymentGateWay {
 	private String echoURL;
 
 	private boolean urlsSet = false;
-	
-	@Autowired
-	private RestTemplate restTemplate;
 	
 	@Autowired
 	private PaymentGateWayRestTemplate gw = new PaymentGateWayRestTemplate();
@@ -146,14 +145,10 @@ public class PaymentGateWay {
 	public EchoResponseData remoteEcho(String _word) {
 		setURLs();
 		System.out.println("REQUEST |> "+Utils.toJsonString(_word));
+		
 		EchoResponseData erd = gw.getForObject(
 					echoURL +"/"+ _word,  EchoResponseData.class);
-		/**
-		EchoResponseData erd = restTemplate.exchange(
-				echoURL +"/"+ _word,  
-				HttpMethod.GET, _word,
-				EchoResponseData.class);
-		*/
+
 		System.out.println("RESPONSE|> "+Utils.toJsonString(erd));
 		return erd;
 	}

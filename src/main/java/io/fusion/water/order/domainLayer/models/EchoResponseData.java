@@ -27,7 +27,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
  *
  */
 public class EchoResponseData {
-	
+
 	private String wordData;
 	
 	@JsonSerialize(using = DateJsonSerializer.class)
@@ -52,12 +52,26 @@ public class EchoResponseData {
 	 * @param responseTime
 	 * @param dayOftheYear
 	 */
-	public EchoResponseData(String wordData, LocalDateTime responseTime, int dayOftheYear) {
+	public EchoResponseData(String wordData, 
+			LocalDateTime responseTime, int dayOftheYear) {
+		this(wordData, LocalDateTime.now(), 
+				LocalDateTime.now().getDayOfYear(), "Good Morning " + wordData);
+	}	
+	
+	/**
+	 * @param wordData
+	 * @param responseTime
+	 * @param dayOftheYear
+	 * @param greetings
+	 */
+	public EchoResponseData(String wordData, LocalDateTime responseTime, 
+			int dayOftheYear, String greetings) {
+		super();
 		this.wordData = wordData;
 		this.responseTime = responseTime;
 		this.dayOftheYear = dayOftheYear;
-		this.greetings = "Good Morning " + wordData;
-	}	
+		this.greetings = greetings;
+	}
 	
 	/**
 	 * @return the wordData

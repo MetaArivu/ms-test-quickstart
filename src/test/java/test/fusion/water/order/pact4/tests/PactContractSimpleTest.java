@@ -104,8 +104,6 @@ public class PactContractSimpleTest {
     	String param = new String("Jane");
 		EchoResponseData expectedResult = new EchoResponseData("Jane");
 		
-		System.out.println("Pass 1");
-
 		RequestResponsePact rrp = builder
 			.given("Given the word service returns a greeting.", "word", param)
 			.uponReceiving("word Jane, service returns a greeting.")
@@ -114,28 +112,22 @@ public class PactContractSimpleTest {
 				.status(200)
 				.body(Utils.toJsonString(expectedResult))
 			.toPact();
-		
-		System.out.println("Pass 2");
 
 		System.out.println("PACT="+rrp);
 		for(RequestResponseInteraction rri : rrp.getInteractions()) {
 			System.out.println(rri);
 		}
-		
-		System.out.println("Pass 3");
-
 		return rrp;
     }
 
 	@Test
-	@DisplayName("2. Pact > Payment Service > Remote Echo > GET")
-	@Order(2)
+	@DisplayName("1. Pact > Payment Service > Remote Echo > GET")
+	@Order(1)
 	@PactTestFor(pactMethod = "remoteEcho", port="8080")
 	public void remoteEchoGet(MockServer mockServer) throws IOException {
 		System.out.println("MockServer|"+mockServer.getUrl());
 		String param = new String("Jane");
 		EchoResponseData expectedResult = new EchoResponseData("Jane");
-		System.out.println("Pass 1");
 		EchoResponseData result = null;
 		try {
 			result = paymentService.remoteEcho(param);
@@ -143,12 +135,9 @@ public class PactContractSimpleTest {
 			System.out.println("ERROR: "+e.getMessage());
 			// e.printStackTrace();
 		}
-		System.out.println("Pass 2");
 		assertNotNull(result);
         assertThat(expectedResult.getWordData(), 
         		org.hamcrest.CoreMatchers.equalTo(result.getWordData()));
-        
-		System.out.println("Pass 3");
 	}
 	
     @AfterEach
