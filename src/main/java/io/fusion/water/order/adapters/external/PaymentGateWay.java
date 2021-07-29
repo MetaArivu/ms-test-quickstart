@@ -23,11 +23,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import io.fusion.water.order.domainLayer.models.EchoData;
+import io.fusion.water.order.domainLayer.models.EchoResponseData;
 import io.fusion.water.order.domainLayer.models.PaymentDetails;
 import io.fusion.water.order.domainLayer.models.PaymentStatus;
+import io.fusion.water.order.utils.ServiceConfiguration;
 import io.fusion.water.order.utils.Utils;
 
 /***
@@ -38,11 +43,8 @@ import io.fusion.water.order.utils.Utils;
 @Service
 public class PaymentGateWay {
 
-	
-	@Value("${remote.host}")
-	private String host = "localhost";
-	@Value("${remote.port}")
-	private int port = 8080;
+	@Autowired
+	private ServiceConfiguration serviceConfig;
 	
 	private String payments 	= "/payments";
 	private String remoteEcho 	= "/remoteEcho";
@@ -57,18 +59,18 @@ public class PaymentGateWay {
 	private PaymentGateWayRestTemplate gw = new PaymentGateWayRestTemplate();
 	
 	/**
-	 * 
+	 * Only for Testing outside SpringBoot Context
 	 */
 	public PaymentGateWay() {
 		setURLs();
 	}
 	
 	/**
+	 * Only for Testing outside SpringBoot Context
 	 * Set the Payment GateWay
 	 */
 	public PaymentGateWay(String _host, int _port) {
-		host = _host;
-		port = _port;
+		serviceConfig = new ServiceConfiguration(_host, _port);
 		setURLs();
 	}
 	
@@ -77,11 +79,18 @@ public class PaymentGateWay {
 	 */
 	private void setURLs() {
 		if(!urlsSet) {
-			gwBaseURL = "http://" + host + ":" + port;
+			if(serviceConfig != null) {
+				gwBaseURL = "http://" + serviceConfig.getRemoteHost() 
+							+ ":" + serviceConfig.getRemotePort();
+			} else {
+				System.out.println("INIT ERR|> Service Configuration NOT Available!!");
+				gwBaseURL = "http://localhost:8080";
+				
+			}
 			paymentURL = gwBaseURL + payments;
 			echoURL = gwBaseURL + remoteEcho;
 			urlsSet = true;
-			System.out.println("PaymentGateway Service Initialize...............");
+			System.out.println("INIT    |> PaymentGateway Service Initialize.");
 			System.out.println("REMOTE  |> "+paymentURL+"/");
 			System.out.println("REMOTE  |> "+echoURL+"/");
 		}
@@ -93,7 +102,7 @@ public class PaymentGateWay {
 	 * @param _word
 	 * @return
 	 */
-	public String remoteEcho(String _word) {
+	public EchoResponseData remoteEcho(EchoData _word) {
 		setURLs();
 		System.out.println("REQUEST |> "+Utils.toJsonString(_word));
 	    // Set Headers
@@ -107,16 +116,17 @@ public class PaymentGateWay {
 	    cookies.add("domain=arafkarsh.com");
 	    headers.put(HttpHeaders.COOKIE, cookies);
 	    
-		HttpEntity<String> request = new HttpEntity<String>
+		HttpEntity<EchoData> request = new HttpEntity<EchoData>
 											(_word, headers);
-		System.out.println("REQUEST |> "+Utils.toJsonString(request));
-
-		// Call Remote Service > POST
-		String response = gw.postForObject(echoURL, request, String.class);
-
-		System.out.println("RESPONSE|> "+Utils.toJsonString(response));
 		
-		return response;
+		System.out.println("REQUEST |> "+Utils.toJsonString(request));
+		
+		// Call Remote Service > POST
+		EchoResponseData erd = gw.postForObject(echoURL, request, 
+										EchoResponseData.class);
+		System.out.println("RESPONSE|> "+Utils.toJsonString(erd));
+		
+		return erd;
 	}
 	
 	/**

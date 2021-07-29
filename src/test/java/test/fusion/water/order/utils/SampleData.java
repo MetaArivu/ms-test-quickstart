@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import io.fusion.water.order.domainLayer.models.Customer;
+import io.fusion.water.order.domainLayer.models.EchoResponseData;
 import io.fusion.water.order.domainLayer.models.OrderEntity;
 import io.fusion.water.order.domainLayer.models.OrderItem;
 import io.fusion.water.order.domainLayer.models.PaymentDetails;
@@ -119,6 +120,11 @@ public class SampleData {
 				UUID.randomUUID().toString(), 
 				LocalDateTime.now(), 
 				PaymentType.CREDIT_CARD);
+	}
+	
+	public static EchoResponseData getEchoResponseData(
+			String _word) {
+		return new EchoResponseData(_word);
 	}
 	
 	/**

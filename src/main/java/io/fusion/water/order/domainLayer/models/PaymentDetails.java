@@ -38,7 +38,6 @@ public class PaymentDetails {
 	private double orderValue;
 	private PaymentType paymentType;
 	
-	
 	/**
 	 * Payment Details
 	 * 

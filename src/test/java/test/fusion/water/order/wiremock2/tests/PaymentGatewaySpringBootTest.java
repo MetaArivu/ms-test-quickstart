@@ -19,6 +19,8 @@ import com.github.tomakehurst.wiremock.client.WireMock;
 import static com.github.tomakehurst.wiremock.client.WireMock.equalToJson;
 import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
 import static com.github.tomakehurst.wiremock.client.WireMock.post;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+
 import static com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo;
@@ -44,13 +46,15 @@ import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 
+import io.fusion.water.order.domainLayer.models.EchoData;
+import io.fusion.water.order.domainLayer.models.EchoResponseData;
 import io.fusion.water.order.domainLayer.models.PaymentDetails;
 import io.fusion.water.order.domainLayer.models.PaymentStatus;
 import io.fusion.water.order.domainLayer.services.PaymentService;
+import io.fusion.water.order.utils.ServiceConfiguration;
 import io.fusion.water.order.utils.Utils;
 import test.fusion.water.order.junit5.annotations.tests.Functional;
 import test.fusion.water.order.junit5.annotations.tools.SpringTest2;
@@ -82,7 +86,10 @@ import test.fusion.water.order.utils.SampleData;
 public class PaymentGatewaySpringBootTest {
 	
 	@Autowired
-	PaymentService paymentService;
+	private PaymentService paymentService;
+	
+	@Autowired
+	private ServiceConfiguration serviceConfig;
 	
 	// WireMock Server for Junit 5 
 	private WireMockServer wireMockServer;
@@ -110,7 +117,7 @@ public class PaymentGatewaySpringBootTest {
 	@Test
 	@DisplayName("1. Spring Boot Testing Autowired Payment Service")
 	@Order(1)
-	public void paymentServiceTest() {
+	public void paymentServiceLocalEcho() {
 		String param = "World";
 		String expectedResult = "Hello "+param;
 		String result = paymentService.echo("World");
@@ -124,19 +131,20 @@ public class PaymentGatewaySpringBootTest {
 	@Order(2)
 	public void paymentServiceRemoteEcho() {
 
-		String param = "World";
-		String expectedResult = "Hello "+param;
+		EchoData param = new EchoData("John");
+		EchoResponseData expectedResult =  new EchoResponseData("John");
+		
 	    // Given
 	    stubFor(post("/remoteEcho")
 		    .withRequestBody(equalToJson(Utils.toJsonString(param)))
-		    .willReturn(okJson(Utils.toJsonString("Hello World"))));
+		    .willReturn(okJson(Utils.toJsonString(expectedResult))));
 
 	    // When
-	    String response = paymentService.remoteEcho(param);
+	    EchoResponseData response = paymentService.remoteEcho(param);
 
 	    // Then
 	    assertNotNull(response);
-	    assertEquals(expectedResult, response);
+	    assertEquals(expectedResult.getWordData(), response.getWordData());
 
 	    // Verify
 	    verify(postRequestedFor(urlPathEqualTo("/remoteEcho"))

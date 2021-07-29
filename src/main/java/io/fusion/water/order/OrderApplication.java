@@ -15,7 +15,9 @@
  */
 package io.fusion.water.order;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Date;
 
 import javax.annotation.PostConstruct;
 // import java.util.logging.Logger;
@@ -56,7 +58,7 @@ import ch.qos.logback.classic.Logger;
 @EnableScheduling
 @ServletComponentScan
 @RestController
-@SpringBootApplication(scanBasePackages = { "io.fusion.water.order.*" })
+@SpringBootApplication(scanBasePackages = { "io.fusion.water.order" })
 public class OrderApplication {
 
 	private static final Logger log = (Logger) LoggerFactory.getLogger(OrderApplication.class);
@@ -83,9 +85,13 @@ public class OrderApplication {
 	 */
 	public static void start(String[] args) {
 		log.info("Booting Order Service ..... ..");
+		System.out.println("Booting Order Service ..... ..");
+
 		try {
 			context = SpringApplication.run(OrderApplication.class, args);
 			log.info("Booting Order Service ..... ...Startup completed!");
+			System.out.println("Booting Order Service ..... ...Startup completed!");
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -115,7 +121,6 @@ public class OrderApplication {
 	 */
 	@PostConstruct
 	public void configure() {
-		// Loading Integration Config
 	}
 	
 	/**
@@ -124,7 +129,7 @@ public class OrderApplication {
 	 */
 	@GetMapping("/")
 	public String home() {
-		System.out.println("Request to Home Page... ");
+		System.out.println(LocalDateTime.now()+"|Request to Home Page... ");
 		return this.title;
 	}
 

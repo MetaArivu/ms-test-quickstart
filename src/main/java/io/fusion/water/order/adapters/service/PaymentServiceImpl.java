@@ -22,10 +22,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import io.fusion.water.order.adapters.external.PaymentGateWay;
+import io.fusion.water.order.domainLayer.models.EchoData;
+import io.fusion.water.order.domainLayer.models.EchoResponseData;
 import io.fusion.water.order.domainLayer.models.PaymentDetails;
 import io.fusion.water.order.domainLayer.models.PaymentStatus;
 import io.fusion.water.order.domainLayer.models.PaymentType;
 import io.fusion.water.order.domainLayer.services.PaymentService;
+import io.fusion.water.order.utils.ServiceConfiguration;
 
 /**
  * Order Payment Service
@@ -37,7 +40,10 @@ import io.fusion.water.order.domainLayer.services.PaymentService;
 public class PaymentServiceImpl implements PaymentService {
 
 	@Autowired
-	PaymentGateWay paymentGateWay;
+	private ServiceConfiguration serviceConfig;
+	
+	@Autowired
+	private PaymentGateWay paymentGateWay;
 	
 	public PaymentServiceImpl() {
 	}
@@ -62,8 +68,7 @@ public class PaymentServiceImpl implements PaymentService {
 	 * Returns the Echo from the Remote Server
 	 * @return
 	 */
-	public String remoteEcho(String _word) {
-		// return "Hello "+_word;
+	public EchoResponseData remoteEcho(EchoData _word) {
 		return paymentGateWay.remoteEcho(_word);
 	}
 	

@@ -16,6 +16,8 @@
 
 package io.fusion.water.order.domainLayer.services;
 
+import io.fusion.water.order.domainLayer.models.EchoData;
+import io.fusion.water.order.domainLayer.models.EchoResponseData;
 import io.fusion.water.order.domainLayer.models.PaymentDetails;
 import io.fusion.water.order.domainLayer.models.PaymentStatus;
 
@@ -56,6 +58,6 @@ public interface PaymentService {
 	 * @param _word
 	 * @return
 	 */
-	public String remoteEcho(String _word);
+	public EchoResponseData remoteEcho(EchoData _word);
 
 }

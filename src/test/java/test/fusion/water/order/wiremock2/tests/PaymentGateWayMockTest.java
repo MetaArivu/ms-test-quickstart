@@ -34,15 +34,17 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
+import com.github.tomakehurst.wiremock.client.WireMock;
 
 import io.fusion.water.order.adapters.external.PaymentGateWay;
 import io.fusion.water.order.adapters.service.PaymentServiceImpl;
+import io.fusion.water.order.domainLayer.models.EchoData;
+import io.fusion.water.order.domainLayer.models.EchoResponseData;
 import io.fusion.water.order.domainLayer.models.PaymentDetails;
 import io.fusion.water.order.domainLayer.models.PaymentStatus;
 import io.fusion.water.order.utils.Utils;
 import test.fusion.water.order.junit5.annotations.tests.Critical;
 import test.fusion.water.order.junit5.annotations.tests.Functional;
-import test.fusion.water.order.junit5.annotations.tools.SpringTest2;
 import test.fusion.water.order.junit5.annotations.tools.WireMock2;
 import test.fusion.water.order.junit5.extensions.TestTimeExtension;
 import test.fusion.water.order.utils.SampleData;
@@ -95,10 +97,39 @@ public class PaymentGateWayMockTest {
         paymentService = new PaymentServiceImpl(gw);
 
     }
+
+	@Test
+	@DisplayName("1. Payment Service HTTP : Remote Echo")
+	@Order(1)
+	public void paymentServiceRemoteEcho() {
+		EchoData param = new EchoData("John");
+		EchoResponseData expectedResult = new EchoResponseData("John");
+
+		// Given
+	    stubFor(post("/remoteEcho")
+		    .withRequestBody(equalToJson(Utils.toJsonString(param)))
+		    .willReturn(okJson(Utils.toJsonString(expectedResult))));
+
+	    // When
+	    EchoResponseData response = paymentService.remoteEcho(param);
+
+	    // Then
+	    assertNotNull(response);
+	    assertEquals(expectedResult.getWordData(), response.getWordData());
+
+	    // Verify
+	    verify(postRequestedFor(urlPathEqualTo("/remoteEcho"))
+		        .withRequestBody(equalToJson(Utils.toJsonString(param)))
+		        .withHeader("Content-Type", 
+		        WireMock.equalTo("application/json")));
+		        
+	
+		
+	}
 	
 	@Test
-	@DisplayName("1. Payment Service HTTP : Accepted")
-	@Order(1)
+	@DisplayName("2. Payment Service HTTP : Accepted")
+	@Order(2)
 	public void paymentServiceTest1() {
 
 		PaymentDetails pd = SampleData.getPaymentDetails();
@@ -125,8 +156,8 @@ public class PaymentGateWayMockTest {
 	}
 	
 	@Test
-	@DisplayName("2. Payment Service HTTP : Declined")
-	@Order(2)
+	@DisplayName("3. Payment Service HTTP : Declined")
+	@Order(3)
 	public void paymentServiceTest2() {
 
 		PaymentDetails pd = SampleData.getPaymentDetails();
