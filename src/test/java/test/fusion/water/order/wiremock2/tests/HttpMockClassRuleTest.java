@@ -18,6 +18,8 @@ package test.fusion.water.order.wiremock2.tests;
 import org.junit.ClassRule;
 import org.junit.Test;
 
+import org.junit.jupiter.api.BeforeEach;
+
 import com.github.tomakehurst.wiremock.junit.WireMockClassRule;
 
 import test.fusion.water.order.junit5.annotations.tests.Critical;
@@ -29,7 +31,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 
 
 /**
- * Wire Mock with JUnit 4
+ * WireMock with JUnit 4
  * 
  * @author arafkarsh
  *
@@ -43,6 +45,14 @@ public class HttpMockClassRuleTest {
 	@ClassRule
 	public static WireMockClassRule wireMockRule0 = new WireMockClassRule(8089);
 	
+	
+	///
+	@BeforeEach
+	public void setup() {
+		System.out.println("This will never get executed... ");
+		// Code written.. 
+		
+	}
 
 	// @Test
 	public void exampleTest() {

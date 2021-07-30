@@ -107,8 +107,9 @@ public class PaymentGatewaySpringBootTest {
         System.out.println("Host:"+serviceConfig.getRemoteHost()+":"
         						  +serviceConfig.getRemotePort());
         // Setup WireMock Server (Defaults to Port 8080)
-    	wireMockServer = new WireMockServer();
-        wireMockServer.start();        
+    	wireMockServer = new WireMockServer(serviceConfig.getRemotePort());
+        wireMockServer.start(); 
+        WireMock.configureFor(serviceConfig.getRemoteHost(), serviceConfig.getRemotePort());       
         System.out.println(counter+"] WireMock Server Started.. on "
         					+wireMockServer.baseUrl());
     }

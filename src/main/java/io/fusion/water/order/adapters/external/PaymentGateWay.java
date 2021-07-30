@@ -63,7 +63,7 @@ public class PaymentGateWay {
 	private boolean urlsSet = false;
 	
 	@Autowired
-	private RestClientService restClient = new RestClientService();
+	private RestClientService restClient;
 	
 	/**
 	 * Only for Testing outside SpringBoot Context
@@ -78,6 +78,7 @@ public class PaymentGateWay {
 	public PaymentGateWay(String _host, int _port) {
 		System.out.println(LocalDateTime.now()+"|PaymentGW Constructor(host,port) ...");
 		serviceConfig = new ServiceConfiguration(_host, _port);
+		restClient = new RestClientService();
 		setURLs();
 	}
 	

@@ -29,6 +29,7 @@ import org.junit.jupiter.api.AfterEach;
 
 import org.junit.jupiter.migrationsupport.rules.EnableRuleMigrationSupport;
 
+// JUnit 4 Rules.
 import org.junit.rules.ErrorCollector;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;

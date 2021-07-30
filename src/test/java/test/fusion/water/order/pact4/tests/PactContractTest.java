@@ -173,12 +173,13 @@ public class PactContractTest {
         		org.hamcrest.CoreMatchers.equalTo(result.getWordData()));        
 	}
 	
-	//  @Test
+	// @Test
 	@DisplayName("2. Pact > Payment Service > Remote Echo > POST")
 	@Order(2)
 	@PactTestFor(pactMethod = "processPayments", port="8080")
 	public void processPaymentsPost(MockServer mockServer) throws IOException {
 		System.out.println("PACT    |> MockServer|"+mockServer.getUrl());
+		
 		PaymentDetails pd = SampleData.getPaymentDetails();
 	    PaymentStatus ps = SampleData.getPaymentStatusAccepted(
 	    		pd.getTransactionId(), pd.getTransactionDate());

@@ -70,8 +70,8 @@ public class PaymentGateWayMockTest {
 	// WireMock Server for Junit 5 
 	private WireMockServer wireMockServer;
 	
-	private String host	= "localhost";
-	private int port	= 8080;
+	private String host	= "127.0.0.1";
+	private int port	= 8081;
 	
 	// Actual Payment Service
 	PaymentServiceImpl paymentService;
@@ -81,8 +81,10 @@ public class PaymentGateWayMockTest {
     public void setupAll() {
         System.out.println("== Payment Service WireMock HTTP Tests Started...");
     	// Setup WireMock Server (Defaults to Port 8080)
-    	wireMockServer = new WireMockServer();
-        wireMockServer.start();        
+    	wireMockServer = new WireMockServer(port);
+        wireMockServer.start(); 
+        WireMock.configureFor(host, port);
+
         System.out.println(counter+"] WireMock Server Started.. on "
         					+wireMockServer.baseUrl());
     }

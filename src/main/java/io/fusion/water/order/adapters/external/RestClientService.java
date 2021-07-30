@@ -77,8 +77,8 @@ public class RestClientService  extends RestTemplate {
         HttpComponentsClientHttpRequestFactory factory 
     		= new HttpComponentsClientHttpRequestFactory();
 
-	    factory.setConnectTimeout(1000);
-	    factory.setReadTimeout(1000);
+	    factory.setConnectTimeout(10000);
+	    factory.setReadTimeout(10000);
 	    return factory;
     }
 }
