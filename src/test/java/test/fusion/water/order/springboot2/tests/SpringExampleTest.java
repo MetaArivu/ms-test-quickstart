@@ -47,8 +47,10 @@ import test.fusion.water.order.junit5.annotations.tools.SpringTest2;
  *
  */
 
+// Tags using Custom Annotations --------------
 @SpringTest2()
 @NonFunctional()
+// --------------------------------------------
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringBootTest(classes={io.fusion.water.order.OrderApplication.class})
 public class SpringExampleTest {

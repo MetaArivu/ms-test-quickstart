@@ -71,7 +71,8 @@ import test.fusion.water.order.utils.SampleData;
 @Pact4()
 @Critical()
 @Functional()
-//Tagging done ---------------------------------------------------------
+// Tagging done ---------------------------------------------------------
+
 @TestMethodOrder(OrderAnnotation.class)
 @ExtendWith(TestTimeExtension.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -105,8 +106,8 @@ public class PactContractSimpleTest {
 		EchoResponseData expectedResult = new EchoResponseData("Jane");
 		
 		RequestResponsePact rrp = builder
-			.given("Given the word service returns a greeting.", "word", param)
-			.uponReceiving("word Jane, service returns a greeting.")
+			.given("The word Jane, service returns a greeting.", "word", param)
+			.uponReceiving("The word Jane, the service returns a greeting.")
 				.path("/remoteEcho/Jane")
 			.willRespondWith()
 				.status(200)

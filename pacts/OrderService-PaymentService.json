@@ -16,14 +16,38 @@
         "status": 200,
         "body": {
           "wordData": "Jane",
-          "responseTime": "2021-07-29T21:58:03.677",
-          "dayOftheYear": 210,
+          "responseTime": "2021-07-30T08:34:18.707",
+          "dayOftheYear": 211,
           "greetings": "Good Morning Jane"
         }
       },
       "providerStates": [
         {
           "name": "Given the word service returns a greeting.",
+          "params": {
+            "word": "Jane"
+          }
+        }
+      ]
+    },
+    {
+      "description": "The word Jane, the service returns a greeting.",
+      "request": {
+        "method": "GET",
+        "path": "/remoteEcho/Jane"
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "wordData": "Jane",
+          "responseTime": "2021-07-30T08:34:20.490",
+          "dayOftheYear": 211,
+          "greetings": "Good Morning Jane"
+        }
+      },
+      "providerStates": [
+        {
+          "name": "The word Jane, service returns a greeting.",
           "params": {
             "word": "Jane"
           }

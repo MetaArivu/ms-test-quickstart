@@ -57,6 +57,7 @@ import io.fusion.water.order.domainLayer.services.PaymentService;
 import io.fusion.water.order.server.ServiceConfiguration;
 import io.fusion.water.order.utils.Utils;
 import test.fusion.water.order.junit5.annotations.tests.Functional;
+import test.fusion.water.order.junit5.annotations.tests.NonFunctional;
 import test.fusion.water.order.junit5.annotations.tools.SpringTest2;
 import test.fusion.water.order.junit5.annotations.tools.WireMock2;
 import test.fusion.water.order.junit5.extensions.TestTimeExtension;
@@ -74,7 +75,8 @@ import test.fusion.water.order.utils.SampleData;
  * @author arafkarsh
  *
  */
-// Following Annotations Tags the Tests --------------------------------
+
+// Tags using Custom Annotations For Filtering --------------------------
 @WireMock2()
 @SpringTest2()
 @Functional()
@@ -91,7 +93,7 @@ public class PaymentGatewaySpringBootTest {
 	@Autowired
 	private ServiceConfiguration serviceConfig;
 	
-	// WireMock Server for Junit 5 
+	// WireMock Server for JUnit 5 
 	private WireMockServer wireMockServer;
 	private static int counter=1;
 	
@@ -101,8 +103,10 @@ public class PaymentGatewaySpringBootTest {
 	 */
     @BeforeAll
     public void setupAll() {
-        System.out.println("== Payment Service SpringBoot/WireMock HTTP Tests Started...");
-    	// Setup WireMock Server (Defaults to Port 8080)
+        System.out.println("== Payment Service SpringBoot/WireMock HTTP Tests Started... ");
+        System.out.println("Host:"+serviceConfig.getRemoteHost()+":"
+        						  +serviceConfig.getRemotePort());
+        // Setup WireMock Server (Defaults to Port 8080)
     	wireMockServer = new WireMockServer();
         wireMockServer.start();        
         System.out.println(counter+"] WireMock Server Started.. on "
