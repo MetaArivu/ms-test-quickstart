@@ -17,6 +17,8 @@ Other Services
 
 Currently Order Service has a Mock Implementation of these services.
 
+Now let us focus on Microservices Testing Strategies.
+
 ![Microservice Testing Strategies](https://raw.githubusercontent.com/MetaArivu/ms-order-service/master/diagrams/Microservices-Testing-Strategies-1.jpg)
 
 The following Test Categories helps you to automate the testing for Microservices based development resulting in ZERO End-2-End Testing.
