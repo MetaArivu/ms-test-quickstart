@@ -41,6 +41,12 @@ public class PaymentDetails {
 	private CardDetails cardDetails;
 	
 	/**
+	 * 
+	 */
+	public PaymentDetails() {
+	}
+	
+	/**
 	 * Payment Details
 	 * 
 	 * @param _txId

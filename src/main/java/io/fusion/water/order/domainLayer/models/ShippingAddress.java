@@ -32,6 +32,12 @@ public class ShippingAddress {
 	private String zipCode;
 	
 	/**
+	 * 
+	 */
+	public ShippingAddress() {
+	}
+	
+	/**
 	 * Create Shipping address
 	 * @param _sn
 	 * @param _aline2

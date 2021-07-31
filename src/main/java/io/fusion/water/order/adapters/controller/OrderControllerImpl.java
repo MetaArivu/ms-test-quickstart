@@ -16,6 +16,13 @@
 
 package io.fusion.water.order.adapters.controller;
 
+import static java.lang.invoke.MethodHandles.lookup;
+import static org.slf4j.LoggerFactory.getLogger;
+
+import java.time.LocalDateTime;
+
+import org.slf4j.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +38,7 @@ import org.springframework.web.context.annotation.RequestScope;
 
 import io.fusion.water.order.domainLayer.models.OrderEntity;
 import io.fusion.water.order.domainLayer.services.OrderService;
+import io.fusion.water.order.utils.Utils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -49,6 +57,9 @@ import io.fusion.water.order.domainLayer.services.OrderController;
 @RequestScope
 @Tag(name = "Order", description = "Order Service")
 public class OrderControllerImpl implements OrderController {
+	
+	// Set Logger -> Lookup will automatically determine the class name.
+	private static final Logger log = getLogger(lookup().lookupClass());
 
 	@Autowired
 	OrderService orderBusinessService;
@@ -69,7 +80,7 @@ public class OrderControllerImpl implements OrderController {
 	@Override
 	@GetMapping("/{orderId}/")
 	public ResponseEntity<OrderEntity> getOrderById(@PathVariable("orderId") String _id) {
-		OrderEntity orderEntity = null;
+    	OrderEntity orderEntity = null;
 		try  {
 			orderEntity = orderBusinessService.getOrderById(_id);
 		} catch (Exception e) {
@@ -94,12 +105,15 @@ public class OrderControllerImpl implements OrderController {
 	@Override
 	@PostMapping("/create")
 	public ResponseEntity<OrderEntity> saveOrder(@RequestBody OrderEntity _order) {
-		OrderEntity orderEntity = null;
+		System.out.println(LocalDateTime.now()+"|Order="+Utils.toJsonString(_order));
+    	OrderEntity orderEntity = null;
 		try  {
 			orderEntity = orderBusinessService.processOrder(_order);
 		} catch (Exception e) {
+			System.out.println(LocalDateTime.now()+"|Error="+e.getMessage());
 			return new ResponseEntity<OrderEntity>(orderEntity, HttpStatus.BAD_REQUEST);
 		}
+		System.out.println(LocalDateTime.now()+"|Order Saved.");
 		return ResponseEntity.ok(orderEntity);
 	}
 

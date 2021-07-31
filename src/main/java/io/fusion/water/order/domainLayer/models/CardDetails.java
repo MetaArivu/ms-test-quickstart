@@ -31,6 +31,12 @@ public class CardDetails {
 	private CardType cardType;
 	
 	/**
+	 * 
+	 */
+	public CardDetails() {
+	}
+	
+	/**
 	 * @param cardNumber
 	 * @param holderName
 	 * @param expiryMonth

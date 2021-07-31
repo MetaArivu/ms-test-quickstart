@@ -40,6 +40,9 @@ public class PaymentStatus {
 	private LocalDateTime paymentDate;
 	private PaymentType paymentType;
 	
+	/**
+	 * 
+	 */
 	public PaymentStatus() {
 	}
 	/**

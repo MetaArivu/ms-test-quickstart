@@ -219,7 +219,9 @@ public class OrderApplication {
 	 */
 	@Bean
 	public ObjectMapper objectMapper() {
-		return new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		return new ObjectMapper()
+				.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+				.findAndRegisterModules();
 	}
 	
 	/**

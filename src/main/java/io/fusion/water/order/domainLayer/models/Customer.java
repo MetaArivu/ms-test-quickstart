@@ -26,12 +26,15 @@ import java.util.ArrayList;
  */
 public class Customer {
 	
-	private final String customerId;
-	private final String firstName;
-	private final String lastName;
-	private final String phoneNumber;
-	private final ArrayList<String> phoneList;
+	private  String customerId;
+	private  String firstName;
+	private  String lastName;
+	private  String phoneNumber;
+	private  ArrayList<String> phoneList;
 
+	public Customer() {
+	}
+	
 	/**
 	 * Create Customer Contact Info
 	 * 

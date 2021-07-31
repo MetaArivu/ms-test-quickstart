@@ -29,6 +29,9 @@ public class OrderItem {
 	private String itemCurrency;
 	private int quantity;
 	
+	public OrderItem() {
+	}
+	
 	/**
 	 * Create an Order Item
 	 * 
