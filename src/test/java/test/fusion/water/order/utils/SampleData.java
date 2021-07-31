@@ -18,6 +18,8 @@ package test.fusion.water.order.utils;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import io.fusion.water.order.domainLayer.models.CardDetails;
+import io.fusion.water.order.domainLayer.models.CardType;
 import io.fusion.water.order.domainLayer.models.Customer;
 import io.fusion.water.order.domainLayer.models.EchoResponseData;
 import io.fusion.water.order.domainLayer.models.OrderEntity;
@@ -53,6 +55,7 @@ public class SampleData {
 					.addShippingAddress(new ShippingAddress
 							("321 Cobblestone Ln,", "", "Edison", "NJ", "", "USA", "08820"))
 					.addPaymentType(PaymentType.CREDIT_CARD)
+					.addCardDetails(createCardData())
 					.build();
 		
 		return Utils.toJsonString(oEntity);
@@ -68,7 +71,8 @@ public class SampleData {
 				"fb908151-d249-4d30-a6a1-4705729394f4", 
 				LocalDateTime.now(), 
 				230, 
-				PaymentType.CREDIT_CARD
+				PaymentType.CREDIT_CARD,
+				createCardData()
 				);
 		
 		return Utils.toJsonString(p);
@@ -83,8 +87,22 @@ public class SampleData {
 				UUID.randomUUID().toString(), 
 				LocalDateTime.now(), 
 				230, 
-				PaymentType.CREDIT_CARD
+				PaymentType.CREDIT_CARD,
+				createCardData()
 				);
+	}
+	/**
+	 * Create Random Credit Card Details
+	 */
+	public static CardDetails createCardData() {
+		RandomCardNumber rc = new RandomCardNumber();
+		return new CardDetails(
+				rc.getCardNumber(), 
+				rc.getCardHolder(), 
+				rc.getMonth(), 
+				rc.getYear(), 
+				rc.getCardCode(), 
+				CardType.MASTER);
 	}
 	
 	/**
@@ -158,5 +176,6 @@ public class SampleData {
 		System.out.println(PaymentDetailsToJson());
 		System.out.println("-Payment Status Entity-");
 		System.out.println(PaymentStatusToJson());
+		
 	}
 }

@@ -1,6 +1,6 @@
 {
-    "orderId": "16cca0d2-b68d-4edd-b1c6-321201d79d08",
-    "orderDate": "2021-07-25",
+    "orderId": "17722a84-4698-4c2c-88fa-be587573e030",
+    "orderDate": "2021-07-31T21:27:50.864",
     "customer": {
         "customerId": "UUID",
         "firstName": "John",
@@ -39,10 +39,18 @@
     "paymentType": "CREDIT_CARD",
     "orderStatus": "INITIATED",
     "paymentDetails": {
-        "transactionId": "16cca0d2-b68d-4edd-b1c6-321201d79d08",
-        "transactionDate": "2021-07-25",
+        "transactionId": "17722a84-4698-4c2c-88fa-be587573e030",
+        "transactionDate": "2021-07-31T21:27:50.864",
         "orderValue": 2248.0,
-        "paymentType": "CREDIT_CARD"
+        "paymentType": "CREDIT_CARD",
+        "cardDetails": {
+            "cardNumber": "8967-9561-1957-5762",
+            "holderName": "John Doe",
+            "expiryMonth": 11,
+            "expiryYear": 2031,
+            "cardCode": 867,
+            "cardType": "MASTER"
+        }
     },
     "paymentStatus": null,
     "totalValue": 2248.0,

@@ -16,17 +16,14 @@
 
 package io.fusion.water.order.domainLayer.models;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.UUID;
 
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import io.fusion.water.order.utils.Utils;
 
 /**
  * Order Entity
@@ -89,6 +86,20 @@ public class OrderEntity {
 	 */
 	protected void addShippingAddress(ShippingAddress _address) {
 		shippingAddress = _address;
+	}
+	
+	/**
+	 * Add Card Details
+	 * @param _cardDetails
+	 */
+	protected void addCardDetails(CardDetails _cardDetails) {
+		paymentDetails = new PaymentDetails(
+				getOrderId(), 
+				getOrderDate(), 
+				getTotalValue(), 
+				getPaymentType(),
+				_cardDetails
+		);
 	}
 	
 	/**
@@ -171,7 +182,7 @@ public class OrderEntity {
 		OrderEntity order = new OrderEntity();
 		
 		/**
-		 * Add Custmer
+		 * Add Customer
 		 * @param _customer
 		 * @return
 		 */
@@ -216,6 +227,16 @@ public class OrderEntity {
 		}
 		
 		/**
+		 * Add Card Details
+		 * @param _cardDetails
+		 * @return
+		 */
+		public Builder addCardDetails(CardDetails _cardDetails) {
+			order.addCardDetails(_cardDetails);
+			return this;
+		}
+		
+		/**
 		 * Add Payment Type
 		 * @param _pType
 		 * @return
@@ -239,12 +260,6 @@ public class OrderEntity {
 		 * @return
 		 */
 		public OrderEntity build() {
-			order.paymentDetails = new PaymentDetails(
-					order.getOrderId(), 
-					order.getOrderDate(), 
-					order.getTotalValue(), 
-					order.getPaymentType()
-			);
 			return order;
 		}
 	}

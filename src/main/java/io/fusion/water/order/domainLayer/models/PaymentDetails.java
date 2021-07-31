@@ -38,6 +38,8 @@ public class PaymentDetails {
 	private double orderValue;
 	private PaymentType paymentType;
 	
+	private CardDetails cardDetails;
+	
 	/**
 	 * Payment Details
 	 * 
@@ -48,31 +50,49 @@ public class PaymentDetails {
 	 */
 	public PaymentDetails(String _txId, LocalDateTime _txDate,
 			double _orderValue, PaymentType _payType) {
+		this( _txId,  _txDate, _orderValue,  _payType,  null); 
+	}
+	
+	/**
+	 * Payment Details with Card Details
+	 * 
+	 * @param _txId
+	 * @param _txDate
+	 * @param _orderValue
+	 * @param _payType
+	 * @param _card
+	 */
+	public PaymentDetails(String _txId, LocalDateTime _txDate,
+			double _orderValue, PaymentType _payType, CardDetails _card) {
 		
 		transactionId		= _txId;
 		transactionDate		= _txDate;
 		orderValue			= _orderValue;
 		paymentType			= _payType;
-
+		cardDetails			= _card;
 	}
+	
 	/**
 	 * @return the transactionId
 	 */
 	public String getTransactionId() {
 		return transactionId;
 	}
+	
 	/**
 	 * @return the transactionDate
 	 */
 	public LocalDateTime getTransactionDate() {
 		return transactionDate;
 	}
+	
 	/**
 	 * @return the orderValue
 	 */
 	public double getOrderValue() {
 		return orderValue;
 	}
+	
 	/**
 	 * @return the paymentType
 	 */
@@ -82,5 +102,12 @@ public class PaymentDetails {
 	
 	public String toString() {
 		return Utils.toJsonString(this);
+	}
+	
+	/**
+	 * @return the cardDetails
+	 */
+	public CardDetails getCardDetails() {
+		return cardDetails;
 	}
 }

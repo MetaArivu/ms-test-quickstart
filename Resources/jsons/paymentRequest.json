@@ -1,14 +1,21 @@
 {
     "headers": {
         "Content-Type": ["application/json"],
-        "sessionId": ["2bd4628c-ef17-4bfa-8960-01e2a077b26e"],
-        "Cookie": ["token=289d44f6-fa5a-45f0-a3f3-c32e28341cb8", 
-            "domain=arafkarsh.com"]
+        "sessionId": ["6a271a11-3e4d-44b2-bbb8-92b8e341d3bb"],
+        "app": ["bigBasket"]
     },
     "body": {
-        "transactionId": "7898cdcc-9047-4dd5-9a3c-00623719e37e",
-        "transactionDate": "2021-07-25",
+        "transactionId": "8c21079c-7038-4843-8374-3bbaf1082187",
+        "transactionDate": "2021-07-31T21:32:48.052",
         "orderValue": 230.0,
-        "paymentType": "CREDIT_CARD"
+        "paymentType": "CREDIT_CARD",
+        "cardDetails": {
+            "cardNumber": "4232-5863-5852-5338",
+            "holderName": "John Doe",
+            "expiryMonth": 2,
+            "expiryYear": 2030,
+            "cardCode": 423,
+            "cardType": "MASTER"
+        }
     }
 }

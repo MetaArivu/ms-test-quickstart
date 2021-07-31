@@ -127,7 +127,8 @@
 		    <artifactId>jackson-datatype-jsr310</artifactId>
 		    <version>${fasterxml.version}</version>
 		</dependency>
-		
+
+		<!-- UNIT TESTING ==================================================== -->
 		
  		<!-- ================================================================= -->
  		<!-- JUnit 5 Framework -->
@@ -190,37 +191,17 @@
             <version>${truth.version}</version>
             <scope>test</scope>
         </dependency>
-        
-		<!-- ================================================================= -->       
-        <!-- Mockito Framework -->
-		<!-- ================================================================= -->
-        <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
+
+		<!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
 		<dependency>
-		    <groupId>org.mockito</groupId>
-		    <artifactId>mockito-core</artifactId>
-		    <version>${mockito.version}</version>
-		    <scope>test</scope>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter -->
-		<dependency>
-		    <groupId>org.mockito</groupId>
-		    <artifactId>mockito-junit-jupiter</artifactId>
-		    <version>${mockito.version}</version>
-		    <scope>test</scope>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<version>${assertj.version}</version>
+			<scope>test</scope>
 		</dependency>
 
-		<!-- ================================================================= -->       
-        <!-- WireMock Framework -->
-		<!-- ================================================================= -->
-		
-		<!-- https://mvnrepository.com/artifact/com.github.tomakehurst/wiremock-jre8 -->
-		<dependency>
-		    <groupId>com.github.tomakehurst</groupId>
-		    <artifactId>wiremock-jre8</artifactId>
-		    <version>${wiremock.version}</version>
-		    <scope>test</scope>
-		</dependency>
-		
+		<!-- COMPONENT / CONTRACT TESTING ==================================== -->
+		     		
 		<!-- ================================================================= -->       
         <!-- Cucumber Framework -->
 		<!-- ================================================================= -->
@@ -299,7 +280,58 @@
 		    <artifactId>webdrivermanager</artifactId>
 		    <version>4.4.3</version>
 		</dependency>
+
+		<!-- ================================================================= -->       
+        <!-- Mockito Framework -->
+		<!-- ================================================================= -->
+        <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
+		<dependency>
+		    <groupId>org.mockito</groupId>
+		    <artifactId>mockito-core</artifactId>
+		    <version>${mockito.version}</version>
+		    <scope>test</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter -->
+		<dependency>
+		    <groupId>org.mockito</groupId>
+		    <artifactId>mockito-junit-jupiter</artifactId>
+		    <version>${mockito.version}</version>
+		    <scope>test</scope>
+		</dependency>
+
+		<!-- INTEGRATION / CONTRACT TESTING ================================== -->
+
+		<!-- ================================================================= -->
+		<!-- Spring Testing Framework -->
+		<!-- ================================================================= -->
+
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-test</artifactId>
+		    <version>${spring.boot.version}</version>
+		    <scope>test</scope>
+		    <!-- Exclude JUnit as Spring Boot Starter Test uses JUnit 4 -->
+			<exclusions>
+				<exclusion>
+					<groupId>junit</groupId>
+					<artifactId>junit</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- ================================================================= -->       
+        <!-- WireMock Framework -->
+		<!-- ================================================================= -->
 		
+		<!-- https://mvnrepository.com/artifact/com.github.tomakehurst/wiremock-jre8 -->
+		<dependency>
+		    <groupId>com.github.tomakehurst</groupId>
+		    <artifactId>wiremock-jre8</artifactId>
+		    <version>${wiremock.version}</version>
+		    <scope>test</scope>
+		</dependency>
+
 		<!-- ================================================================= -->
 		<!-- Pact Framework -->
 		<!-- ================================================================= -->
@@ -317,7 +349,7 @@
 		    <version>${pact.version}</version>
 		</dependency>
 		
-			<!-- https://mvnrepository.com/artifact/au.com.dius/pact-jvm-provider -->
+		<!-- https://mvnrepository.com/artifact/au.com.dius/pact-jvm-provider -->
 		<dependency>
 		    <groupId>au.com.dius</groupId>
 		    <artifactId>pact-jvm-provider</artifactId>
@@ -338,14 +370,6 @@
             <version>${pact.version}</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
-		<dependency>
-		    <groupId>org.assertj</groupId>
-		    <artifactId>assertj-core</artifactId>
-            <version>${assertj.version}</version>
-		    <scope>test</scope>
-		</dependency>
-		
 		<!-- ================================================================= -->
 		<!-- Spring Framework -->
 		<!-- ================================================================= -->
@@ -364,20 +388,7 @@
 		    <artifactId>spring-boot</artifactId>
 		    <version>${spring.boot.version}</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
-		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-test</artifactId>
-		    <version>${spring.boot.version}</version>
-		    <scope>test</scope>
-		    <!-- Exclude JUnit as Spring Boot Starter Test uses JUnit 4 -->
-			<exclusions>
-				<exclusion>
-					<groupId>junit</groupId>
-					<artifactId>junit</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web -->
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
@@ -404,7 +415,6 @@
 		  	<version>${spring.boot.version}</version>
 		</dependency>
 
-		
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security -->
 		<!-- 
 		This enables a default Auth Page for the Spring Boot App.
@@ -420,7 +430,7 @@
 		-->
 		
 		<!-- ================================================================= -->
-		<!-- Database Framework: MongoDB -->
+		<!-- Database Framework: H2 / MongoDB -->
 		<!-- ================================================================= -->
 		
 		<!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
@@ -430,7 +440,6 @@
 		    <version>1.4.200</version>
 		    <scope>test</scope>
 		</dependency>
-		
 		
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-mongodb -->
 		<dependency>

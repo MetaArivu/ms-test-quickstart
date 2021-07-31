@@ -17,6 +17,7 @@ package test.fusion.water.order.wiremock2.utils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * 
@@ -27,9 +28,11 @@ public class DateTest {
 
 	public static void main(String[] args) {
 
+		Date dateToday = new Date();
 		LocalDate today = LocalDate.now();
 		LocalDateTime todayTime = LocalDateTime.now();
 		
+		System.out.println(dateToday);
 		System.out.println(today);
 		System.out.println(todayTime);
 
