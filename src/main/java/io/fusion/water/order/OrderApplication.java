@@ -42,9 +42,16 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.models.ExternalDocumentation;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
 
 // Logging System
 import org.slf4j.Logger;
+import org.springdoc.core.GroupedOpenApi;
+
 import static org.slf4j.LoggerFactory.getLogger;
 import static java.lang.invoke.MethodHandles.lookup;
 
@@ -147,30 +154,55 @@ public class OrderApplication {
 	}
 	
 	/**
+	 * Open API v3 Docs - All
+	 * @return
+	 */
 	@Bean
-	public Docket swaggerConfiguration() {
-		return new Docket(DocumentationType.SWAGGER_2)
-				.select()
-				.paths(PathSelectors.ant("/api/*"))
-				.apis(RequestHandlerSelectors.basePackage("io.fusion.water"))
-				.build()
-				.apiInfo(getApiInfoDetails());
+	public GroupedOpenApi allPublicApi() {
+		return GroupedOpenApi.builder()
+			.group("ms-order-service")
+			.pathsToMatch("/api/**")
+			.build();
 	}
 	
-
-	private ApiInfo getApiInfoDetails() {
-		return new ApiInfo(
-				"Order Microservice", 
-				"Microservices Testing Frameworks Guide", 
-				"1.0.0", 
-				"Free & Open Source Software", 
-				new Contact("Araf Karsh Hamid", "https://github.com/arafkarsh", "araf.karsh@ozazo.com"), 
-				"Apache 2 License", 
-				"http://www.metarivu.com", 
-				Collections.emptyList()
-				);
+	/**
+	 * Open API v3 Docs - Order
+	 * @return
+	 */
+	@Bean
+	public GroupedOpenApi orderPublicApi() {
+		return GroupedOpenApi.builder()
+			.group("ms-order-service-order")
+			.pathsToMatch("/api/v1/order/**")
+			.build();
 	}
-	*/
+	
+	/**
+	 * Open API v3 Docs - Core Service
+	 * @return
+	 */
+	@Bean
+	public GroupedOpenApi servicePublicApi() {
+		return GroupedOpenApi.builder()
+			.group("ms-order-service-core")
+			.pathsToMatch("/api/v1/order/service/**")
+			.build();
+	}
+	
+	@Bean
+	public OpenAPI orderOpenAPI() {
+		return new OpenAPI()
+			.info(new Info()
+				.title("Order Microservice")
+				.description("Microservices Testing Strategies - Guide")
+				.version("v0.7.0")
+				.license(new License().name("License: Apache 2.0")
+					.url("http://www.metarivu.com"))
+				)
+			.externalDocs(new ExternalDocumentation()
+				.description("Order Service Source Code")
+				.url("https://github.com/MetaArivu/ms-order-service"));
+	}
 	
 	/**
 	 * Returns the REST Template

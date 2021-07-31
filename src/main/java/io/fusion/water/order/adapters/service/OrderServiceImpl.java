@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import io.fusion.water.order.domainLayer.models.OrderEntity;
+import io.fusion.water.order.domainLayer.models.OrderStatus;
 import io.fusion.water.order.domainLayer.models.PaymentDetails;
 import io.fusion.water.order.domainLayer.models.PaymentStatus;
 import io.fusion.water.order.domainLayer.services.OrderRepository;
@@ -27,7 +28,7 @@ import io.fusion.water.order.domainLayer.services.OrderService;
 import io.fusion.water.order.domainLayer.services.PaymentService;
 
 /**
- * Order Web Service
+ * Order Service
  * 
  * @author arafkarsh
  *
@@ -73,6 +74,19 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public OrderEntity prepareOrder(OrderEntity _order) {
 		return orderRepo.prepareOrder(_order);
+	}
+	
+	/**
+	 * Update Order Status
+	 */
+	public OrderEntity updateOrderStatus(String _id, String _status) {
+		// Fetch Order based on Order Id
+		OrderEntity order = orderRepo.getOrderById(_id);
+		// Check Order Status and set the the status in the Order
+		if(_status.equalsIgnoreCase(OrderStatus.READY_FOR_SHIPMENT.name())) {
+			order.orderReadyForShipment();
+		}
+		return orderRepo.saveOrder(order);
 	}
 
 	@Override

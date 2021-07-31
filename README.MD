@@ -41,6 +41,8 @@ All the tests will be fully automated as part of your CI/CD pipeline.
 - Google Guava (30.1.1-jre)
 - Faster XML (2.13.0-rc1)
 
+![Order Service API based on Open API v3](https://raw.githubusercontent.com/MetaArivu/ms-order-service/master/diagrams/Order-OpenAPI-Order.jpg)
+
 ```
 /**
  * (C) Copyright 2021 Araf Karsh Hamid 

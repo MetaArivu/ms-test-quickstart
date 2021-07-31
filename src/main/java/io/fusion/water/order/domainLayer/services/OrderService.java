@@ -68,6 +68,14 @@ public interface OrderService {
 	 */
 	public OrderEntity prepareOrder(OrderEntity _order);
 	
+	/**
+	 * Update Order Status based on Order ID
+	 * 
+	 * @param _id
+	 * @param _status
+	 * @return
+	 */
+	public OrderEntity updateOrderStatus(String _id, String _status);
 	
 	/**
 	 * Process Payments

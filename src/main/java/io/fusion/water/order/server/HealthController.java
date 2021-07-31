@@ -42,6 +42,11 @@ import static java.lang.invoke.MethodHandles.lookup;
 import io.fusion.water.order.OrderApplication;
 import io.fusion.water.order.domainLayer.models.EchoData;
 import io.fusion.water.order.domainLayer.models.EchoResponseData;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 /**
  * Health Controller for the Service
@@ -52,8 +57,9 @@ import io.fusion.water.order.domainLayer.models.EchoResponseData;
  */
 @Configuration
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1/order/service")
 @RequestScope
+@Tag(name = "Core", description = "Order Core Service (Health, Readiness, ReStart.. etc)")
 public class HealthController {
 
 	// Set Logger -> Lookup will automatically determine the class name.
@@ -75,6 +81,15 @@ public class HealthController {
 	 * @return
 	 * @throws ServiceException
 	 */
+    @Operation(summary = "Health Check of Order Service")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+            description = "Health Check of Order Service",
+            content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "404",
+            description = "Order Service is in bad health.",
+            content = @Content)
+    })
 	@GetMapping("/health")
 	@ResponseBody
 	public ResponseEntity<String> getHealth( 
@@ -87,7 +102,17 @@ public class HealthController {
 		}
 		return ResponseEntity.ok("200:Service-Health-OK");	
 	}
-	
+    
+    
+    @Operation(summary = "Order Service Readiness Check")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+            description = "Order Service Readiness Check",
+            content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "404",
+            description = "Order Service is not ready.",
+            content = @Content)
+    })
 	@GetMapping("/ready")
 	@ResponseBody
 	public ResponseEntity<String> isReady( 
@@ -105,6 +130,15 @@ public class HealthController {
 	 * Check the Current Log Levels
 	 * @return
 	 */
+    @Operation(summary = "Order Service Log Levels")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+            description = "Order Service Log Level Check",
+            content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "404",
+            description = "Order Service is not ready.",
+            content = @Content)
+    })
 	@GetMapping("/log")
     public String log() {
 		System.out.println(LocalDateTime.now()+"|Request to Log Level.. ");
@@ -119,6 +153,15 @@ public class HealthController {
 	/**
 	 * Restart the Service
 	 */
+    @Operation(summary = "Order Service ReStart")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+            description = "Order Service ReStart",
+            content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "404",
+            description = "Order Service is not ready.",
+            content = @Content)
+    })
     @PostMapping("/restart")
     public void restart() {
 		System.out.println(LocalDateTime.now()+"|Request to Restart... ");
@@ -138,6 +181,15 @@ public class HealthController {
      * @param echoData
      * @return
      */
+    @Operation(summary = "Order Service Remote Echo")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+            description = "Order Service Remote Echo",
+            content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "404",
+            description = "Order Service is not ready.",
+            content = @Content)
+    })
     @PostMapping("/remoteEcho")
     public ResponseEntity<EchoResponseData> remoteEcho(@RequestBody EchoData echoData) {
 		System.out.println(LocalDateTime.now()+"|Request for RemoteEcho ");
@@ -160,6 +212,15 @@ public class HealthController {
 	 * @param request
 	 * @return
 	 */
+    @Operation(summary = "Order Service Home")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+            description = "Order Service Home",
+            content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "404",
+            description = "Order Service is not ready.",
+            content = @Content)
+    })
 	@GetMapping("/home")
 	@ResponseBody
 	public String apiHome(HttpServletRequest request) {
@@ -167,22 +228,6 @@ public class HealthController {
 		StringBuilder sb = new StringBuilder();
 		sb.append(title);
 		sb.append("<br>");
-		sb.append(printRequestURI(request));
-		return sb.toString();
-	}
-	
-	/**
-	 * For Testing purpose only
-	 * 
-	 */
-	@GetMapping("/test/{service}/{ops}/**")
-	@ResponseBody
-	public String functions(
-			@PathVariable("service") String service, 
-			@PathVariable("ops") String operation,
-			HttpServletRequest request) {
-
-		StringBuilder sb = new StringBuilder();
 		sb.append(printRequestURI(request));
 		return sb.toString();
 	}

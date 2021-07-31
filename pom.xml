@@ -423,6 +423,15 @@
 		<!-- Database Framework: MongoDB -->
 		<!-- ================================================================= -->
 		
+		<!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
+		<dependency>
+		    <groupId>com.h2database</groupId>
+		    <artifactId>h2</artifactId>
+		    <version>1.4.200</version>
+		    <scope>test</scope>
+		</dependency>
+		
+		
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-mongodb -->
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
@@ -448,7 +457,7 @@
 	      <artifactId>springdoc-openapi-ui</artifactId>
 	      <version>${openapi.version}</version>
 	   	</dependency>
-        
+
 	</dependencies>   
 	
 	<!-- ================================================================= -->
