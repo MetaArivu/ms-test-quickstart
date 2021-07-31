@@ -17,6 +17,7 @@ package io.fusion.water.order;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Collections;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.MultipartConfigElement;
@@ -40,6 +41,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 // Logging System
 import org.slf4j.Logger;
@@ -126,7 +128,7 @@ public class OrderApplication {
 	 * Order Service - Home Page
 	 * @return
 	 */
-	@GetMapping("/")
+	// @GetMapping("/")
 	public String home() {
 		System.out.println(LocalDateTime.now()+"|Request to Home Page of Order Service... ");
 		return this.title;
@@ -143,6 +145,32 @@ public class OrderApplication {
 			}
 		};
 	}
+	
+	/**
+	@Bean
+	public Docket swaggerConfiguration() {
+		return new Docket(DocumentationType.SWAGGER_2)
+				.select()
+				.paths(PathSelectors.ant("/api/*"))
+				.apis(RequestHandlerSelectors.basePackage("io.fusion.water"))
+				.build()
+				.apiInfo(getApiInfoDetails());
+	}
+	
+
+	private ApiInfo getApiInfoDetails() {
+		return new ApiInfo(
+				"Order Microservice", 
+				"Microservices Testing Frameworks Guide", 
+				"1.0.0", 
+				"Free & Open Source Software", 
+				new Contact("Araf Karsh Hamid", "https://github.com/arafkarsh", "araf.karsh@ozazo.com"), 
+				"Apache 2 License", 
+				"http://www.metarivu.com", 
+				Collections.emptyList()
+				);
+	}
+	*/
 	
 	/**
 	 * Returns the REST Template

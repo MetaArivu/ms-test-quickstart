@@ -17,8 +17,10 @@
 		<google.gson.version>2.8.7</google.gson.version>
 		<google.guava.version>30.1.1-jre</google.guava.version>
 		<apache.commons.version>3.10</apache.commons.version>
-		<fasterxml.version>2.13.0-rc1</fasterxml.version>		
-		
+		<fasterxml.version>2.13.0-rc1</fasterxml.version>
+		<!-- Open API v3 - Swagger UI -->	
+		<openapi.version>1.5.10</openapi.version>
+			
 		<!-- Encoding -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -438,24 +440,15 @@
         </dependency>
         
         <!-- ================================================================= -->
-		<!-- API Docs - Swagger -->
+		<!-- API Docs - Open API v3.0 (Swagger 3) -->
 		<!-- ================================================================= -->
 		
-        <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
 		<dependency>
-		    <groupId>io.springfox</groupId>
-		    <artifactId>springfox-swagger2</artifactId>
-		    <version>3.0.0</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
-		<dependency>
-		    <groupId>io.springfox</groupId>
-		    <artifactId>springfox-swagger-ui</artifactId>
-		    <version>3.0.0</version>
-		</dependency>
-		
+	      <groupId>org.springdoc</groupId>
+	      <artifactId>springdoc-openapi-ui</artifactId>
+	      <version>${openapi.version}</version>
+	   	</dependency>
         
-
 	</dependencies>   
 	
 	<!-- ================================================================= -->

@@ -5,8 +5,8 @@ echo "Testing Order Microservice"
 echo "---------------------------------------------------------------------------------------"
 mvn test
 echo "---------------------------------------------------------------------------------------"
-echo "curl localhost:9080/"
-curl localhost:9080/
+echo "curl localhost:9080/api/home"
+curl localhost:9080/api/home
 echo ""
 echo "---------------------------------------------------------------------------------------"
 echo "curl localhost:9080/api/health"
@@ -26,7 +26,7 @@ echo "curl localhost:9080/api/home"
 curl localhost:9080/api/home
 echo ""
 echo "---------------------------------------------------------------------------------------"
-echo "curl localhost:9080/"
-curl localhost:9080/
+echo "curl localhost:9080/api/ready"
+curl localhost:9080/api/ready
 echo ""
 echo "---------------------------------------------------------------------------------------"

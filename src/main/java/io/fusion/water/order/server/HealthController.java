@@ -58,6 +58,13 @@ public class HealthController {
 
 	// Set Logger -> Lookup will automatically determine the class name.
 	private static final Logger log = getLogger(lookup().lookupClass());
+	
+	private final String title = "<h1>Welcome to Order Service<h1/>"
+					+ OrderServiceHelp.NL
+					+"<h3>Copyright (c) MetaArivu Pvt Ltd, 2021</h3>"
+					+ OrderServiceHelp.NL
+					;
+
 
 	@Autowired
 	private ServiceConfiguration serviceConfig;
@@ -158,6 +165,8 @@ public class HealthController {
 	public String apiHome(HttpServletRequest request) {
 		System.out.println(LocalDateTime.now()+"|Request to /home/ path... ");
 		StringBuilder sb = new StringBuilder();
+		sb.append(title);
+		sb.append("<br>");
 		sb.append(printRequestURI(request));
 		return sb.toString();
 	}
