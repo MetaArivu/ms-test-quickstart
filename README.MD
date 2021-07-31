@@ -2,7 +2,8 @@
 
 Order Microservice is part of an eCommerce Application. The objective of selecting this Microservice is to demonstrate various testing frameworks. As Order is a complex service with internal (Ex. Inventory, Warhouse, Shipping etc) and external (Payment) service integration and it has all the requirements to use various testing frameworks. The objective is to demonstrate various testing frameworks. 
 
-Order Service REST Endpoints are documented using Open API v3.
+Order Service REST Endpoints are documented using Open API v3. 
+You can access the API's using http://localhost:9080/swagger-ui.html
 
 ![Order Service API based on Open API v3](https://raw.githubusercontent.com/MetaArivu/ms-order-service/master/diagrams/Order-OpenAPI-Order.jpg)
 
