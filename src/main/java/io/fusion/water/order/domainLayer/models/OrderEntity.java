@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import io.fusion.water.order.utils.Utils;
@@ -39,15 +41,19 @@ public class OrderEntity {
 	@JsonSerialize(using = DateJsonSerializer.class)
 	private LocalDateTime orderDate;
 	
+	@NotNull
 	private Customer customer;
 	
+	@NotNull
 	private ArrayList<OrderItem> orderItems;
 	
+	@NotNull
 	private ShippingAddress shippingAddress;
 	
 	private PaymentType paymentType;
 	private OrderStatus orderStatus;
 	
+	@NotNull
 	private PaymentDetails paymentDetails;
 	private PaymentStatus paymentStatus;
 	

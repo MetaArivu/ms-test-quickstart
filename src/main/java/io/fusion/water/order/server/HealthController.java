@@ -84,7 +84,7 @@ public class HealthController {
     @Operation(summary = "Health Check of Order Service")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-            description = "Health Check of Order Service",
+            description = "Health Check OK",
             content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "404",
             description = "Order Service is in bad health.",
