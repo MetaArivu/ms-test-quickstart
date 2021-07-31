@@ -35,6 +35,12 @@ import org.springframework.stereotype.Component;
 		value = "classpath:application.properties")
 public class ServiceConfiguration {
 	
+	@Value("${build.number:13}")
+	private String buildNumber;
+	
+	@Value("${build.date:}")
+	private String buildDate;
+	
 	@Value("${server.version:0.5.0}")
 	private String serverVersion;
 	
@@ -152,5 +158,19 @@ public class ServiceConfiguration {
 	 */
 	HashMap<String, String> getProperties() {
 		return properties;
+	}
+
+	/**
+	 * @return the buildNumber
+	 */
+	public String getBuildNumber() {
+		return buildNumber;
+	}
+
+	/**
+	 * @return the buildDate
+	 */
+	public String getBuildDate() {
+		return buildDate;
 	}
 }

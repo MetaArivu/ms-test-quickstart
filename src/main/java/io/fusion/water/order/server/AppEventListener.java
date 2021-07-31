@@ -62,10 +62,18 @@ public class AppEventListener {
 	public void showLogo() {
 		String version = (serviceConfig != null) 
 				? serviceConfig.getServerVersion() : "v0.0.0";
-		log.info("Order Service is ready! ....... ..."+version 
+		log.info("Order Service is ready! ....... ..." 
 				+ OrderServiceHelp.LOGO
+				+ "Build No. = "+" :: Build Date = "
+				+ " :: Restart = "+OrderServiceHelp.getCounter() 
+				+ OrderServiceHelp.NL + OrderServiceHelp.DL
 				);
-		System.out.println(LocalDateTime.now()+"|Order Service is ready! ....... ..."+version 
-				+ OrderServiceHelp.LOGO);
+		System.out.println(LocalDateTime.now()+"|Order Service is ready! ....... ..." 
+				+ OrderServiceHelp.LOGO
+				+ "Build No. = "+serviceConfig.getBuildNumber()
+				+ " :: Build Date = "+serviceConfig.getBuildDate()
+				+ " :: Restart = "+OrderServiceHelp.getCounter()
+				+ OrderServiceHelp.NL + OrderServiceHelp.DL
+				);
 	}
 }
