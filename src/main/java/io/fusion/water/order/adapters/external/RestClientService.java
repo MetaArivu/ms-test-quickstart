@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static java.util.Arrays.asList;
+
 import org.springframework.http.MediaType;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -41,21 +43,35 @@ public class RestClientService  extends RestTemplate {
 	
     public RestClientService() {
     	// Set Object Mapper For Serialization
-    	setMessageConverters(getDataConverters());
+    	setMessageConverters(getDataConverters1());
+    	// setMessageConverters(getDataConverters2());
         // Set Factory to RestTemplate
         super.setRequestFactory(getHttpFactory());
     }
     
     /**
-     * Returns 
+     * Returns Converters 1
      * @return
      */
-    public List<HttpMessageConverter<?>> getDataConverters() {
+    public List<HttpMessageConverter<?>> getDataConverters1() {
 		List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
-		MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-		converter.setSupportedMediaTypes(Collections.singletonList(MediaType.ALL));
+		MappingJackson2HttpMessageConverter converter = 
+				new MappingJackson2HttpMessageConverter(getObjectMapper());
+		converter.setSupportedMediaTypes(
+				Collections.singletonList(MediaType.ALL));
 		messageConverters.add(converter);
 		return messageConverters;
+    }
+    
+    /**
+     * Returns Converters 2
+     * @return
+     */
+    public List<HttpMessageConverter<?>> getDataConverters2() {
+    	return asList(
+    			new MappingJackson2HttpMessageConverter(
+				getObjectMapper())
+    		);
     }
     
     /**
@@ -63,10 +79,9 @@ public class RestClientService  extends RestTemplate {
      * @return
      */
     public ObjectMapper getObjectMapper() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JavaTimeModule());
-        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true);
-        return objectMapper;
+        return new ObjectMapper()
+        .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true)
+        .findAndRegisterModules();
     }
     
     /**

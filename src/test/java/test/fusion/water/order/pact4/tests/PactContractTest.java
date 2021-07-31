@@ -85,8 +85,12 @@ import test.fusion.water.order.utils.SampleData;
 public class PactContractTest {
 	
 	@Autowired
-	PaymentService paymentService;
-		
+	private PaymentService paymentService;
+	
+	// Payment Service Input / Output
+	private PaymentDetails pd;
+    private PaymentStatus ps;
+    
 	/**
 	 * if the @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 	 * is available then the method need not be static
@@ -99,6 +103,10 @@ public class PactContractTest {
     @BeforeEach
     public void setup() {
         System.out.println("@BeforeEach: Payment Service is autowired using SpringBoot!");
+    	// Payment Service Input / Output
+        pd = SampleData.getPaymentDetails();
+	    ps = SampleData.getPaymentStatusAccepted(
+	    		pd.getTransactionId(), pd.getTransactionDate());
     }
     
     @Pact(consumer = "OrderService")
@@ -127,13 +135,10 @@ public class PactContractTest {
     @Pact(consumer = "OrderService")
     @Disabled
     public RequestResponsePact processPayments(PactDslWithProvider builder) {
-		PaymentDetails pd = SampleData.getPaymentDetails();
-	    PaymentStatus ps = SampleData.getPaymentStatusAccepted(
-	    		pd.getTransactionId(), pd.getTransactionDate());
 		HashMap<String, String> headers = new HashMap<String,String>();
-		headers.put("sessionId", "");
-		headers.put("app", "bigBasket");
 		headers.put("Content-Type", "application/json");
+		// headers.put("sessionId", "");
+		headers.put("app", "bigBasket");
 		
 		RequestResponsePact rrp = builder
 			.given("Payment Process")
@@ -179,19 +184,16 @@ public class PactContractTest {
 	@PactTestFor(pactMethod = "processPayments", port="8080")
 	public void processPaymentsPost(MockServer mockServer) throws IOException {
 		System.out.println("PACT    |> MockServer|"+mockServer.getUrl());
-		
-		PaymentDetails pd = SampleData.getPaymentDetails();
-	    PaymentStatus ps = SampleData.getPaymentStatusAccepted(
-	    		pd.getTransactionId(), pd.getTransactionDate());
+		PaymentStatus paymentStatus = null;
 		try {
-			ps = paymentService.processPayments(pd);
+			paymentStatus = paymentService.processPayments(pd);
 		} catch(Exception e) {
 			System.out.println("ERROR: "+e.getMessage());
 			e.printStackTrace();
 		}
 		System.out.println("Pass 2");
-	    assertNotNull(ps);
-	    assertEquals("Accepted", ps.getPaymentStatus());       
+	    assertNotNull(paymentStatus);
+	    assertEquals("Accepted", paymentStatus.getPaymentStatus());       
 		System.out.println("Pass 3");
   }
 	

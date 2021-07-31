@@ -134,12 +134,15 @@ public class OrderControllerImpl implements OrderController {
 	@Override
 	@DeleteMapping("/cancel")
 	public ResponseEntity<OrderEntity> cancelOrder(@RequestBody  OrderEntity _order) {
-		OrderEntity orderEntity = null;
+		System.out.println(LocalDateTime.now()+"|Order="+Utils.toJsonString(_order));
+    	OrderEntity orderEntity = null;
 		try  {
 			orderEntity = orderBusinessService.cancelOrder(_order);
 		} catch (Exception e) {
+			System.out.println(LocalDateTime.now()+"|Error="+e.getMessage());
 			return new ResponseEntity<OrderEntity>(orderEntity, HttpStatus.BAD_REQUEST);
 		}
+		System.out.println(LocalDateTime.now()+"|Order Cancelled.");
 		return ResponseEntity.ok(orderEntity);
 	}
 
@@ -161,12 +164,15 @@ public class OrderControllerImpl implements OrderController {
 	@DeleteMapping("/cancel/{orderId}/")
 	public ResponseEntity<OrderEntity> cancelOrder(
 			@PathVariable("orderId") String _id) {
+		System.out.println(LocalDateTime.now()+"|Order="+Utils.toJsonString(_id));
 		OrderEntity orderEntity = null;
 		try  {
 			orderEntity = orderBusinessService.cancelOrder(_id);
 		} catch (Exception e) {
+			System.out.println(LocalDateTime.now()+"|Error="+e.getMessage());
 			return new ResponseEntity<OrderEntity>(orderEntity, HttpStatus.BAD_REQUEST);
 		}
+		System.out.println(LocalDateTime.now()+"|Order Cancelled.");
 		return ResponseEntity.ok(orderEntity);
 	}
     
@@ -189,12 +195,15 @@ public class OrderControllerImpl implements OrderController {
 	public ResponseEntity<OrderEntity> updateOrdeStatus(
 			@PathVariable("orderId") String _id, 
 			@PathVariable("orderId") String _status) {
+		System.out.println(LocalDateTime.now()+"|Order="+_id+"|Status="+_status);
 		OrderEntity orderEntity = null;
 		try  {
 			orderEntity = orderBusinessService.updateOrderStatus(_id, _status);
 		} catch (Exception e) {
+			System.out.println(LocalDateTime.now()+"|Error="+e.getMessage());
 			return new ResponseEntity<OrderEntity>(orderEntity, HttpStatus.BAD_REQUEST);
 		}
+		System.out.println(LocalDateTime.now()+"|Order Updated.");
 		return ResponseEntity.ok(orderEntity);
 	}
 }
