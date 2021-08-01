@@ -15,6 +15,7 @@
  */
 package io.fusion.water.order.server;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -36,7 +37,7 @@ import org.springframework.stereotype.Component;
 public class ServiceConfiguration {
 	
 	@Value("${build.number:13}")
-	private String buildNumber;
+	private int buildNumber;
 	
 	@Value("${build.date:}")
 	private String buildDate;
@@ -68,7 +69,15 @@ public class ServiceConfiguration {
 
 	// Get All the System Properties
 	@Value("#{systemProperties}")
-	private HashMap<String, String> properties;
+	private HashMap<String, String> systemProperties;
+	
+	// Deployed App Property List
+	@Value("${app.property.list}")
+	private ArrayList<String> appPropertyList;
+	
+	// Deployed App Properties Map
+	@Value("#{${app.property.map}}")
+	private HashMap<String, String> appPropertyMap;
 	
 	/**
 	 * To be used outside SpringBoot Context
@@ -154,16 +163,9 @@ public class ServiceConfiguration {
 	}
 
 	/**
-	 * @return the properties
-	 */
-	HashMap<String, String> getProperties() {
-		return properties;
-	}
-
-	/**
 	 * @return the buildNumber
 	 */
-	public String getBuildNumber() {
+	public int getBuildNumber() {
 		return buildNumber;
 	}
 
@@ -172,5 +174,26 @@ public class ServiceConfiguration {
 	 */
 	public String getBuildDate() {
 		return buildDate;
+	}
+
+	/**
+	 * @return the systemProperties
+	 */
+	public HashMap<String, String> getSystemProperties() {
+		return systemProperties;
+	}
+
+	/**
+	 * @return the appPropertyList
+	 */
+	public ArrayList<String> getAppPropertyList() {
+		return appPropertyList;
+	}
+
+	/**
+	 * @return the appPropertyMap
+	 */
+	public HashMap<String, String> getAppPropertyMap() {
+		return appPropertyMap;
 	}
 }

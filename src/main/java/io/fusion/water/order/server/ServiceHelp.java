@@ -15,6 +15,7 @@
  */
 package io.fusion.water.order.server;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -35,7 +36,7 @@ import static java.lang.invoke.MethodHandles.lookup;
  * 
  */
 @Component
-public class OrderServiceHelp {
+public class ServiceHelp {
 	
 	// Set Logger -> Lookup will automatically determine the class name.
 	private static final Logger log = getLogger(lookup().lookupClass());
@@ -62,7 +63,7 @@ public class OrderServiceHelp {
 		 
 
 
-	public OrderServiceHelp() {
+	public ServiceHelp() {
 		counter++;
 	}
 	
@@ -75,17 +76,24 @@ public class OrderServiceHelp {
 	}
 	
 	/**
-	 * Not used.
+	 * Print Properties
 	 */
 	@PostConstruct
 	public void printProperties() {
-		ArrayList<String> topics = new ArrayList<String>();
-		for(String s: topics) {
-			log.info("|List    = "+s);
+		HashMap<String, String> sysProps = serviceConfig.getSystemProperties();
+		for(String s: sysProps.keySet()) {
+			log.info("|System Property List  = "+s);
+			// System.out.println(LocalDateTime.now()+"|System Property List  = "+s);
 		}
-		HashMap<String, String> map = new HashMap<String, String>();
+		ArrayList<String> properties = serviceConfig.getAppPropertyList();
+		for(String p: properties) {
+			log.info("|Service Property List = "+p);
+			System.out.println(LocalDateTime.now()+"|Service Property List = "+p);
+		}
+		HashMap<String, String> map = serviceConfig.getAppPropertyMap();
 		for(String k : map.keySet()) {
-			log.info("|Map Key = "+k+" | Value = "+map.get(k));
+			log.info("|Service Property Map  = "+k+" | Value = "+map.get(k));
+			System.out.println(LocalDateTime.now()+"|Service Property Map  = "+k+" | Value = "+map.get(k));
 		}
  	}
 }

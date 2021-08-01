@@ -66,7 +66,7 @@ import static java.lang.invoke.MethodHandles.lookup;
 @ServletComponentScan
 @RestController
 @SpringBootApplication(scanBasePackages = { "io.fusion.water.order" })
-public class OrderApplication {
+public class OrderService {
 
 	// Set Logger -> Lookup will automatically determine the class name.
 	private static final Logger log = getLogger(lookup().lookupClass());
@@ -96,7 +96,7 @@ public class OrderApplication {
 		System.out.println("Booting Order Service ..... ..");
 
 		try {
-			context = SpringApplication.run(OrderApplication.class, args);
+			context = SpringApplication.run(OrderService.class, args);
 			log.info("Booting Order Service ..... ...Startup completed!");
 			System.out.println(LocalDateTime.now()+"|Booting Order Service ..... ...Startup completed!");
 

@@ -70,7 +70,7 @@ import test.fusion.water.order.utils.SampleData;
  * for the Application and package structure for test packages are 
  * completely different
  * 
- * @SpringBootTest(classes={io.fusion.water.order.OrderApplication.class})
+ * @SpringBootTest(classes={io.fusion.water.order.OrderService.class})
  * 
  * @author arafkarsh
  *
@@ -83,7 +83,7 @@ import test.fusion.water.order.utils.SampleData;
 // Tagging done ---------------------------------------------------------
 @TestMethodOrder(OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@SpringBootTest(classes={io.fusion.water.order.OrderApplication.class})
+@SpringBootTest(classes={io.fusion.water.order.OrderService.class})
 @ExtendWith(TestTimeExtension.class)
 public class PaymentGatewaySpringBootTest {
 	

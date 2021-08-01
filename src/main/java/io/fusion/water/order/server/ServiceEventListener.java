@@ -36,7 +36,7 @@ import io.fusion.water.order.utils.CPU;
  * @version 1.0
  */
 @Configuration
-public class AppEventListener {
+public class ServiceEventListener {
 
 	// Set Logger -> Lookup will automatically determine the class name.
 	private static final Logger log = getLogger(lookup().lookupClass());
@@ -63,17 +63,17 @@ public class AppEventListener {
 		String version = (serviceConfig != null) 
 				? serviceConfig.getServerVersion() : "v0.0.0";
 		log.info("Order Service is ready! ....... ..." 
-				+ OrderServiceHelp.LOGO
+				+ ServiceHelp.LOGO
 				+ "Build No. = "+" :: Build Date = "
-				+ " :: Restart = "+OrderServiceHelp.getCounter() 
-				+ OrderServiceHelp.NL + OrderServiceHelp.DL
+				+ " :: Restart = "+ServiceHelp.getCounter() 
+				+ ServiceHelp.NL + ServiceHelp.DL
 				);
 		System.out.println(LocalDateTime.now()+"|Order Service is ready! ....... ..." 
-				+ OrderServiceHelp.LOGO
+				+ ServiceHelp.LOGO
 				+ "Build No. = "+serviceConfig.getBuildNumber()
 				+ " :: Build Date = "+serviceConfig.getBuildDate()
-				+ " :: Restart = "+OrderServiceHelp.getCounter()
-				+ OrderServiceHelp.NL + OrderServiceHelp.DL
+				+ " :: Restart = "+ServiceHelp.getCounter()
+				+ ServiceHelp.NL + ServiceHelp.DL
 				);
 	}
 }

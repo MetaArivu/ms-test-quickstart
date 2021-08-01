@@ -41,7 +41,7 @@ import test.fusion.water.order.junit5.annotations.tools.SpringTest2;
  * for the Application and package structure for test packages are 
  * completely different
  * 
- * @SpringBootTest(classes={io.fusion.water.order.OrderApplication.class})
+ * @SpringBootTest(classes={io.fusion.water.order.OrderService.class})
  * 
  * @author arafkarsh
  *
@@ -52,7 +52,7 @@ import test.fusion.water.order.junit5.annotations.tools.SpringTest2;
 @NonFunctional()
 // --------------------------------------------
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@SpringBootTest(classes={io.fusion.water.order.OrderApplication.class})
+@SpringBootTest(classes={io.fusion.water.order.OrderService.class})
 public class SpringExampleTest {
 	
 	@Autowired

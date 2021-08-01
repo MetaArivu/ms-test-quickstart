@@ -81,7 +81,7 @@ import test.fusion.water.order.utils.SampleData;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ExtendWith(PactConsumerTestExt.class)
 @PactTestFor(providerName = "PaymentService")
-@SpringBootTest(classes={io.fusion.water.order.OrderApplication.class})
+@SpringBootTest(classes={io.fusion.water.order.OrderService.class})
 public class PactContractTest {
 	
 	@Autowired
