@@ -39,7 +39,7 @@ public class ServiceConfiguration {
 	@Value("${build.number:13}")
 	private int buildNumber;
 	
-	@Value("${build.date:}")
+	@Value("${build.date}")
 	private String buildDate;
 	
 	@Value("${server.version:0.5.0}")
@@ -59,13 +59,16 @@ public class ServiceConfiguration {
 	private int remotePort;
 	
 	@Value("${server.restart:false}")
-	private boolean serverRestart=true;
+	private boolean serverRestart;
 	
-	// @Value("${logging.level:INFO}")
+	// @Value("${logging.level}")
 	private String loggingLevel;
 	
 	@Value("${spring.codec.max-in-memory-size:3MB}")
 	private String springCodecMaxMemory;
+	
+	@Value("${token.key:sigmaEpsilon6109871597}")
+	private String tokenKey;
 
 	// Get All the System Properties
 	@Value("#{systemProperties}")
@@ -141,6 +144,13 @@ public class ServiceConfiguration {
 		return springCodecMaxMemory;
 	}
 
+	/**
+	 * @return the tokenKey
+	 */
+	public String getTokenKey() {
+		return tokenKey;
+	}
+	
 	/**
 	 * @return the serverVersion
 	 */
