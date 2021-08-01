@@ -200,6 +200,32 @@ public final class JsonWebToken {
     public String getAudienceFromToken(String _token) {
         return getClaimFromToken(_token, Claims::getAudience);
     }
+    
+    /**
+     * Return Payload as JSON String
+     * 
+     * @param _token
+     * @return
+     */
+    public String getPayload(String _token) {
+    	StringBuilder sb = new StringBuilder();
+		Claims claims = getAllClaims(_token);
+		int x=1;
+		int size=claims.size();
+		sb.append("{");
+		for(Entry<String, Object> claim : claims.entrySet()) {
+			if(claim != null) {
+				sb.append("\""+claim.getKey()+"\": \"").append(claim.getValue());
+				sb.append("\"");
+				if(x<size) {
+					sb.append(",");
+				}
+			}
+			x++;
+		}
+		sb.append("}");
+    	return sb.toString();
+    }
 
     /**
      * Get a Claim from the Token based on the Claim Type
@@ -254,6 +280,9 @@ public final class JsonWebToken {
 			x++;
 		}
 		System.out.println("----------------------------------------------");
+		System.out.println("Payload="+jwt.getPayload(token));
+		System.out.println("----------------------------------------------");
+
     }
     
     /**
