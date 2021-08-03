@@ -316,7 +316,7 @@
 		<!-- INTEGRATION / CONTRACT TESTING ================================== -->
 
 		<!-- ================================================================= -->
-		<!-- Spring Testing Framework -->
+		<!-- Spring Boot Testing Framework -->
 		<!-- ================================================================= -->
 
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
