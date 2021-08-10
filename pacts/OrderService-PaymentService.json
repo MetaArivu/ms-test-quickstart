@@ -16,8 +16,8 @@
         "status": 200,
         "body": {
           "wordData": "Jane",
-          "responseTime": "2021-08-02T22:46:47.140",
-          "dayOftheYear": 214,
+          "responseTime": "2021-08-10T23:42:39.947",
+          "dayOftheYear": 222,
           "greetings": "Good Morning Jane"
         }
       },
@@ -40,8 +40,8 @@
         "status": 200,
         "body": {
           "wordData": "Jane",
-          "responseTime": "2021-08-02T22:46:48.283",
-          "dayOftheYear": 214,
+          "responseTime": "2021-08-10T23:42:41.477",
+          "dayOftheYear": 222,
           "greetings": "Good Morning Jane"
         }
       },

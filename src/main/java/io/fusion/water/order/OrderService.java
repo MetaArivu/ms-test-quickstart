@@ -22,6 +22,7 @@ import java.util.Collections;
 import javax.annotation.PostConstruct;
 import javax.servlet.MultipartConfigElement;
 
+import io.fusion.water.order.server.ServiceHelp;
 import org.springframework.boot.ApplicationArguments;
 
 import org.springframework.boot.CommandLineRunner;
@@ -195,7 +196,7 @@ public class OrderService {
 			.info(new Info()
 				.title("Order Microservice")
 				.description("Microservices Testing Strategies - Guide")
-				.version("v0.7.0")
+				.version(ServiceHelp.VERSION)
 				.license(new License().name("License: Apache 2.0")
 					.url("http://www.metarivu.com"))
 				)

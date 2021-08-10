@@ -5,23 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc1623ef-1680-428e-82bc-68bd4520dcad" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/ms_order_service_1_0_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/ms_order_service_1_0_01.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/ms-order-service-0.8.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ms-order-service-0.8.0.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ms-order-service.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pacts/OrderService-PaymentService.json" beforeDir="false" afterPath="$PROJECT_DIR$/pacts/OrderService-PaymentService.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/fusion/water/order/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/fusion/water/order/OrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/fusion/water/order/server/ServiceHelp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/fusion/water/order/server/ServiceHelp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/app.props.build" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/app.props.build" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/test/fusion/water/order/junit5/tests/OrderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/test/fusion/water/order/junit5/tests/OrderTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +54,7 @@
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
-  <component name="RunManager" selected="JUnit.PaymentGateWayMockTest">
+  <component name="RunManager" selected="JUnit.PactContractSimpleTest">
     <configuration name="OrderService" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="io.fusion.water.order.OrderService" />
       <module name="ms-order-service" />
@@ -86,6 +78,21 @@
       </extension>
       <option name="PACKAGE_NAME" value="test.fusion.water.order.junit5.tests" />
       <option name="MAIN_CLASS_NAME" value="test.fusion.water.order.junit5.tests.OrderTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PactContractSimpleTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ms-order-service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.fusion.water.order.pact4.tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="test.fusion.water.order.pact4.tests" />
+      <option name="MAIN_CLASS_NAME" value="test.fusion.water.order.pact4.tests.PactContractSimpleTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -121,28 +128,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PaymentTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ms-order-service" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="test.fusion.water.order.cucumber6.tests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="test.fusion.water.order.cucumber6.tests" />
-      <option name="MAIN_CLASS_NAME" value="test.fusion.water.order.cucumber6.tests.PaymentTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.PactContractSimpleTest" />
         <item itemvalue="JUnit.PaymentGateWayMockTest" />
         <item itemvalue="JUnit.PaymentGatewaySpringBootTest" />
         <item itemvalue="Application.OrderService" />
         <item itemvalue="JUnit.OrderTest" />
-        <item itemvalue="JUnit.PaymentTest" />
       </list>
     </recent_temporary>
   </component>
