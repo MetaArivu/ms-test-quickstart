@@ -54,7 +54,7 @@ public class ServiceHelp {
 	
 	public static final String DL = "----------------------------------------------------------------------------";
 	
-	public static final String VERSION = "0.9.0";
+	public static final String VERSION = "0.9.1";
 	
 	public static final String LOGO = "" +NL
 	+"============================================================================" + NL
