@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="bc1623ef-1680-428e-82bc-68bd4520dcad" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.MD" beforeDir="false" afterPath="$PROJECT_DIR$/README.MD" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +46,7 @@
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
-  <component name="RunManager" selected="JUnit.PactContractSimpleTest">
+  <component name="RunManager" selected="Application.OrderService">
     <configuration name="OrderService" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="io.fusion.water.order.OrderService" />
       <module name="ms-order-service" />
@@ -123,10 +122,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.OrderService" />
         <item itemvalue="JUnit.PactContractSimpleTest" />
         <item itemvalue="JUnit.PaymentGateWayMockTest" />
         <item itemvalue="JUnit.PaymentGatewaySpringBootTest" />
-        <item itemvalue="Application.OrderService" />
         <item itemvalue="JUnit.OrderTest" />
       </list>
     </recent_temporary>
