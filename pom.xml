@@ -48,7 +48,7 @@
 		<assertj.version>3.20.2</assertj.version>
 		
 		<!-- Spring Boot -->
-		<spring.boot.version>2.5.3</spring.boot.version>
+		<spring.boot.version>2.5.12</spring.boot.version>
 	</properties>
 	
 	<!-- ================================================================= -->
